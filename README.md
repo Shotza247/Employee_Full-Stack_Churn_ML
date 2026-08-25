@@ -5,12 +5,15 @@ This project stores employee records in SQLite, trains a churn model from joined
 ## Setup
 
 1. Create the Python environment:
+
    ```powershell
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
    py -m venv venv
    venv\Scripts\Activate.ps1
    ```
+
 2. Install dependencies:
+
    ```powershell
    pip install -r requirements.txt
    ```
@@ -18,15 +21,23 @@ This project stores employee records in SQLite, trains a churn model from joined
 ## Database initialization
 
 Seed the database and create the SQLite tables:
+
 ```powershell
 py -c "from database import init_db, populate_sample_data; init_db(); populate_sample_data()"
 ```
 
 ## Train the churn model from the database
 
-Run the notebook `train_churn_model.ipynb` to load training data from the normalized SQLite database, join `employees`, `salaries`, and `jobs`, train the churn model, and save the artifact.
+Run training and evaluation non-interactively:
+
+```powershell
+py -m churn_app.train_and_evaluate
+```
+
+The notebook `train_churn_model.ipynb` remains an experimental workflow over the same reusable package.
 
 After training, this notebook creates:
+
 - `churn_model.pkl`
 - `batch_predictions.csv`
 - `training_data_from_db.csv`
@@ -34,7 +45,7 @@ After training, this notebook creates:
 ## Run the FastAPI service
 
 ```powershell
-py -m uvicorn model:app --reload --host 0.0.0.0 --port 8000
+py -m uvicorn churn_app.api:app --reload --host 0.0.0.0 --port 8000
 ```
 
 Then call the prediction endpoint:

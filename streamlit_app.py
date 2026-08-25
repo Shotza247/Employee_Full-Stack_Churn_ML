@@ -2,10 +2,16 @@
 import streamlit as st
 import pandas as pd
 import requests
-from pathlib import Path
 from datetime import datetime, timedelta
 
-from database import init_db, populate_sample_data, get_all_employees, insert_employee, get_employee_features
+from churn_app.database import (
+    get_all_employees,
+    get_model_runs,
+    get_predictions_by_run,
+    init_db,
+    insert_employee,
+    populate_sample_data,
+)
 
 API_URL = "http://127.0.0.1:8000/predict"
 
