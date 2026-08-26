@@ -68,11 +68,62 @@ def get_training_data(db_path=DB_PATH):
         return pd.read_sql_query("SELECT e.employee_id,e.age,s.annual_income AS income,j.tenure_months,e.churn FROM employees e JOIN salaries s ON s.employee_id=e.employee_id JOIN jobs j ON j.employee_id=e.employee_id ORDER BY e.employee_id", connection)
 
 def insert_employee(first_name,last_name,age,department,contract_type,annual_income,job_title,tenure_months,db_path=DB_PATH):
+    return insert_employee_with_label(first_name, last_name, age, department, contract_type, annual_income, job_title, tenure_months, None, db_path)
+
+def insert_employee_with_label(first_name,last_name,age,department,contract_type,annual_income,job_title,tenure_months,churn=None,db_path=DB_PATH):
     with get_connection(db_path) as connection:
-        employee_id = connection.execute("INSERT INTO employees (first_name,last_name,age,department,contract_type) VALUES (?,?,?,?,?)", (first_name,last_name,age,department,contract_type)).lastrowid
+        if churn is None:
+            employee_id = connection.execute("INSERT INTO employees (first_name,last_name,age,department,contract_type) VALUES (?,?,?,?,?)", (first_name,last_name,age,department,contract_type)).lastrowid
+        else:
+            employee_id = connection.execute("INSERT INTO employees (first_name,last_name,age,department,contract_type,churn) VALUES (?,?,?,?,?,?)", (first_name,last_name,age,department,contract_type,churn)).lastrowid
         connection.execute("INSERT INTO salaries VALUES (NULL,?,?)", (employee_id,annual_income))
         connection.execute("INSERT INTO jobs VALUES (NULL,?,?,?)", (employee_id,job_title,tenure_months))
         return employee_id
+
+def import_employee_dataframe(data, db_path=DB_PATH):
+    required = {"first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months"}
+    missing = required - set(data.columns)
+    if missing:
+        raise ValueError(f"Missing required columns: {', '.join(sorted(missing))}")
+    accepted, rejected, seen = [], [], set()
+    valid_departments = {"Marketing", "Sales", "Engineering", "HR", "Support", "Operations", "Finance"}
+    valid_contracts = {"permanent", "contract"}
+    init_db(db_path)
+    for row_number, row in data.iterrows():
+        reason = None
+        try:
+            key = (str(row.first_name).strip().lower(), str(row.last_name).strip().lower(), int(row.age), float(row.annual_income), int(row.tenure_months))
+            if not row.first_name or not row.last_name or not row.job_title:
+                reason = "missing name or job title"
+            elif not 18 <= key[2] <= 99 or key[3] < 0 or not 0 <= key[4] <= 240:
+                reason = "age, income, or tenure outside accepted range"
+            elif row.department not in valid_departments or row.contract_type not in valid_contracts:
+                reason = "unknown department or contract type"
+            elif "churn" in data.columns and int(row.churn) not in {0, 1}:
+                reason = "churn must be 0 or 1"
+            elif key in seen:
+                reason = "duplicate record in uploaded file"
+            else:
+                seen.add(key)
+                with get_connection(db_path) as connection:
+                    existing = connection.execute(
+                        """SELECT COUNT(*) FROM employees e
+                           JOIN salaries s ON s.employee_id = e.employee_id
+                           JOIN jobs j ON j.employee_id = e.employee_id
+                           WHERE lower(e.first_name) = ? AND lower(e.last_name) = ?
+                           AND e.age = ? AND s.annual_income = ? AND j.tenure_months = ?""",
+                        key,
+                    ).fetchone()[0]
+                if existing:
+                    reason = "record already exists in database"
+        except (TypeError, ValueError):
+            reason = "non-numeric age, income, tenure, or churn"
+        if reason:
+            rejected.append({"source_row": int(row_number) + 2, "reason": reason, **row.to_dict()})
+            continue
+        employee_id = insert_employee_with_label(row.first_name.strip(), row.last_name.strip(), key[2], row.department, row.contract_type, key[3], row.job_title.strip(), key[4], int(row.churn) if "churn" in data.columns else None, db_path)
+        accepted.append({"source_row": int(row_number) + 2, "employee_id": employee_id})
+    return pd.DataFrame(accepted), pd.DataFrame(rejected)
 
 def save_model_run(metrics,predictions,db_path=DB_PATH):
     with get_connection(db_path) as connection:

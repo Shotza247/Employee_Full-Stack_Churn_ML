@@ -64,3 +64,16 @@ streamlit run streamlit_app.py
 ```
 
 The Streamlit app allows you to insert new employees into the database and view batch churn predictions for current employees once the model exists.
+
+## Run a drift experiment
+
+Upload `noisy_churn_experiment.csv` from the Streamlit **Import noisy experiment dataset** section. The file contains shifted age, income, and tenure distributions, extreme but valid values, contract and department shifts, explicit scenario labels, and one duplicate row.
+
+The importer previews feature means against the baseline, rejects invalid or duplicate rows, preserves supplied churn labels for comparison, and adds accepted employees to the SQLite database. Start the API before using batch predictions:
+
+```powershell
+py -m uvicorn churn_app.api:app --reload --port 8000
+py -m streamlit run streamlit_app.py
+```
+
+The existing batch prediction table then scores the imported records with the current model. Uploaded labels are observed outcomes only; they are not sent to the prediction API.

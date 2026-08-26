@@ -1,0 +1,901 @@
+first_name,last_name,age,department,contract_type,income,job_title,tenure_months,churn,scenario,data_quality_issue
+Dante,Chen,91,Finance,permanent,149000,Finance Manager,71,0,invalid_age_range,age_outlier
+Refilwe,Evans,31,Finance,permanent,147000,Finance Manager,149,0,high_income_long_tenure,none
+Sibusiso,Chen,40,HR,contract,79000,HR Business Partner,76,1,label_noise_conflict,label_noise
+Tebogo,Sithole,48,Engineering,contract,170500,Principal Engineer,145,0,high_income_long_tenure,none
+Zanele,Evans,56,Engineering,permanent,135500,Software Architect,29,0,older_permanent,none
+Khaya,Msimang,52,Marketing,permanent,111000,Marketing Strategist,97,0,baseline_shift,none
+Tebogo,Smith,60,Finance,permanent,,Finance Manager,46,0,missing_financial_feature,missing_income
+Layla,Pillay,24,Engineering,contract,35000,QA Engineer,5,0,contradictory_risk_profile,contradictory_profile
+Refilwe,Meyer,39,Sales,permanent,122000,Account Manager,65,0,baseline_shift,none
+Andile,Patel,60,HR,permanent,117000,Talent Specialist,44,0,older_permanent,none
+Jonas,Pillay,54,Sales,permanent,123500,Regional Sales Manager,46,1,label_noise_conflict,label_noise
+Palesa,Mokoena,50,SUPPORT,permanent,116500,Support Specialist,102,0,category_encoding_noise,inconsistent_department
+Neo,Martin,44,Sales,permanent,181000,Regional Director,127,1,contradictory_risk_profile,contradictory_profile
+Yara,Rossi,55,Support,permanent,131000,Support Advisor,154,0,older_permanent,none
+Mpho,Mensah,52,Engineering,permanent,142000,Software Architect,96,0,high_income_long_tenure,none
+Kagiso,Maseko,25,Engineering,permanent,115000,Software Engineer,17,1,label_noise_conflict,label_noise
+Dante,Alvarez,25,Engineering,contract,36500,QA Engineer,4,0,contradictory_risk_profile,contradictory_profile
+Marco,Dlamini,26,Engineering,contract,107000,Software Engineer,56,1,contract_shift,none
+Theo,Lee,20,Operations,permanent,,Senior Planner,22,0,missing_financial_feature,missing_income
+Noel,Das,24,HR,permanent,100000,HR Business Partner,5,1,label_noise_conflict,label_noise
+Maya,Lee,38,Engineering,contract,130500,Software Architect,150,0,high_income_long_tenure,none
+Refilwe,Evans,31,Finance,permanent,147000,Finance Manager,149,0,duplicate_record,duplicate_name_and_features
+Elias,Mokoena,57,Operations,contract,,Operations Director,146,0,missing_financial_feature,missing_income
+Naledi,Botha,62,Engineering,permanent,,Software Architect,55,0,missing_financial_feature,missing_income
+Yara,Diallo,56,Sales,contract,113000,Account Manager,52,0,baseline_shift,none
+Zuri,Berg,61,Sales,contract,126500,Regional Sales Manager,175,0,older_contract,none
+Nora,Hall,64,Operations,permanent,750000,Logistics Manager,51,0,extreme_income_outlier,income_outlier
+Dante,Ndlovu,38,Engineering,permanent,122000,Software Architect,100,0,baseline_shift,none
+Leo,Moretti,58,Sales,permanent,113000,Account Manager,47,0,older_permanent,none
+Daniel,Khumalo,43,Operations,contract,116500,Logistics Manager,480,1,extreme_tenure_outlier,tenure_outlier
+Sipho,Lee,52,Engineering,contract,121000,Software Architect,164,0,baseline_shift,none
+Karabo,Adams,36,Engineering,permanent,80000,Platform Engineer,11,1,baseline_shift,none
+Amahle,Mokoena,22,MKTG,permanent,66500,Brand Specialist,28,0,category_encoding_noise,inconsistent_department
+Malik,Khumalo,62,Support,permanent,102000,Support Specialist,125,0,retirement_risk,none
+Malik,Khumalo,62,Support,permanent,102000,Support Specialist,125,0,duplicate_record,duplicate_name_and_features
+Dante,Alvarez,27,HR,permanent,94500,Talent Specialist,97,1,label_noise_conflict,label_noise
+Sofia,Mahlangu,59,HR,permanent,5000,HR Manager,63,0,extreme_income_outlier,income_outlier
+Ayanda,Mokoena,28,Marketing,contract,33500,Content Assistant,8,0,contradictory_risk_profile,contradictory_profile
+Nomsa,Mabena,52,Marketing,contract,108000,Marketing Strategist,720,1,extreme_tenure_outlier,tenure_outlier
+Tariq,Ndlovu,33,Sales,,112500,Account Manager,140,0,missing_employment_feature,missing_contract_type
+Neo,Berg,20,Sales,permanent,65500,Sales Executive,480,1,extreme_tenure_outlier,tenure_outlier
+Leo,Scott,34,Operations,permanent,999999,Senior Planner,40,0,extreme_income_outlier,income_outlier
+Caleb,Maseko,24,Support,permanent,76500,Technical Support,20,1,baseline_shift,none
+Marco,Young,22,Support,contract,29500,Support Associate,5,0,contradictory_risk_profile,contradictory_profile
+Nia,Naidoo,38,Engineering,permanent,70000,Platform Engineer,7,1,baseline_shift,none
+Mohau,Chen,31,HR,permanent,87000,HR Business Partner,1,1,baseline_shift,none
+Lesedi,Das,60,Finance,permanent,127000,Finance Manager,122,0,retirement_risk,none
+Lethabo,Smith,17,Engineering,permanent,105000,Senior Software Engineer,28,0,invalid_age_range,age_outlier
+Keitumetse,Nguyen,44,Engineering,permanent,89500,Platform Engineer,22,1,baseline_shift,none
+Dante,Zulu,35,Support,contract,80000,Technical Support,71,0,baseline_shift,none
+Mohau,Young,38,Support,permanent,88500,Technical Support,112,1,baseline_shift,none
+Theo,Motaung,30,Support,contract,87000,Technical Support,128,1,contract_shift,none
+Mohau,Nkosi,26,Sales,contract,750000,Sales Executive,12,0,extreme_income_outlier,income_outlier
+Zuri,Sithole,63,Engineering,permanent,147000,Software Architect,106,0,label_noise_conflict,label_noise
+Nia,Mabena,27,Marketing,contract,83500,Brand Specialist,94,0,baseline_shift,none
+Amahle,Chen,45,Support,permanent,95500,Support Specialist,160,0,baseline_shift,none
+Ayanda,Walker,43,Support,permanent,,Support Specialist,150,0,missing_financial_feature,missing_income
+Daniel,Jacobs,44,Engineering,permanent,116500,Senior Software Engineer,124,0,baseline_shift,none
+Amahle,Chirwa,34,Finance,permanent,125000,Finance Manager,96,0,high_income_long_tenure,none
+Lwazi,Adeyemi,51,Sales,contract,107500,Account Manager,19,0,baseline_shift,none
+Amahle,Mahlangu,64,Finance,permanent,166500,Finance Director,169,0,retirement_risk,none
+Palesa,Moretti,23,Finance,contract,92500,Financial Analyst,480,1,extreme_tenure_outlier,tenure_outlier
+Amara,Berg,35,Engineering,permanent,111000,Software Engineer,58,1,label_noise_conflict,label_noise
+Rina,Mensah,20,FINANCE,contract,93000,Financial Analyst,13,1,category_encoding_noise,inconsistent_department
+Tumelo,Jacobs,61,Engineering,contract,,Software Architect,37,1,missing_financial_feature,missing_income
+Sofia,Chirwa,21,Sales,contract,76500,Sales Executive,34,1,label_noise_conflict,label_noise
+Aisha,Moretti,50,Support,permanent,92500,Support Specialist,15,1,label_noise_conflict,label_noise
+Refilwe,Smith,41,Support,contract,86000,Technical Support,50,0,baseline_shift,none
+Kabelo,Okeke,48,Sales,,141000,Regional Sales Manager,106,0,missing_employment_feature,missing_contract_type
+Grace,Mokoena,29,Engineering,permanent,102500,Senior Software Engineer,128,0,baseline_shift,none
+Noel,Kim,24,Sales,,116000,Sales Executive,2,0,missing_employment_feature,missing_contract_type
+Elias,Adams,43,Support,permanent,104500,Support Specialist,451,1,impossible_tenure_for_age,impossible_tenure_age
+Sofia,Okeke,55,Marketing,permanent,123000,Marketing Manager,85,0,older_permanent,none
+Leo,Mokoena,61,Marketing,permanent,,Marketing Strategist,26,0,missing_financial_feature,missing_income
+Daniel,Turner,35,Operations,contract,112500,Senior Planner,11,0,short_tenure_contract,none
+Mohau,Das,46,Support,permanent,116000,Support Specialist,129,1,label_noise_conflict,label_noise
+Zuri,Naidoo,38,Operations,permanent,101000,Logistics Manager,72,1,label_noise_conflict,label_noise
+Caleb,Mensah,52,Engineering,contract,121000,Software Architect,71,0,baseline_shift,none
+Khaya,Mensah,46,Finance,contract,100000,Financial Analyst,67,0,baseline_shift,none
+Mpho,Lee,57,Sales,permanent,140500,Regional Sales Manager,-3,0,extreme_tenure_outlier,tenure_outlier
+Nora,Chirwa,50,Support,permanent,102500,Support Specialist,77,0,baseline_shift,none
+Rina,Rossi,53,Support,permanent,90500,Support Specialist,572,0,impossible_tenure_for_age,impossible_tenure_age
+Mpho,Young,56,Engineering,permanent,128000,Software Architect,11,1,label_noise_conflict,label_noise
+Nia,Dlamini,64,Operations,permanent,118500,Logistics Manager,79,0,older_permanent,none
+Sipho,Kim,23,Marketing,contract,33500,Content Assistant,6,0,contradictory_risk_profile,contradictory_profile
+Yara,Naidoo,21,Engineering,contract,26500,QA Engineer,2,0,contradictory_risk_profile,contradictory_profile
+Amara,Maphosa,57,Support,permanent,97500,Support Specialist,16,0,older_permanent,none
+Daniel,Zulu,49,Operations,permanent,101500,Logistics Manager,163,1,label_noise_conflict,label_noise
+Nia,Reed,49,Operations,contract,100000,Logistics Manager,102,1,label_noise_conflict,label_noise
+Tumelo,Mensah,36,Marketing,permanent,102000,Marketing Strategist,99,1,label_noise_conflict,label_noise
+Kagiso,Naidoo,59,Engineering,permanent,158500,Principal Engineer,480,0,extreme_tenure_outlier,tenure_outlier
+Sipho,Lee,52,Engineering,contract,121000,Software Architect,164,0,duplicate_record,duplicate_name_and_features
+Theo,Shah,59,Support,permanent,104000,Support Specialist,46,0,older_permanent,none
+Zanele,Johnson,45,Finance,permanent,88000,Financial Analyst,-3,0,extreme_tenure_outlier,tenure_outlier
+Yara,Hall,40,Sales,permanent,81500,Sales Executive,41,0,baseline_shift,none
+Yara,Das,63,Marketing,permanent,133500,Marketing Manager,11,1,label_noise_conflict,label_noise
+Maya,Lee,29,Finance,permanent,128500,Finance Manager,121,1,label_noise_conflict,label_noise
+Andile,Martin,21,Marketing,contract,59000,Campaign Analyst,32,1,contract_shift,none
+Zuri,Wilson,27,Support,contract,39500,Support Associate,6,0,contradictory_risk_profile,contradictory_profile
+Caleb,Johnson,41,Operations,permanent,155000,Operations Director,0,0,extreme_tenure_outlier,tenure_outlier
+Mohau,Dlamini,39,Operations,permanent,110000,Logistics Manager,77,0,baseline_shift,none
+Owen,Motaung,39,Engineering,,137500,Software Architect,153,0,missing_employment_feature,missing_contract_type
+Tariq,Nkosi,8,Sales,permanent,69500,Sales Executive,28,0,invalid_age_range,age_outlier
+Lwazi,Okeke,48,Engineering,permanent,159000,Principal Engineer,156,1,label_noise_conflict,label_noise
+Neo,Sithole,46,Sales,permanent,95000,Account Manager,116,0,baseline_shift,none
+Ben,Msimang,20,Engineering,contract,81000,Platform Engineer,360,0,extreme_tenure_outlier,tenure_outlier
+Boitumelo,Sithole,56,Operations,permanent,131000,Operations Lead,46,1,label_noise_conflict,label_noise
+Nomsa,Wilson,65,Finance,,173000,Finance Director,141,1,missing_employment_feature,missing_contract_type
+Palesa,Pillay,38,Engineering,contract,,Software Engineer,14,0,missing_financial_feature,missing_income
+Sipho,Pillay,26,HR,permanent,88500,HR Business Partner,53,1,label_noise_conflict,label_noise
+Lesedi,Jacobs,23,Sales,contract,69500,Sales Executive,0,1,extreme_tenure_outlier,tenure_outlier
+Amina,Mokoena,61,HR,contract,116000,Talent Specialist,30,1,older_contract,none
+Mina,Reed,47,Support,permanent,92500,Support Specialist,125,0,baseline_shift,none
+Amahle,Nkosi,36,Support-Team,permanent,107000,Support Specialist,94,0,category_encoding_noise,inconsistent_department
+Naledi,Botha,39,Sales,contract,111000,Account Manager,121,0,baseline_shift,none
+Kagiso,Mensah,33,Engineering,contract,151000,Software Architect,127,0,high_income_long_tenure,none
+Ben,Molefe,24,Finance,contract,71000,Financial Analyst,60,0,baseline_shift,none
+Kabelo,Molefe,57,Operations,contract,101500,Logistics Manager,68,0,baseline_shift,none
+Fatima,Kamau,64,Marketing,permanent,131500,Marketing Manager,103,1,label_noise_conflict,label_noise
+Daniel,Hall,41,Sales,contract,137500,Regional Sales Manager,148,1,high_income_long_tenure,none
+Nia,Mthembu,40,Operations,contract,105000,Senior Planner,31,1,label_noise_conflict,label_noise
+Marco,Moretti,22,HR,permanent,93500,HR Business Partner,26,0,baseline_shift,none
+Sibusiso,Scott,30,Engineering,permanent,110500,Senior Software Engineer,100,0,baseline_shift,none
+Dante,Kim,27,Operations,permanent,88000,Senior Planner,72,1,baseline_shift,none
+Refilwe,Mthembu,50,Finance,permanent,1250000,Finance Manager,124,0,extreme_income_outlier,income_outlier
+Priya,Turner,25,Engineering,permanent,85000,Platform Engineer,4,1,label_noise_conflict,label_noise
+Andile,Chen,46,Sales,contract,93500,Account Manager,119,0,baseline_shift,none
+Layla,Motaung,24,Operations,contract,24500,Operations Coordinator,8,0,contradictory_risk_profile,contradictory_profile
+Maya,Chirwa,21,Marketing,contract,71500,Brand Specialist,6,0,young_contract,none
+Tebogo,Nkosi,48,Marketing,permanent,133000,Marketing Manager,161,1,high_income_long_tenure,none
+Theo,Patel,26,Support,permanent,94500,Support Specialist,87,1,baseline_shift,none
+Evan,Hall,26,Operations,contract,86500,Senior Planner,4,0,young_contract,none
+Zuri,Zulu,32,Sales,permanent,85500,Sales Executive,8,1,label_noise_conflict,label_noise
+Layla,Mahlangu,44,Engineering,permanent,97500,Software Engineer,41,0,baseline_shift,none
+Naledi,Wilson,57,Operations,permanent,999999,Operations Lead,172,0,extreme_income_outlier,income_outlier
+Zanele,Scott,31,Engineering,permanent,95500,Senior Software Engineer,81,0,baseline_shift,none
+Ben,Nkosi,24,Support,permanent,122000,Support Specialist,68,1,baseline_shift,none
+Evan,Ndlovu,43,Sales,permanent,120500,Regional Sales Manager,106,1,baseline_shift,none
+Amara,Alvarez,33,Sales,contract,107500,Account Manager,141,1,contract_shift,none
+Fatima,Mensah,26,Operations,permanent,59500,Process Analyst,18,0,baseline_shift,none
+Luca,Molefe,56,Marketing,permanent,101000,Marketing Strategist,24,1,older_permanent,none
+Rina,Molefe,52,Operations,contract,113000,Logistics Manager,59,0,baseline_shift,none
+Neo,Das,55,HR,permanent,,HR Manager,176,0,missing_financial_feature,missing_income
+Luca,Shah,48,Sales,permanent,126000,Regional Sales Manager,96,0,high_income_long_tenure,none
+Nia,Adams,25,Sales,permanent,9500,Sales Executive,52,0,extreme_income_outlier,income_outlier
+Mpho,Evans,23,Support,permanent,42500,Support Associate,50,1,baseline_shift,none
+Tariq,Naidoo,20,Operations,permanent,97000,Senior Planner,15,0,baseline_shift,none
+Jonas,Diallo,65,Operations,contract,750000,Operations Lead,29,1,extreme_income_outlier,income_outlier
+Leo,Kamau,25,Engineering,,71500,Platform Engineer,15,0,missing_employment_feature,missing_contract_type
+Luca,Reed,36,Operations,permanent,127500,Operations Lead,147,0,high_income_long_tenure,none
+Priya,Naidoo,46,Engineering,permanent,145000,Software Architect,160,0,high_income_long_tenure,none
+Malik,Maseko,45,Marketing,permanent,145500,Marketing Manager,168,1,label_noise_conflict,label_noise
+Amahle,Mahlangu,64,Finance,permanent,166500,Finance Director,169,0,duplicate_record,duplicate_name_and_features
+Priya,Petrov,22,HR,contract,40000,HR Coordinator,5,0,contradictory_risk_profile,contradictory_profile
+Lesedi,Adams,45,Operations,contract,94500,Logistics Manager,171,1,contract_shift,none
+Noel,Okafor,65,Operations,permanent,131500,Operations Lead,10,1,older_permanent,none
+Ayanda,Kim,20,Marketing,contract,44000,Content Assistant,11,1,young_contract,none
+Ben,Johnson,51,Marketing,contract,64500,Brand Specialist,2,1,short_tenure_contract,none
+Refilwe,Nguyen,29,Operations,contract,91000,Logistics Manager,130,0,baseline_shift,none
+Lwazi,Moretti,32,Finance,permanent,96000,Financial Analyst,69,1,baseline_shift,none
+Evan,Mthembu,55,Engineering,contract,129000,Software Architect,118,0,high_income_long_tenure,none
+Palesa,Moyo,27,Sales,contract,67000,Sales Executive,51,0,baseline_shift,none
+Kagiso,Naidoo,36,Sales,permanent,119500,Account Manager,126,0,baseline_shift,none
+Sibusiso,Kim,59,Support,contract,,Technical Support,81,0,missing_financial_feature,missing_income
+Aisha,Msimang,30,Engineering,permanent,91000,Software Engineer,17,0,baseline_shift,none
+Maya,Naidoo,61,Finance,contract,110500,Senior Accountant,84,0,older_contract,none
+Ben,Wilson,23,HR,permanent,97000,HR Business Partner,17,0,baseline_shift,none
+Evan,Moretti,30,Sales,contract,98500,Account Manager,92,0,baseline_shift,none
+Maya,Maphosa,46,Sales,permanent,,Account Manager,78,0,missing_financial_feature,missing_income
+Refilwe,Mensah,91,Support,permanent,124500,Support Advisor,65,0,invalid_age_range,age_outlier
+Daniel,Maphosa,50,Finance,permanent,128000,Finance Manager,720,0,extreme_tenure_outlier,tenure_outlier
+Kabelo,Das,20,Engineering,permanent,111500,Software Engineer,22,0,baseline_shift,none
+Amahle,Msimang,36,Operations,permanent,107500,Senior Planner,14,0,baseline_shift,none
+Nandi,Moyo,64,HR,contract,131500,HR Manager,133,0,older_contract,none
+Amina,Chirwa,48,Operations,permanent,125500,Operations Lead,123,0,high_income_long_tenure,none
+Leo,Shah,-4,Support,contract,106500,Support Specialist,104,0,invalid_age_range,age_outlier
+Ivy,Petrov,23,HR,contract,36000,HR Coordinator,7,0,contradictory_risk_profile,contradictory_profile
+Noel,Patel,33,Marketing,contract,81000,Brand Specialist,-3,0,extreme_tenure_outlier,tenure_outlier
+Zanele,Thompson,44,Finance,contract,127500,Finance Manager,112,0,high_income_long_tenure,none
+Nandi,Alvarez,63,Engineering,permanent,176500,Principal Engineer,133,0,retirement_risk,none
+Zuri,Martin,34,Engineering,contract,126000,Software Architect,101,0,high_income_long_tenure,none
+Nora,Molefe,38,Support,permanent,83500,Technical Support,720,0,extreme_tenure_outlier,tenure_outlier
+Mina,Pillay,55,Marketing ,permanent,125000,Marketing Manager,11,1,category_encoding_noise,inconsistent_department
+Kabelo,Mthembu,40,Support,contract,63000,Service Coordinator,2,1,short_tenure_contract,none
+Kabelo,Mensah,35,Operations,permanent,87500,Senior Planner,67,0,baseline_shift,none
+Hana,Mthembu,91,Support,permanent,135500,Support Advisor,106,0,invalid_age_range,age_outlier
+Kabelo,Mokoena,64,Operations,contract,120500,Operations Lead,3,0,short_tenure_contract,none
+Marco,Wilson,37,Sales,contract,1250000,Sales Executive,39,1,extreme_income_outlier,income_outlier
+Ben,Mensah,52,Sales,contract,125500,Regional Sales Manager,148,0,high_income_long_tenure,none
+Sipho,Alvarez,23,Operations ,permanent,79000,Senior Planner,51,1,category_encoding_noise,inconsistent_department
+Layla,Johnson,43,HR,contract,85500,HR Business Partner,97,0,baseline_shift,none
+Leo,Chirwa,53,Sales,contract,95500,Account Manager,54,1,label_noise_conflict,label_noise
+Sipho,Botha,37,Operations,permanent,132500,Operations Lead,91,0,high_income_long_tenure,none
+Thando,Alvarez,61,Sales,permanent,118500,Account Manager,50,1,label_noise_conflict,label_noise
+Daniel,Turner,48,HR,permanent,112500,Talent Specialist,172,0,baseline_shift,none
+Sofia,Moyo,55,Operations,permanent,145000,Operations Lead,174,1,older_permanent,none
+Nora,Maseko,54,Operations,contract,111500,Logistics Manager,8,0,short_tenure_contract,none
+Theo,Mensah,58,Operations,permanent,,Operations Lead,170,0,missing_financial_feature,missing_income
+Luca,Maphosa,26,Engineering,permanent,100000,Senior Software Engineer,76,0,baseline_shift,none
+Daniel,Ali,56,Engineering,contract,164500,Principal Engineer,88,0,high_income_long_tenure,none
+Tebogo,Turner,46,Finance,,104500,Senior Accountant,94,1,missing_employment_feature,missing_contract_type
+Fatima,Smith,22,Sales,contract,48000,Account Executive,21,1,contract_shift,none
+Mpho,Khumalo,24,Sales,contract,74000,Sales Executive,71,1,contract_shift,none
+Layla,Johnson,30,Engineering,contract,103000,Software Engineer,26,0,baseline_shift,none
+Refilwe,Martin,52,Support,permanent,73000,Technical Support,6,0,baseline_shift,none
+Keitumetse,Diallo,27,Support,permanent,81500,Technical Support,24,1,baseline_shift,none
+Priya,Zulu,37,Engineering,permanent,155500,Principal Engineer,343,0,impossible_tenure_for_age,impossible_tenure_age
+Malik,Mabena,20,Engineering,contract,101500,Software Engineer,9,0,young_contract,none
+Malik,Hall,33,Engineering,contract,98000,Software Engineer,18,1,contract_shift,none
+Tariq,Adeyemi,39,Marketing,contract,9500,Brand Specialist,34,0,extreme_income_outlier,income_outlier
+Amahle,Meyer,25,Engineering,contract,88500,Platform Engineer,35,0,baseline_shift,none
+Ayanda,Maseko,26,Finance,contract,94000,Financial Analyst,480,0,extreme_tenure_outlier,tenure_outlier
+Layla,Adams,27,Marketing,permanent,101500,Brand Specialist,46,0,baseline_shift,none
+Caleb,Shah,21,HR,contract,65500,HR Business Partner,28,0,baseline_shift,none
+Mohau,Scott,51,Engineering,,128000,Software Architect,115,1,missing_employment_feature,missing_contract_type
+Tumelo,Dlamini,52,Sales,,101000,Account Manager,60,0,missing_employment_feature,missing_contract_type
+Rina,Thompson,28,Sales,contract,33000,Sales Associate,5,0,contradictory_risk_profile,contradictory_profile
+Nandi,Chen,54,Sales,permanent,122500,Regional Sales Manager,156,0,baseline_shift,none
+Tumelo,Pillay,37,Finance,contract,96000,Financial Analyst,31,1,contract_shift,none
+Samira,Ndlovu,27,Support,permanent,87000,Technical Support,-3,0,extreme_tenure_outlier,tenure_outlier
+Evan,Ndlovu,24,Marketing,contract,108500,Brand Specialist,38,0,baseline_shift,none
+Daniel,Hall,41,Sales,contract,137500,Regional Sales Manager,148,1,duplicate_record,duplicate_name_and_features
+Zuri,Jacobs,37,Engineering,permanent,101500,Software Engineer,37,0,baseline_shift,none
+Evan,Ndlovu,24,Marketing,contract,108500,Brand Specialist,38,0,duplicate_record,duplicate_name_and_features
+Mohau,Ali,57,Sales,permanent,,Regional Sales Manager,86,0,missing_financial_feature,missing_income
+Tumelo,Adeyemi,40,Sales,contract,100500,Sales Executive,63,0,baseline_shift,none
+Noel,Johnson,30,Operations,permanent,73500,Senior Planner,101,0,baseline_shift,none
+Nora,Naidoo,39,Sales,permanent,109000,Account Manager,144,0,baseline_shift,none
+Naledi,Botha,39,Sales,contract,111000,Account Manager,121,0,duplicate_record,duplicate_name_and_features
+Refilwe,Khumalo,37,Engineering,permanent,149500,Software Architect,157,0,high_income_long_tenure,none
+Noel,Thompson,105,Support,permanent,110500,Support Specialist,138,0,invalid_age_range,age_outlier
+Amina,Diallo,64,Support,permanent,88000,Technical Support,117,0,older_permanent,none
+Mina,Kamau,20,Marketing,,56000,Campaign Analyst,4,1,missing_employment_feature,missing_contract_type
+Kabelo,Msimang,25,Operations,permanent,98500,Senior Planner,7,1,label_noise_conflict,label_noise
+Jonas,Kim,27,Sales,contract,27500,Sales Associate,2,0,contradictory_risk_profile,contradictory_profile
+Amina,Martin,58,Finance,contract,124500,Finance Manager,107,0,baseline_shift,none
+Lwazi,Kamau,37,Engineering,permanent,119500,Software Engineer,58,0,baseline_shift,none
+Zanele,Hall,62,Support,contract,140000,Support Advisor,164,0,older_contract,none
+Fatima,Moyo,53,HR,permanent,153000,HR Manager,177,0,high_income_long_tenure,none
+Jonas,Chirwa,34,Engineering,permanent,87500,Platform Engineer,0,1,extreme_tenure_outlier,tenure_outlier
+Keitumetse,Shah,23,Operations,contract,28000,Operations Coordinator,5,0,contradictory_risk_profile,contradictory_profile
+Kagiso,Kim,21,Operations,contract,35000,Operations Coordinator,4,0,contradictory_risk_profile,contradictory_profile
+Yara,Diallo,56,Sales,contract,113000,Account Manager,52,0,duplicate_record,duplicate_name_and_features
+Amara,Pillay,26,HR,permanent,133500,Talent Specialist,70,0,baseline_shift,none
+Naledi,Mthembu,61,Sales,permanent,94000,Account Manager,114,1,older_permanent,none
+Rina,Mthembu,29,Operations,permanent,104500,Senior Planner,52,1,label_noise_conflict,label_noise
+Lesedi,Meyer,27,Operations,contract,107500,Logistics Manager,236,1,impossible_tenure_for_age,impossible_tenure_age
+Noel,Mensah,21,support,permanent,47000,Service Coordinator,36,0,category_encoding_noise,inconsistent_department
+Tumelo,Mahlangu,35,Operations,permanent,116500,Logistics Manager,84,0,baseline_shift,none
+Kagiso,Chen,37,operations,permanent,82500,Senior Planner,160,0,category_encoding_noise,inconsistent_department
+Aisha,Berg,25,Operations,contract,36000,Operations Coordinator,5,0,contradictory_risk_profile,contradictory_profile
+Keitumetse,Scott,54,Engineering,permanent,125500,Software Architect,92,0,high_income_long_tenure,none
+Sibusiso,Mensah,28,Engineering,contract,105500,Software Engineer,22,1,contract_shift,none
+Boitumelo,Mahlangu,31,Engineering,permanent,109500,Senior Software Engineer,151,0,baseline_shift,none
+Mpho,Kim,59,Engineering,permanent,158000,Principal Engineer,121,0,older_permanent,none
+Kabelo,Mensah,25,Marketing,permanent,112000,Marketing Strategist,75,0,baseline_shift,none
+Nandi,Alvarez,62,Operations,permanent,73000,Senior Planner,6,0,older_permanent,none
+Lwazi,Maseko,57,Operations,permanent,140000,Operations Lead,113,0,older_permanent,none
+Daniel,Mthembu,34,Finance,permanent,97000,Financial Analyst,20,0,label_noise_conflict,label_noise
+Amahle,Berg,44,Engineering,permanent,144000,Software Architect,113,0,high_income_long_tenure,none
+Nora,Chen,38,Operations,contract,92500,Senior Planner,18,0,baseline_shift,none
+Kagiso,Chirwa,48,Sales,permanent,107000,Account Manager,80,1,baseline_shift,none
+Sipho,Moretti,20,Support,contract,26000,Support Associate,2,1,label_noise_conflict,label_noise
+Theo,Patel,26,Support,permanent,94500,Support Specialist,87,1,duplicate_record,duplicate_name_and_features
+Owen,Wilson,-4,Engineering,permanent,130000,Software Architect,89,1,invalid_age_range,age_outlier
+Naledi,Nkosi,31,Operations,permanent,116500,Logistics Manager,118,0,baseline_shift,none
+Dante,Adams,53,Sales,permanent,108500,Account Manager,27,0,baseline_shift,none
+Tariq,Reed,21,Engineering,permanent,1250000,Software Engineer,31,0,extreme_income_outlier,income_outlier
+Malik,Mabena,37,Engineering,contract,113000,Software Engineer,63,0,baseline_shift,none
+Palesa,Adeyemi,44,Marketing,permanent,137000,Marketing Manager,172,0,high_income_long_tenure,none
+Andile,Sithole,34,HR,permanent,75000,HR Business Partner,23,0,baseline_shift,none
+Sibusiso,Mensah,23,Sales,contract,33500,Sales Associate,6,0,contradictory_risk_profile,contradictory_profile
+Sibusiso,Young,20,Operations,permanent,88500,Senior Planner,16,0,baseline_shift,none
+Evan,Young,40,Sales,contract,107500,Sales Executive,64,0,baseline_shift,none
+Hana,Botha,43,Engineering,contract,146000,Software Architect,155,0,high_income_long_tenure,none
+Palesa,Walker,48,Sales,permanent,99500,Sales Executive,18,0,baseline_shift,none
+Maya,Hall,37,Engineering,permanent,100500,Software Engineer,64,0,baseline_shift,none
+Luca,Mensah,43,Engineering,permanent,113500,Senior Software Engineer,87,0,baseline_shift,none
+Hana,Reed,39,Finance,permanent,128000,Finance Manager,148,0,high_income_long_tenure,none
+Tebogo,Maseko,46,Marketing,contract,89500,Brand Specialist,7,1,short_tenure_contract,none
+Evan,Turner,57,Marketing,contract,101000,Marketing Strategist,43,0,baseline_shift,none
+Refilwe,Chirwa,33,Engineering,permanent,126000,Software Architect,155,0,high_income_long_tenure,none
+Naledi,Mokoena,22,Operations,contract,81500,Senior Planner,32,1,contract_shift,none
+Tebogo,Alvarez,23,Operations,permanent,95000,Senior Planner,57,0,label_noise_conflict,label_noise
+Tumelo,Berg,36,Support,permanent,112000,Support Specialist,174,0,baseline_shift,none
+Tumelo,Mokoena,39,Operations,permanent,,Senior Planner,68,0,missing_financial_feature,missing_income
+Boitumelo,Thompson,40,Sales,permanent,128500,Regional Sales Manager,116,1,high_income_long_tenure,none
+Neo,Nkosi,32,Marketing,permanent,116000,Marketing Strategist,161,0,baseline_shift,none
+Yara,Chen,40,Marketing,permanent,116500,Marketing Strategist,422,0,impossible_tenure_for_age,impossible_tenure_age
+Ivy,Mthembu,29,Support,permanent,,Support Specialist,125,0,missing_financial_feature,missing_income
+Naledi,Berg,22,Engineering,permanent,,Platform Engineer,1,0,missing_financial_feature,missing_income
+Amahle,Msimang,54,Finance,contract,119000,Senior Accountant,160,1,contract_shift,none
+Rina,Chen,45,operations,contract,122000,Operations Lead,81,0,category_encoding_noise,inconsistent_department
+Tariq,Das,29,Engineering,permanent,68000,Platform Engineer,35,0,baseline_shift,none
+Lwazi,Meyer,65,Sales,contract,,Account Manager,106,1,missing_financial_feature,missing_income
+Jonas,Chen,62,Support,permanent,116000,Support Specialist,150,0,retirement_risk,none
+Lesedi,Diallo,41,Engineering,permanent,129500,Senior Software Engineer,35,0,baseline_shift,none
+Theo,Botha,24,HR,permanent,82500,HR Business Partner,23,0,baseline_shift,none
+Karabo,Mensah,31,Operations ,permanent,79500,Senior Planner,86,0,category_encoding_noise,inconsistent_department
+Theo,Khumalo,30,Marketing,permanent,104500,Marketing Strategist,104,0,baseline_shift,none
+Layla,Nkosi,44,Marketing,permanent,1250000,Brand Specialist,62,1,extreme_income_outlier,income_outlier
+Keitumetse,Martin,60,Engineering,permanent,148500,Software Architect,66,0,older_permanent,none
+Naledi,Turner,63,Engineering,permanent,9500,Software Architect,37,0,extreme_income_outlier,income_outlier
+Layla,Mahlangu,59,Marketing,permanent,101000,Marketing Strategist,99,0,older_permanent,none
+Caleb,Dlamini,41,Finance,permanent,129000,Senior Accountant,69,0,baseline_shift,none
+Fatima,Patel,20,Finance,contract,61500,Payroll Analyst,2,0,young_contract,none
+Lwazi,Scott,53,sales,contract,90500,Account Manager,53,0,category_encoding_noise,inconsistent_department
+Daniel,Mthembu,56,Engineering,permanent,157000,Principal Engineer,174,0,older_permanent,none
+Sibusiso,Patel,28,Support,permanent,108000,Technical Support,18,0,baseline_shift,none
+Palesa,Chen,47,Finance,permanent,178500,Finance Director,84,1,contradictory_risk_profile,contradictory_profile
+Thando,Nkosi,27,Engineering,permanent,103500,Senior Software Engineer,78,0,baseline_shift,none
+Yara,Dlamini,56,MKTG,contract,78500,Brand Specialist,17,0,category_encoding_noise,inconsistent_department
+Ayanda,Alvarez,42,Sales,contract,101000,Sales Executive,49,0,baseline_shift,none
+Layla,Ndlovu,48,Finance,permanent,138000,Finance Manager,507,0,impossible_tenure_for_age,impossible_tenure_age
+Elias,Okeke,56,Support,permanent,117500,Support Specialist,32,1,label_noise_conflict,label_noise
+Keitumetse,Nkosi,21,Sales,contract,27000,Sales Associate,8,0,contradictory_risk_profile,contradictory_profile
+Palesa,Walker,48,Sales,permanent,99500,Sales Executive,18,0,duplicate_record,duplicate_name_and_features
+Maya,Scott,25,Sales,permanent,92000,Account Manager,79,1,label_noise_conflict,label_noise
+Ben,Mabena,65,HR,permanent,124000,HR Manager,26,0,older_permanent,none
+Tebogo,Mahlangu,48,Engineering,permanent,131500,Senior Software Engineer,53,0,baseline_shift,none
+Maya,Naidoo,61,Finance,contract,110500,Senior Accountant,84,0,duplicate_record,duplicate_name_and_features
+Amahle,Mthembu,38,Engineering,contract,99500,Senior Software Engineer,0,1,extreme_tenure_outlier,tenure_outlier
+Elias,Mokoena,29,Finance,contract,95500,Senior Accountant,110,0,baseline_shift,none
+Amara,Thompson,55,Support,permanent,121500,Support Advisor,85,1,label_noise_conflict,label_noise
+Marco,Msimang,105,Operations,permanent,133000,Operations Lead,107,0,invalid_age_range,age_outlier
+Thando,Khumalo,33,Finance,permanent,110500,Senior Accountant,101,0,baseline_shift,none
+Nomsa,Chirwa,38,HR,contract,104500,Talent Specialist,360,0,extreme_tenure_outlier,tenure_outlier
+Aisha,Walker,57,Sales,,149000,Regional Sales Manager,136,0,missing_employment_feature,missing_contract_type
+Lesedi,Zulu,38,Marketing,permanent,107500,Marketing Strategist,123,0,baseline_shift,none
+Andile,Msimang,25,Marketing,permanent,97500,Brand Specialist,37,0,baseline_shift,none
+Sipho,Hall,45,SUPPORT,permanent,120000,Support Advisor,99,0,category_encoding_noise,inconsistent_department
+Maya,Nkosi,27,Support,contract,24000,Support Associate,5,0,contradictory_risk_profile,contradictory_profile
+Tebogo,Moyo,24,Sales,permanent,60500,Account Executive,10,0,baseline_shift,none
+Lwazi,Ali,46,Engineering,contract,100000,Software Engineer,38,0,baseline_shift,none
+Maya,Petrov,59,Operations,permanent,123500,Operations Lead,118,0,older_permanent,none
+Luca,Dlamini,62,Engineering,permanent,133000,Software Architect,37,0,older_permanent,none
+Malik,Adeyemi,53,Sales,contract,70000,Sales Executive,9,0,label_noise_conflict,label_noise
+Dante,Nkosi,29,HR,contract,61000,HR Advisor,9,0,young_contract,none
+Elias,Mokoena,50,HR,contract,,Talent Specialist,97,0,missing_financial_feature,missing_income
+Samira,Moyo,41,Finance,contract,109000,Financial Analyst,17,0,baseline_shift,none
+Andile,Garcia,51,Operations,permanent,152500,Operations Lead,116,0,high_income_long_tenure,none
+Refilwe,Adeyemi,57,Engineering,permanent,150000,Software Architect,127,0,older_permanent,none
+Rina,Chirwa,28,Operations,contract,40000,Operations Coordinator,2,0,contradictory_risk_profile,contradictory_profile
+Palesa,Kim,34,Sales,permanent,84500,Sales Executive,20,0,baseline_shift,none
+Boitumelo,Turner,20,Support,contract,58500,Service Coordinator,18,1,contract_shift,none
+Mpho,Mensah,41,Finance,permanent,118000,Senior Accountant,180,0,baseline_shift,none
+Dante,Shah,43,Human Resources,contract,87000,HR Business Partner,12,0,category_encoding_noise,inconsistent_department
+Palesa,Chirwa,21,Support,contract,39500,Support Associate,30,1,low_income_contract,none
+Layla,Lee,48,Engineering,permanent,153000,Software Architect,97,0,high_income_long_tenure,none
+Zanele,Naidoo,41,Engineering,permanent,118500,Senior Software Engineer,112,0,baseline_shift,none
+Amina,Pillay,28,Sales,permanent,91000,Account Manager,87,1,baseline_shift,none
+Tebogo,Mahlangu,48,Engineering,permanent,131500,Senior Software Engineer,53,0,duplicate_record,duplicate_name_and_features
+Jonas,Molefe,25,engineering,contract,108000,Senior Software Engineer,83,1,category_encoding_noise,inconsistent_department
+Sipho,Mokoena,58,Sales,contract,102500,Account Manager,119,0,baseline_shift,none
+Marco,Ali,22,Marketing,permanent,58000,Campaign Analyst,45,0,baseline_shift,none
+Lesedi,Martin,61,Engineering,permanent,141000,Software Architect,129,0,retirement_risk,none
+Lesedi,Patel,44,Sales,permanent,85500,Sales Executive,8,0,baseline_shift,none
+Palesa,Mahlangu,63,Finance,permanent,124000,Finance Manager,177,0,retirement_risk,none
+Zuri,Sithole,47,Marketing,permanent,122000,Marketing Manager,83,1,label_noise_conflict,label_noise
+Daniel,Mokoena,34,Sales,contract,99500,Account Manager,114,0,baseline_shift,none
+Lerato,Diallo,61,Engineering,permanent,150000,Software Architect,119,0,older_permanent,none
+Lesedi,Mensah,31,Engineering,contract,108000,Software Engineer,52,1,contract_shift,none
+Grace,Lee,29,Support,permanent,101500,Support Specialist,116,0,baseline_shift,none
+Evan,Adams,54,Support,contract,74000,Technical Support,124,1,contract_shift,none
+Tariq,Martin,46,HR,permanent,99000,HR Business Partner,20,0,baseline_shift,none
+Tebogo,Chen,62,Marketing,contract,86500,Brand Specialist,20,0,older_contract,none
+Grace,Young,40,HR,contract,93000,HR Business Partner,55,0,baseline_shift,none
+Nandi,Mokoena,34,engineering,permanent,129500,Software Architect,77,0,category_encoding_noise,inconsistent_department
+Luca,Scott,23,Sales,contract,52000,Account Executive,10,0,young_contract,none
+Zanele,Chen,39,Marketing,contract,125000,Marketing Strategist,69,1,label_noise_conflict,label_noise
+Sibusiso,Petrov,28,Engineering,permanent,109000,Software Engineer,69,1,label_noise_conflict,label_noise
+Malik,Jacobs,65,Engineering,contract,114500,Senior Software Engineer,131,0,older_contract,none
+Palesa,Mabena,52,Marketing,contract,112000,Marketing Strategist,167,0,baseline_shift,none
+Thando,Petrov,21,Support,contract,30000,Support Associate,3,0,contradictory_risk_profile,contradictory_profile
+Maya,Thompson,26,Marketing,contract,36500,Content Assistant,6,0,contradictory_risk_profile,contradictory_profile
+Hana,Msimang,26,Engineering,contract,92000,Software Engineer,49,0,baseline_shift,none
+Noel,Pillay,38,Support,permanent,57500,Service Coordinator,43,0,baseline_shift,none
+Priya,Martin,30,finance,permanent,99000,Financial Analyst,5,0,category_encoding_noise,inconsistent_department
+Tumelo,Pillay,37,Finance,contract,96000,Financial Analyst,31,1,duplicate_record,duplicate_name_and_features
+Khaya,Pillay,51,Engineering,contract,108000,Senior Software Engineer,27,1,contract_shift,none
+Amahle,Moyo,46,Sales,permanent,117500,Account Manager,499,0,impossible_tenure_for_age,impossible_tenure_age
+Palesa,Adams,37,Operations ,permanent,123500,Operations Lead,127,0,category_encoding_noise,inconsistent_department
+Tumelo,Petrov,41,Sales,,154500,Regional Sales Manager,163,0,missing_employment_feature,missing_contract_type
+Zanele,Kamau,22,Operations,contract,82500,Senior Planner,0,0,extreme_tenure_outlier,tenure_outlier
+Hana,Zulu,53,Operations,permanent,90000,Logistics Manager,66,0,baseline_shift,none
+Hana,Thompson,50,Operations,,101500,Logistics Manager,64,1,missing_employment_feature,missing_contract_type
+Lethabo,Patel,25,Engineering,contract,120000,Senior Software Engineer,47,0,baseline_shift,none
+Fatima,Petrov,54,ENG,permanent,106000,Senior Software Engineer,96,0,category_encoding_noise,inconsistent_department
+Noel,Khumalo,57,Marketing,,154500,Marketing Manager,180,0,missing_employment_feature,missing_contract_type
+Karabo,Jacobs,20,Engineering,permanent,92000,Software Engineer,4,1,baseline_shift,none
+Samira,Nkosi,35,Engineering,permanent,85500,Platform Engineer,1,0,baseline_shift,none
+Mohau,Maseko,59,Finance,permanent,184500,Finance Director,176,0,older_permanent,none
+Nomsa,Mabena,27,Engineering,permanent,133000,Software Architect,108,0,high_income_long_tenure,none
+Thando,Mabena,63,Engineering,permanent,157500,Principal Engineer,360,0,extreme_tenure_outlier,tenure_outlier
+Ben,Okafor,46,Engineering,permanent,,Software Architect,114,0,missing_financial_feature,missing_income
+Lethabo,Sithole,47,Engineering,permanent,161500,Principal Engineer,140,0,high_income_long_tenure,none
+Lesedi,Sithole,58,Support,permanent,,Support Specialist,103,0,missing_financial_feature,missing_income
+Nomsa,Okeke,28,Support,permanent,,Technical Support,33,0,missing_financial_feature,missing_income
+Malik,Scott,45,Support,contract,80500,Technical Support,96,0,baseline_shift,none
+Nora,Mensah,59,Operations,permanent,1250000,Logistics Manager,15,0,extreme_income_outlier,income_outlier
+Refilwe,Alvarez,51,Support,permanent,121500,Support Advisor,137,0,baseline_shift,none
+Nandi,Thompson,39,Engineering,permanent,89500,Platform Engineer,62,1,label_noise_conflict,label_noise
+Amahle,Turner,31,Support,contract,999999,Technical Support,71,0,extreme_income_outlier,income_outlier
+Nomsa,Okafor,57,Operations,permanent,118000,Logistics Manager,99,0,older_permanent,none
+Mohau,Pillay,22,Finance,permanent,90000,Financial Analyst,2,0,baseline_shift,none
+Ivy,Lee,29,Engineering,contract,88500,Software Engineer,100,1,contract_shift,none
+Sibusiso,Pillay,49,HR,permanent,112500,HR Business Partner,56,0,baseline_shift,none
+Refilwe,Molefe,20,Engineering,contract,76500,Platform Engineer,22,0,baseline_shift,none
+Caleb,Hall,52,Support,contract,118500,Support Specialist,116,1,contract_shift,none
+Sibusiso,Okeke,25,Operations,contract,35000,Operations Coordinator,8,0,contradictory_risk_profile,contradictory_profile
+Yara,Chen,31,Sales,contract,82000,Sales Executive,8,1,short_tenure_contract,none
+Evan,Msimang,52,Operations,contract,123500,Operations Lead,161,1,contract_shift,none
+Ben,Dlamini,51,Sales,contract,64000,Sales Executive,43,1,label_noise_conflict,label_noise
+Nandi,Hall,48,Support,permanent,115500,Support Specialist,94,0,baseline_shift,none
+Layla,Das,63,Engineering,permanent,142000,Software Architect,103,0,older_permanent,none
+Khaya,Petrov,36,HR,contract,98000,HR Business Partner,53,0,baseline_shift,none
+Refilwe,Mthembu,46,Finance,contract,84000,Financial Analyst,56,1,label_noise_conflict,label_noise
+Yara,Martin,26,Finance,permanent,65500,Financial Analyst,13,0,baseline_shift,none
+Samira,Mensah,22,Operations,contract,83500,Senior Planner,29,1,contract_shift,none
+Sofia,Chen,22,Marketing,permanent,89000,Brand Specialist,28,0,baseline_shift,none
+Leo,Maphosa,44,support,contract,83500,Technical Support,56,0,category_encoding_noise,inconsistent_department
+Yara,Msimang,54,Operations,permanent,120500,Operations Lead,124,0,baseline_shift,none
+Elias,Mahlangu,23,Operations,contract,68000,Senior Planner,25,1,contract_shift,none
+Nia,Garcia,34,Engineering,contract,83500,Platform Engineer,36,0,baseline_shift,none
+Luca,Reed,36,Operations,permanent,127500,Operations Lead,147,0,duplicate_record,duplicate_name_and_features
+Amina,Adams,26,Marketing,contract,,Brand Specialist,62,0,missing_financial_feature,missing_income
+Lwazi,Johnson,27,Finance,permanent,103000,Financial Analyst,19,0,baseline_shift,none
+Tebogo,Sithole,48,Engineering,contract,170500,Principal Engineer,145,0,duplicate_record,duplicate_name_and_features
+Ivy,Chirwa,36,Finance,permanent,141500,Finance Manager,109,0,high_income_long_tenure,none
+Malik,Rossi,31,Engineering,permanent,102500,Senior Software Engineer,73,0,baseline_shift,none
+Grace,Kim,28,Sales,contract,27500,Sales Associate,2,0,contradictory_risk_profile,contradictory_profile
+Jonas,Hall,33,Engineering,contract,,Senior Software Engineer,73,0,missing_financial_feature,missing_income
+Owen,Motaung,33,Sales,permanent,98500,Account Manager,111,0,baseline_shift,none
+Caleb,Chen,47,Sales,,102500,Account Manager,125,0,missing_employment_feature,missing_contract_type
+Ivy,Msimang,37,HR,contract,9500,HR Business Partner,1,1,extreme_income_outlier,income_outlier
+Rina,Moretti,47,Engineering,contract,,Principal Engineer,160,0,missing_financial_feature,missing_income
+Naledi,Zulu,26,Engineering,permanent,146000,Software Architect,75,1,label_noise_conflict,label_noise
+Evan,Mensah,29,Marketing,contract,77000,Brand Specialist,58,0,baseline_shift,none
+Tumelo,Kim,64,Support,permanent,1250000,Support Specialist,136,0,extreme_income_outlier,income_outlier
+Lethabo,Ndlovu,55,HR,permanent,94000,Talent Specialist,12,0,older_permanent,none
+Hana,Turner,54,Engineering,permanent,149000,Software Architect,79,0,high_income_long_tenure,none
+Boitumelo,Motaung,53,Engineering,contract,147500,Software Architect,94,0,high_income_long_tenure,none
+Grace,Moretti,20,Operations,permanent,,Senior Planner,10,0,missing_financial_feature,missing_income
+Tariq,Dlamini,22,Support,permanent,82000,Technical Support,31,0,baseline_shift,none
+Mpho,Zulu,53,Engineering,permanent,123000,Software Architect,87,0,baseline_shift,none
+Ivy,Mahlangu,47,Operations,permanent,122500,Operations Lead,124,0,baseline_shift,none
+Zuri,Naidoo,24,Engineering,contract,999999,Platform Engineer,58,0,extreme_income_outlier,income_outlier
+Owen,Mabena,91,Finance,contract,93000,Financial Analyst,1,1,invalid_age_range,age_outlier
+Tariq,Turner,26,Marketing,permanent,89000,Brand Specialist,45,0,baseline_shift,none
+Ben,Petrov,32,Engineering,permanent,999999,Software Engineer,17,0,extreme_income_outlier,income_outlier
+Karabo,Mensah,50,Finance,permanent,174000,Finance Director,95,0,high_income_long_tenure,none
+Lesedi,Mensah,52,Engineering,contract,101500,Senior Software Engineer,44,0,baseline_shift,none
+Ayanda,Pillay,34,Sales,permanent,1250000,Account Manager,170,0,extreme_income_outlier,income_outlier
+Layla,Adams,105,Sales,permanent,128500,Regional Sales Manager,176,0,invalid_age_range,age_outlier
+Amina,Alvarez,55,MKTG,contract,92000,Marketing Strategist,10,0,category_encoding_noise,inconsistent_department
+Amahle,Rossi,58,Support,permanent,5000,Support Advisor,105,0,extreme_income_outlier,income_outlier
+Zanele,Rossi,27,Support,contract,30000,Support Associate,1,0,contradictory_risk_profile,contradictory_profile
+Palesa,Garcia,29,Sales,contract,96500,Account Manager,76,1,contract_shift,none
+Samira,Nkosi,35,Engineering,permanent,85500,Platform Engineer,1,0,duplicate_record,duplicate_name_and_features
+Sibusiso,Mensah,62,Engineering,permanent,109000,Senior Software Engineer,-24,0,extreme_tenure_outlier,tenure_outlier
+Lwazi,Lee,42,Operations,permanent,130500,Operations Lead,139,0,high_income_long_tenure,none
+Caleb,Alvarez,24,HR,contract,79500,HR Business Partner,720,1,extreme_tenure_outlier,tenure_outlier
+Amahle,Lee,59,Sales,permanent,109000,Account Manager,11,0,label_noise_conflict,label_noise
+Daniel,Reed,63,Sales,contract,118500,Account Manager,83,1,older_contract,none
+Dante,Maphosa,65,Finance,permanent,120000,Finance Manager,480,0,extreme_tenure_outlier,tenure_outlier
+Noel,Evans,59,HR,contract,99000,Talent Specialist,112,0,baseline_shift,none
+Nora,Moretti,43,Finance,permanent,135500,Finance Manager,116,0,high_income_long_tenure,none
+Nomsa,Rossi,49,Sales,permanent,108000,Account Manager,160,0,baseline_shift,none
+Nia,Sithole,60,HR,contract,117000,Talent Specialist,116,1,older_contract,none
+Neo,Meyer,59,Support,contract,102000,Support Specialist,99,1,contract_shift,none
+Amahle,Ndlovu,34,Marketing,permanent,120000,Marketing Manager,168,0,baseline_shift,none
+Elias,Naidoo,20,Finance,,88000,Financial Analyst,22,0,missing_employment_feature,missing_contract_type
+Leo,Chirwa,31,HR,permanent,750000,Talent Specialist,84,0,extreme_income_outlier,income_outlier
+Refilwe,Okafor,35,Engineering,permanent,1250000,Senior Software Engineer,56,0,extreme_income_outlier,income_outlier
+Thando,Khumalo,55,Marketing,contract,140500,Marketing Manager,74,0,label_noise_conflict,label_noise
+Leo,Adeyemi,36,Sales,permanent,113000,Account Manager,93,0,baseline_shift,none
+Maya,Scott,59,Operations,permanent,144500,Operations Lead,117,0,older_permanent,none
+Zuri,Petrov,38,Marketing,permanent,117500,Marketing Strategist,122,0,baseline_shift,none
+Mina,Moyo,34,HR,permanent,84500,HR Business Partner,42,0,baseline_shift,none
+Kabelo,Naidoo,48,Finance,permanent,118500,Financial Analyst,44,0,baseline_shift,none
+Sibusiso,Mokoena,39,HR,permanent,134500,HR Manager,128,0,high_income_long_tenure,none
+Amina,Moyo,25,Operations,permanent,100000,Senior Planner,480,0,extreme_tenure_outlier,tenure_outlier
+Elias,Rossi,45,Marketing,permanent,72000,Brand Specialist,5,1,baseline_shift,none
+Nia,Naidoo,46,Support,contract,93000,Support Specialist,135,0,baseline_shift,none
+Mpho,Ndlovu,45,Support,contract,,Technical Support,10,1,missing_financial_feature,missing_income
+Kagiso,Jacobs,48,Support,contract,54000,Service Coordinator,12,0,short_tenure_contract,none
+Caleb,Mensah,21,Support,permanent,61000,Service Coordinator,4,1,baseline_shift,none
+Amara,Martin,52,Marketing,contract,80000,Brand Specialist,42,0,baseline_shift,none
+Amina,Motaung,62,Operations,permanent,108500,Logistics Manager,12,0,older_permanent,none
+Amina,Das,25,Support,,92000,Support Specialist,77,0,missing_employment_feature,missing_contract_type
+Nandi,Nguyen,22,Operations,contract,36000,Operations Coordinator,2,0,contradictory_risk_profile,contradictory_profile
+Amahle,Diallo,32,Engineering,contract,135000,Software Architect,162,1,label_noise_conflict,label_noise
+Lesedi,Thompson,28,Engineering,contract,30500,QA Engineer,2,0,contradictory_risk_profile,contradictory_profile
+Jonas,Adeyemi,56,HR,permanent,98500,Talent Specialist,620,1,impossible_tenure_for_age,impossible_tenure_age
+Mina,Mokoena,48,Sales,permanent,125000,Regional Sales Manager,83,0,high_income_long_tenure,none
+Zuri,Scott,34,Support,permanent,76500,Technical Support,19,1,baseline_shift,none
+Nia,Meyer,37,Sales,contract,105000,Account Manager,74,1,contract_shift,none
+Rina,Zulu,60,Sales,permanent,161500,Regional Director,155,0,retirement_risk,none
+Nandi,Jacobs,52,HR,contract,88000,HR Business Partner,87,1,label_noise_conflict,label_noise
+Theo,Nguyen,63,Engineering,contract,110500,Senior Software Engineer,12,1,short_tenure_contract,none
+Ayanda,Mensah,31,Marketing,contract,,Brand Specialist,93,0,missing_financial_feature,missing_income
+Lerato,Okeke,60,HR,contract,88500,HR Business Partner,61,1,older_contract,none
+Karabo,Shah,46,Support,contract,750000,Support Specialist,159,0,extreme_income_outlier,income_outlier
+Daniel,Ali,20,Marketing,,92500,Brand Specialist,24,0,missing_employment_feature,missing_contract_type
+Layla,Mthembu,45,Engineering,,132000,Software Architect,103,0,missing_employment_feature,missing_contract_type
+Tariq,Okafor,36,Finance,permanent,142500,Finance Manager,336,0,impossible_tenure_for_age,impossible_tenure_age
+Leo,Mokoena,43,Finance,permanent,141500,Finance Manager,0,0,extreme_tenure_outlier,tenure_outlier
+Fatima,Young,25,ENG,contract,85000,Platform Engineer,57,0,category_encoding_noise,inconsistent_department
+Thando,Hall,30,Operations,contract,52500,Process Analyst,37,1,label_noise_conflict,label_noise
+Tariq,Meyer,54,Engineering,contract,133000,Software Architect,161,1,label_noise_conflict,label_noise
+Lwazi,Kamau,25,Marketing,permanent,67500,Brand Specialist,76,0,baseline_shift,none
+Samira,Petrov,34,Finance,contract,106000,Financial Analyst,69,0,baseline_shift,none
+Kagiso,Kamau,47,Operations,permanent,117500,Logistics Manager,159,0,baseline_shift,none
+Tariq,Botha,24,Engineering,permanent,95500,Software Engineer,22,0,baseline_shift,none
+Mina,Msimang,46,Finance,contract,123000,Senior Accountant,27,0,baseline_shift,none
+Hana,Smith,55,Engineering,permanent,105000,Senior Software Engineer,53,1,label_noise_conflict,label_noise
+Lwazi,Khumalo,33,Support,contract,73500,Technical Support,180,1,contract_shift,none
+Lethabo,Young,43,Engineering,permanent,108500,Senior Software Engineer,97,0,baseline_shift,none
+Ayanda,Kim,20,Marketing,contract,44000,Content Assistant,11,1,duplicate_record,duplicate_name_and_features
+Amahle,Mensah,63,HR,contract,,Talent Specialist,37,0,missing_financial_feature,missing_income
+Tariq,Maphosa,29,Engineering,permanent,,Senior Software Engineer,120,0,missing_financial_feature,missing_income
+Ben,Naidoo,62,Operations,permanent,119000,Logistics Manager,65,0,older_permanent,none
+Ivy,Chen,21,Finance,contract,30000,Accounting Assistant,4,0,contradictory_risk_profile,contradictory_profile
+Priya,Maphosa,44,Marketing,permanent,,Marketing Manager,99,0,missing_financial_feature,missing_income
+Sofia,Diallo,40,Support,contract,117500,Support Specialist,161,0,baseline_shift,none
+Lesedi,Chen,42,Operations,contract,105000,Logistics Manager,-3,0,extreme_tenure_outlier,tenure_outlier
+Keitumetse,Adams,32,Support,contract,65500,Technical Support,119,0,baseline_shift,none
+Mohau,Mthembu,34,HR,contract,95000,Talent Specialist,72,1,contract_shift,none
+Evan,Hall,28,Finance,contract,117500,Senior Accountant,98,0,baseline_shift,none
+Kabelo,Berg,58,Ops,contract,111500,Logistics Manager,26,0,category_encoding_noise,inconsistent_department
+Mina,Diallo,36,Sales,permanent,113500,Sales Executive,20,0,baseline_shift,none
+Amara,Adeyemi,33,Marketing,permanent,83000,Brand Specialist,8,1,baseline_shift,none
+Ivy,Lee,20,Support-Team,contract,56000,Service Coordinator,13,0,category_encoding_noise,inconsistent_department
+Mohau,Mthembu,34,HR,contract,95000,Talent Specialist,72,1,duplicate_record,duplicate_name_and_features
+Nomsa,Chen,60,Engineering,contract,90500,Senior Software Engineer,26,0,older_contract,none
+Lwazi,Adeyemi,28,Engineering,contract,37000,QA Engineer,1,0,contradictory_risk_profile,contradictory_profile
+Boitumelo,Mokoena,56,Marketing,permanent,91000,Marketing Strategist,35,1,label_noise_conflict,label_noise
+Grace,Smith,38,Support,permanent,107500,Support Specialist,121,0,baseline_shift,none
+Dante,Nkosi,63,Support,contract,750000,Support Advisor,122,1,extreme_income_outlier,income_outlier
+Jonas,Adeyemi,63,Operations,contract,89500,Senior Planner,131,0,older_contract,none
+Sipho,Sithole,42,Sales,contract,84500,Sales Executive,11,0,short_tenure_contract,none
+Maya,Turner,35,Finance,contract,999999,Senior Accountant,93,0,extreme_income_outlier,income_outlier
+Andile,Sithole,21,Engineering,permanent,133000,Senior Software Engineer,-24,0,extreme_tenure_outlier,tenure_outlier
+Owen,Walker,55,Engineering,contract,132000,Software Architect,60,0,baseline_shift,none
+Yara,Motaung,47,Engineering,permanent,98000,Software Engineer,71,1,label_noise_conflict,label_noise
+Nora,Turner,22,Marketing,permanent,86000,Brand Specialist,47,1,baseline_shift,none
+Daniel,Mokoena,29,finance,permanent,115500,Senior Accountant,83,0,category_encoding_noise,inconsistent_department
+Marco,Moretti,23,HR,contract,70500,HR Business Partner,14,0,label_noise_conflict,label_noise
+Layla,Adeyemi,53,Operations,contract,58000,Senior Planner,17,0,baseline_shift,none
+Mohau,Mokoena,57,Finance,contract,113500,Senior Accountant,33,1,contract_shift,none
+Naledi,Walker,54,Sales,permanent,114000,Account Manager,30,1,label_noise_conflict,label_noise
+Tebogo,Nkosi,48,Marketing,permanent,133000,Marketing Manager,161,1,duplicate_record,duplicate_name_and_features
+Maya,Sithole,59,Finance,permanent,102000,Senior Accountant,59,0,older_permanent,none
+Sibusiso,Rossi,21,Engineering,contract,102000,Software Engineer,35,0,baseline_shift,none
+Tariq,Johnson,27,Support,contract,84500,Technical Support,100,1,label_noise_conflict,label_noise
+Theo,Zulu,64,Finance,contract,160000,Finance Director,113,1,label_noise_conflict,label_noise
+Marco,Petrov,24,Support,permanent,73000,Technical Support,18,0,baseline_shift,none
+Karabo,Reed,17,Marketing,permanent,102000,Brand Specialist,49,0,invalid_age_range,age_outlier
+Leo,Martin,59,HR,permanent,107500,Talent Specialist,63,0,older_permanent,none
+Sibusiso,Maphosa,39,Marketing,contract,81000,Brand Specialist,59,0,baseline_shift,none
+Tumelo,Molefe,62,Operations,permanent,90500,Logistics Manager,59,1,label_noise_conflict,label_noise
+Sibusiso,Pillay,55,HR,permanent,178500,HR Director,149,1,contradictory_risk_profile,contradictory_profile
+Lerato,Molefe,59,Finance,permanent,153000,Finance Manager,73,0,older_permanent,none
+Aisha,Motaung,32,Engineering,permanent,67500,Platform Engineer,40,0,baseline_shift,none
+Lerato,Diallo,21,MKTG,contract,82000,Brand Specialist,5,1,category_encoding_noise,inconsistent_department
+Daniel,Moretti,37,Operations,permanent,143500,Operations Lead,117,0,high_income_long_tenure,none
+Mohau,Martin,43,Finance,contract,144500,Finance Manager,171,0,high_income_long_tenure,none
+Tumelo,Martin,21,Marketing,contract,34000,Content Assistant,4,0,contradictory_risk_profile,contradictory_profile
+Yara,Mokoena,40,Support,permanent,83500,Technical Support,21,0,baseline_shift,none
+Nia,Young,26,Engineering,permanent,,Software Engineer,61,0,missing_financial_feature,missing_income
+Fatima,Kamau,34,Engineering,contract,109500,Software Engineer,4,1,short_tenure_contract,none
+Rina,Sithole,52,Engineering,contract,133500,Software Architect,125,0,high_income_long_tenure,none
+Sibusiso,Lee,21,HR,contract,121000,Talent Specialist,28,0,baseline_shift,none
+Amahle,Thompson,49,Operations,permanent,138000,Operations Lead,159,0,high_income_long_tenure,none
+Amahle,Das,23,Marketing,permanent,73000,Brand Specialist,42,0,baseline_shift,none
+Evan,Das,49,HR,contract,135500,HR Manager,175,0,high_income_long_tenure,none
+Grace,Patel,51,Sales,contract,,Regional Sales Manager,58,0,missing_financial_feature,missing_income
+Karabo,Walker,41,Operations,contract,90000,Logistics Manager,97,1,label_noise_conflict,label_noise
+Palesa,Lee,27,Sales,contract,115000,Sales Executive,43,1,contract_shift,none
+Amahle,Mabena,34,engineering,permanent,101000,Software Engineer,52,0,category_encoding_noise,inconsistent_department
+Hana,Naidoo,64,Engineering,,124500,Software Architect,57,1,missing_employment_feature,missing_contract_type
+Aisha,Johnson,47,Sales,permanent,119500,Sales Executive,13,0,high_income_short_tenure,none
+Mina,Adeyemi,125,Engineering,permanent,77000,Platform Engineer,7,0,invalid_age_range,age_outlier
+Layla,Young,27,Operations,contract,35500,Operations Coordinator,2,0,contradictory_risk_profile,contradictory_profile
+Karabo,Smith,25,Support,,83500,Technical Support,28,1,missing_employment_feature,missing_contract_type
+Lwazi,Das,32,Sales,permanent,,Account Manager,88,0,missing_financial_feature,missing_income
+Amara,Petrov,27,Sales,contract,39500,Sales Associate,5,0,contradictory_risk_profile,contradictory_profile
+Ben,Evans,24,HR,contract,26000,HR Coordinator,2,0,contradictory_risk_profile,contradictory_profile
+Noel,Mabena,29,Operations,permanent,750000,Logistics Manager,117,1,extreme_income_outlier,income_outlier
+Sibusiso,Johnson,57,Support,contract,9500,Technical Support,139,0,extreme_income_outlier,income_outlier
+Rina,Moretti,42,Engineering,contract,126000,Software Architect,126,0,high_income_long_tenure,none
+Amahle,Sithole,32,Marketing,permanent,,Brand Specialist,64,0,missing_financial_feature,missing_income
+Evan,Msimang,52,Operations,contract,123500,Operations Lead,161,1,duplicate_record,duplicate_name_and_features
+Sibusiso,Nguyen,28,Operations,contract,30500,Operations Coordinator,7,0,contradictory_risk_profile,contradictory_profile
+Tariq,Zulu,40,Operations,contract,65000,Senior Planner,8,0,short_tenure_contract,none
+Sipho,Maseko,56,Engineering,permanent,143000,Software Architect,103,0,older_permanent,none
+Luca,Martin,63,Marketing,permanent,115000,Marketing Strategist,145,0,retirement_risk,none
+Leo,Sithole,31,Engineering,permanent,,Platform Engineer,12,0,missing_financial_feature,missing_income
+Yara,Mensah,62,Finance,permanent,177000,Finance Director,179,0,retirement_risk,none
+Nandi,Dlamini,25,Finance,permanent,92000,Financial Analyst,69,0,baseline_shift,none
+Yara,Adeyemi,23,Operations,permanent,103000,Senior Planner,22,0,baseline_shift,none
+Amina,Alvarez,105,HR,contract,57500,HR Advisor,31,0,invalid_age_range,age_outlier
+Keitumetse,Mthembu,62,HR,permanent,127500,HR Manager,91,0,older_permanent,none
+Khaya,Nguyen,51,Engineering,permanent,128000,Software Architect,158,0,high_income_long_tenure,none
+Lesedi,Adams,49,Marketing,permanent,137000,Marketing Manager,143,0,high_income_long_tenure,none
+Theo,Nguyen,39,Support,permanent,57000,Service Coordinator,18,0,baseline_shift,none
+Ben,Shah,62,Sales,permanent,91500,Account Manager,49,0,label_noise_conflict,label_noise
+Theo,Berg,44,HR,permanent,153000,HR Manager,176,0,high_income_long_tenure,none
+Nia,Mensah,56,Engineering,,113500,Senior Software Engineer,116,0,missing_employment_feature,missing_contract_type
+Tariq,Chirwa,21,HR,contract,,HR Business Partner,9,1,missing_financial_feature,missing_income
+Mina,Maphosa,46,HR,permanent,92500,Talent Specialist,111,0,baseline_shift,none
+Nandi,Thompson,38,HR,contract,110000,Talent Specialist,142,1,contract_shift,none
+Layla,Moyo,34,Operations,contract,86500,Senior Planner,119,0,baseline_shift,none
+Noel,Das,31,Operations,,90500,Senior Planner,18,0,missing_employment_feature,missing_contract_type
+Lwazi,Okeke,55,Support,permanent,750000,Support Advisor,164,0,extreme_income_outlier,income_outlier
+Sofia,Patel,60,Operations,contract,129500,Operations Lead,66,1,older_contract,none
+Keitumetse,Molefe,38,Marketing,permanent,9500,Marketing Manager,142,0,extreme_income_outlier,income_outlier
+Palesa,Mensah,31,HR,permanent,135500,HR Manager,146,0,high_income_long_tenure,none
+Hana,Mensah,64,HR,permanent,9500,HR Manager,127,0,extreme_income_outlier,income_outlier
+Keitumetse,Diallo,56,Operations,permanent,114000,Logistics Manager,169,0,older_permanent,none
+Nia,Okafor,56,HR,permanent,1250000,Talent Specialist,28,0,extreme_income_outlier,income_outlier
+Ivy,Msimang,65,Marketing,permanent,121000,Marketing Manager,134,0,retirement_risk,none
+Nia,Botha,44,Marketing,contract,100000,Marketing Strategist,428,0,impossible_tenure_for_age,impossible_tenure_age
+Sofia,Ali,21,Operations,,86500,Senior Planner,4,0,missing_employment_feature,missing_contract_type
+Noel,Thompson,54,Support,permanent,142500,Support Advisor,138,1,label_noise_conflict,label_noise
+Lwazi,Okafor,57,Engineering,permanent,126500,Software Architect,8,0,older_permanent,none
+Leo,Maphosa,33,Finance,contract,94000,Senior Accountant,72,0,baseline_shift,none
+Amina,Motaung,62,Operations,permanent,108500,Logistics Manager,12,0,duplicate_record,duplicate_name_and_features
+Aisha,Turner,31,Operations,contract,,Logistics Manager,98,0,missing_financial_feature,missing_income
+Nora,Khumalo,40,Finance,,101500,Senior Accountant,94,0,missing_employment_feature,missing_contract_type
+Refilwe,Adeyemi,47,Engineering,permanent,161000,Principal Engineer,134,0,high_income_long_tenure,none
+Samira,Okafor,22,Sales,contract,64000,Account Executive,9,1,young_contract,none
+Karabo,Young,26,Support,permanent,64000,Service Coordinator,26,1,baseline_shift,none
+Grace,Ndlovu,60,Support-Team,contract,106000,Support Specialist,149,0,category_encoding_noise,inconsistent_department
+Mohau,Smith,41,Operations,permanent,121000,Operations Lead,172,1,baseline_shift,none
+Nandi,Adeyemi,30,HR,permanent,64500,HR Advisor,20,1,baseline_shift,none
+Andile,Petrov,49,Engineering,permanent,97500,Senior Software Engineer,74,0,label_noise_conflict,label_noise
+Lwazi,Mabena,28,Support,contract,97000,Support Specialist,85,1,label_noise_conflict,label_noise
+Andile,Johnson,26,Engineering,permanent,97000,Senior Software Engineer,83,0,baseline_shift,none
+Thando,Reed,46,Marketing,contract,65500,Brand Specialist,60,1,contract_shift,none
+Zuri,Mabena,28,Engineering,permanent,74500,Platform Engineer,44,1,label_noise_conflict,label_noise
+Theo,Scott,47,Sales,permanent,70500,Sales Executive,74,0,baseline_shift,none
+Priya,Alvarez,91,Finance,contract,93000,Financial Analyst,5,0,invalid_age_range,age_outlier
+Lethabo,Walker,32,Sales,permanent,88500,Sales Executive,55,1,baseline_shift,none
+Ivy,Wilson,53,Operations,permanent,120000,Operations Lead,69,0,baseline_shift,none
+Rina,Botha,44,Marketing,contract,102000,Marketing Strategist,130,1,contract_shift,none
+Theo,Nkosi,55,HR,contract,90500,Talent Specialist,17,0,label_noise_conflict,label_noise
+Malik,Mokoena,48,Marketing,contract,118500,Marketing Strategist,144,0,baseline_shift,none
+Lesedi,Moyo,31,HR,permanent,82500,HR Business Partner,48,0,baseline_shift,none
+Sibusiso,Alvarez,29,Marketing,contract,88000,Brand Specialist,50,0,baseline_shift,none
+Mpho,Mokoena,42,Engineering,contract,113000,Senior Software Engineer,102,0,baseline_shift,none
+Marco,Mensah,32,Marketing,contract,107000,Marketing Strategist,82,0,baseline_shift,none
+Thando,Ali,21,HR,permanent,60500,HR Advisor,22,0,baseline_shift,none
+Keitumetse,Mensah,31,Marketing,permanent,62000,Campaign Analyst,46,0,baseline_shift,none
+Amina,Reed,45,Support,contract,99000,Support Specialist,94,0,label_noise_conflict,label_noise
+Lwazi,Khumalo,20,Finance,contract,83500,Financial Analyst,480,0,extreme_tenure_outlier,tenure_outlier
+Keitumetse,Moretti,63,Finance,permanent,127000,Finance Manager,668,0,impossible_tenure_for_age,impossible_tenure_age
+Nia,Msimang,37,Operations,permanent,126500,Operations Lead,166,0,high_income_long_tenure,none
+Luca,Okafor,24,Engineering,permanent,91500,Software Engineer,66,0,baseline_shift,none
+Sibusiso,Nguyen,31,Engineering,permanent,101000,Senior Software Engineer,131,0,baseline_shift,none
+Noel,Shah,25,Sales,permanent,90000,Sales Executive,52,0,baseline_shift,none
+Malik,Hall,56,Support,permanent,115000,Support Specialist,174,1,label_noise_conflict,label_noise
+Theo,Mabena,49,Marketing,contract,114500,Marketing Strategist,143,0,baseline_shift,none
+Ayanda,Botha,50,Finance,permanent,127500,Finance Manager,90,0,high_income_long_tenure,none
+Lethabo,Diallo,40,Sales,permanent,121000,Account Manager,10,1,label_noise_conflict,label_noise
+Theo,Young,30,Support,permanent,750000,Technical Support,50,0,extreme_income_outlier,income_outlier
+Aisha,Diallo,17,Operations,contract,96000,Senior Planner,5,1,invalid_age_range,age_outlier
+Andile,Adams,58,Support,permanent,141500,Support Advisor,57,0,older_permanent,none
+Naledi,Adeyemi,27,Support,contract,32000,Support Associate,6,0,contradictory_risk_profile,contradictory_profile
+Palesa,Chirwa,36,Sales,,108500,Sales Executive,64,0,missing_employment_feature,missing_contract_type
+Andile,Mthembu,63,Support,permanent,92500,Support Specialist,36,0,older_permanent,none
+Tariq,Das,35,Engineering,permanent,127000,Software Architect,136,0,high_income_long_tenure,none
+Rina,Alvarez,61,Engineering,contract,123000,Software Architect,97,0,older_contract,none
+Priya,Mokoena,61,Operations,contract,102500,Logistics Manager,29,0,older_contract,none
+Keitumetse,Mensah,29,Operations,contract,109000,Logistics Manager,76,1,contract_shift,none
+Luca,Smith,24,Operations,permanent,64000,Process Analyst,15,0,baseline_shift,none
+Owen,Pillay,36,Operations,permanent,88000,Senior Planner,16,0,baseline_shift,none
+Keitumetse,Reed,20,Sales,permanent,112500,Sales Executive,10,1,baseline_shift,none
+Amara,Maseko,61,Finance,permanent,130000,Finance Manager,101,0,older_permanent,none
+Tumelo,Okeke,50,Operations,permanent,96000,Logistics Manager,81,0,baseline_shift,none
+Samira,Mahlangu,26,Sales,permanent,999999,Sales Executive,54,1,extreme_income_outlier,income_outlier
+Keitumetse,Dlamini,22,Support,permanent,44500,Support Associate,480,1,extreme_tenure_outlier,tenure_outlier
+Sofia,Thompson,125,Support,permanent,102000,Support Specialist,175,0,invalid_age_range,age_outlier
+Keitumetse,Martin,44,HR,permanent,80500,HR Business Partner,82,0,baseline_shift,none
+Dante,Berg,48,FINANCE,contract,124500,Senior Accountant,69,0,category_encoding_noise,inconsistent_department
+Amahle,Adams,41,Support,contract,85000,Technical Support,108,1,contract_shift,none
+Thando,Hall,36,Sales,permanent,5000,Account Executive,46,1,extreme_income_outlier,income_outlier
+Aisha,Mahlangu,22,Finance,contract,85000,Financial Analyst,11,0,young_contract,none
+Caleb,Ali,20,Engineering,permanent,91500,Software Engineer,23,1,label_noise_conflict,label_noise
+Noel,Turner,30,Engineering,contract,9500,Senior Software Engineer,99,1,extreme_income_outlier,income_outlier
+Mohau,Smith,41,Operations,permanent,115000,Logistics Manager,143,0,baseline_shift,none
+Refilwe,Diallo,61,Finance,permanent,176500,Finance Director,163,0,retirement_risk,none
+Andile,Moretti,63,HR,contract,129000,HR Manager,114,0,older_contract,none
+Owen,Adams,65,Support,contract,112500,Support Specialist,62,1,older_contract,none
+Sibusiso,Berg,47,Finance,permanent,131500,Senior Accountant,67,0,baseline_shift,none
+Ivy,Chirwa,36,Engineering,permanent,126000,Senior Software Engineer,50,1,baseline_shift,none
+Ben,Mokoena,42,Sales,permanent,139000,Regional Sales Manager,154,0,high_income_long_tenure,none
+Owen,Kamau,37,Operations,permanent,138000,Operations Lead,167,0,high_income_long_tenure,none
+Kabelo,Diallo,59,Engineering,permanent,154000,Software Architect,72,1,label_noise_conflict,label_noise
+Nia,Mensah,25,Sales,contract,59500,Account Executive,57,1,contract_shift,none
+Tariq,Chirwa,47,Marketing,contract,,Brand Specialist,46,0,missing_financial_feature,missing_income
+Luca,Thompson,30,Finance,contract,104500,Financial Analyst,51,0,baseline_shift,none
+Layla,Dlamini,24,Engineering,permanent,110500,Software Engineer,44,1,label_noise_conflict,label_noise
+Refilwe,Motaung,39,Marketing,contract,135000,Marketing Manager,115,0,high_income_long_tenure,none
+Leo,Martin,29,Operations,contract,93500,Senior Planner,49,1,contract_shift,none
+Ben,Thompson,53,Engineering,permanent,131000,Software Architect,26,0,baseline_shift,none
+Amara,Chirwa,23,Marketing,contract,63500,Campaign Analyst,59,0,baseline_shift,none
+Priya,Berg,43,HR,contract,100500,Talent Specialist,111,1,contract_shift,none
+Marco,Kim,27,Sales,contract,5000,Sales Executive,51,1,extreme_income_outlier,income_outlier
+Lethabo,Mensah,57,Finance,contract,157500,Finance Director,614,0,impossible_tenure_for_age,impossible_tenure_age
+Mpho,Martin,60,Engineering,permanent,151000,Software Architect,108,0,older_permanent,none
+Boitumelo,Sithole,28,Finance,permanent,83000,Financial Analyst,22,0,baseline_shift,none
+Thando,Meyer,62,HR,permanent,101000,Talent Specialist,61,0,older_permanent,none
+Sipho,Young,23,Marketing,permanent,49500,Campaign Analyst,30,1,label_noise_conflict,label_noise
+Naledi,Petrov,45,operations,permanent,122500,Operations Lead,166,0,category_encoding_noise,inconsistent_department
+Leo,Young,38,Engineering,permanent,127000,Software Architect,110,0,high_income_long_tenure,none
+Priya,Maphosa,23,Sales,contract,65500,Sales Executive,6,1,young_contract,none
+Andile,Rossi,62,Marketing,permanent,109000,Marketing Strategist,157,0,retirement_risk,none
+Luca,Petrov,32,Finance,permanent,77000,Financial Analyst,2,0,baseline_shift,none
+Mina,Meyer,39,Finance,permanent,103500,Financial Analyst,367,0,impossible_tenure_for_age,impossible_tenure_age
+Refilwe,Moretti,28,Engineering,permanent,124500,Software Architect,89,0,baseline_shift,none
+Daniel,Martin,27,Sales,contract,,Sales Executive,5,1,missing_financial_feature,missing_income
+Mpho,Wilson,38,Engineering,contract,142500,Software Architect,123,0,high_income_long_tenure,none
+Amara,Thompson,50,Support,permanent,99500,Support Specialist,541,0,impossible_tenure_for_age,impossible_tenure_age
+Neo,Dlamini,-4,Engineering,permanent,104500,Senior Software Engineer,10,0,invalid_age_range,age_outlier
+Keitumetse,Johnson,43,Finance,permanent,98500,Senior Accountant,80,0,baseline_shift,none
+Amara,Wilson,56,Finance,permanent,147000,Finance Manager,89,0,older_permanent,none
+Leo,Naidoo,20,Marketing,contract,82000,Brand Specialist,13,1,contract_shift,none
+Fatima,Moretti,57,Sales,permanent,140500,Regional Sales Manager,132,0,older_permanent,none
+Tumelo,Maseko,28,HR,contract,129000,HR Manager,88,1,label_noise_conflict,label_noise
+Luca,Naidoo,54,HR,permanent,143000,HR Manager,66,0,baseline_shift,none
+Maya,Kamau,34,Operations,permanent,98500,Senior Planner,12,0,baseline_shift,none
+Amahle,Ali,53,Engineering,permanent,115500,Senior Software Engineer,37,1,label_noise_conflict,label_noise
+Layla,Meyer,48,Sales,,139000,Regional Sales Manager,117,0,missing_employment_feature,missing_contract_type
+Owen,Sithole,34,Operations,permanent,140500,Operations Lead,149,0,high_income_long_tenure,none
+Caleb,Moyo,36,Engineering,permanent,113500,Software Engineer,62,0,baseline_shift,none
+Ben,Mensah,52,Sales,contract,125500,Regional Sales Manager,148,0,duplicate_record,duplicate_name_and_features
+Mina,Berg,65,Marketing,permanent,86500,Brand Specialist,56,0,older_permanent,none
+Noel,Molefe,31,Support,permanent,104500,Support Specialist,140,1,label_noise_conflict,label_noise
+Karabo,Adams,63,Finance,permanent,123000,Finance Manager,25,0,older_permanent,none
+Mpho,Diallo,31,Engineering,permanent,83000,Platform Engineer,24,0,baseline_shift,none
+Refilwe,Alvarez,51,Support,permanent,121500,Support Advisor,137,0,duplicate_record,duplicate_name_and_features
+Karabo,Thompson,22,Support,contract,85000,Technical Support,2,1,young_contract,none
+Nomsa,Shah,36,Operations,permanent,151000,Operations Lead,154,1,label_noise_conflict,label_noise
+Kabelo,Mahlangu,27,Support,contract,66500,Technical Support,63,1,contract_shift,none
+Refilwe,Rossi,48,Finance,permanent,114500,Senior Accountant,93,1,baseline_shift,none
+Layla,Naidoo,25,Operations,contract,100000,Senior Planner,46,0,baseline_shift,none
+Andile,Mthembu,63,Support,permanent,92500,Support Specialist,36,0,duplicate_record,duplicate_name_and_features
+Kagiso,Naidoo,64,HR,permanent,126000,HR Manager,6,0,older_permanent,none
+Amina,Diallo,39,Sale,permanent,97500,Sales Executive,32,1,category_encoding_noise,inconsistent_department
+Nora,Pillay,65,Engineering,contract,137000,Software Architect,111,0,older_contract,none
+Elias,Okeke,51,Marketing,permanent,,Brand Specialist,130,0,missing_financial_feature,missing_income
+Karabo,Zulu,40,Sales,permanent,100500,Sales Executive,50,0,baseline_shift,none
+Lethabo,Reed,45,Sales,contract,112500,Sales Executive,55,1,contract_shift,none
+Maya,Kamau,58,Sales,contract,134500,Regional Sales Manager,96,0,high_income_long_tenure,none
+Jonas,Nguyen,26,Sales,permanent,90500,Sales Executive,16,0,label_noise_conflict,label_noise
+Sibusiso,Chen,39,Support,permanent,136000,Support Advisor,156,0,high_income_long_tenure,none
+Tumelo,Meyer,33,Finance,permanent,101000,Senior Accountant,145,0,baseline_shift,none
+Lethabo,Alvarez,37,HR,contract,66500,HR Business Partner,142,0,baseline_shift,none
+Aisha,Ali,36,Finance,permanent,126500,Senior Accountant,33,0,baseline_shift,none
+Luca,Berg,32,Sales,permanent,5000,Sales Executive,69,0,extreme_income_outlier,income_outlier
+Evan,Wilson,26,HR,contract,30500,HR Coordinator,6,0,contradictory_risk_profile,contradictory_profile
+Mina,Mthembu,51,Operations,permanent,104500,Logistics Manager,14,0,baseline_shift,none
+Ben,Kamau,49,Support,permanent,79000,Technical Support,48,0,baseline_shift,none
+Dante,Moyo,24,Sales,,65000,Sales Executive,35,0,missing_employment_feature,missing_contract_type
+Grace,Young,58,Marketing,permanent,150500,Marketing Manager,141,0,older_permanent,none
+Daniel,Naidoo,125,Support,permanent,49500,Service Coordinator,55,0,invalid_age_range,age_outlier
+Daniel,Moretti,56,Sales,permanent,83500,Sales Executive,17,0,older_permanent,none
+Nora,Molefe,20,Operations,contract,89000,Senior Planner,23,0,baseline_shift,none
+Noel,Johnson,62,Operations,permanent,102500,Logistics Manager,118,0,older_permanent,none
+Nandi,Adeyemi,30,HR,permanent,64500,HR Advisor,20,1,duplicate_record,duplicate_name_and_features
+Amina,Mensah,41,Finance,permanent,138500,Finance Manager,98,0,high_income_long_tenure,none
+Tariq,Petrov,65,Engineering,contract,5000,Software Architect,124,0,extreme_income_outlier,income_outlier
+Lesedi,Kamau,50,Finance,permanent,145000,Finance Manager,108,1,contradictory_risk_profile,contradictory_profile
+Yara,Evans,57,Marketing,permanent,106000,Marketing Strategist,15,1,older_permanent,none
+Amahle,Das,23,Marketing,permanent,73000,Brand Specialist,42,0,duplicate_record,duplicate_name_and_features
+Fatima,Evans,56,Finance,contract,145500,Finance Manager,100,0,high_income_long_tenure,none
+Evan,Moyo,63,Support,contract,127500,Support Advisor,720,0,extreme_tenure_outlier,tenure_outlier
+Khaya,Evans,37,HR,permanent,131000,HR Manager,154,1,label_noise_conflict,label_noise
+Karabo,Turner,53,Engineering,,142500,Software Architect,104,0,missing_employment_feature,missing_contract_type
+Leo,Mokoena,17,Engineering,permanent,126000,Senior Software Engineer,16,1,invalid_age_range,age_outlier
+Dante,Mokoena,46,Sales,permanent,65000,Sales Executive,43,1,label_noise_conflict,label_noise
+Samira,Das,36,Support,permanent,9500,Technical Support,75,0,extreme_income_outlier,income_outlier
+Ben,Zulu,40,Engineering,permanent,151000,Senior Software Engineer,0,0,extreme_tenure_outlier,tenure_outlier
+Naledi,Mensah,53,Engineering,contract,109500,Senior Software Engineer,30,0,baseline_shift,none
+Tariq,Diallo,50,Sales,permanent,96000,Account Manager,2,0,baseline_shift,none
+Refilwe,Ndlovu,63,Engineering,permanent,129500,Software Architect,104,0,older_permanent,none
+Mohau,Msimang,33,Engineering,contract,142000,Software Architect,149,0,high_income_long_tenure,none
+Tumelo,Molefe,53,HR,permanent,78500,HR Business Partner,11,0,baseline_shift,none
+Amara,Nguyen,56,Operations,permanent,140000,Operations Lead,114,0,older_permanent,none
+Amara,Chen,55,Engineering,permanent,181000,Principal Engineer,121,1,contradictory_risk_profile,contradictory_profile
+Evan,Okafor,35,Support,permanent,750000,Support Specialist,161,0,extreme_income_outlier,income_outlier
+Mina,Motaung,60,Sales,contract,750000,Sales Executive,5,1,extreme_income_outlier,income_outlier
+Priya,Walker,58,Engineering,contract,132000,Software Architect,83,1,high_income_long_tenure,none
+Samira,Wilson,52,Operations,permanent,149000,Operations Lead,105,0,high_income_long_tenure,none
+Yara,Pillay,52,Operations,permanent,,Logistics Manager,84,0,missing_financial_feature,missing_income
+Mpho,Motaung,45,Operations,contract,90500,Senior Planner,2,1,short_tenure_contract,none
+Nomsa,Lee,62,Operations,permanent,128500,Operations Lead,63,0,older_permanent,none
+Owen,Chen,36,MKTG,contract,79000,Brand Specialist,100,1,category_encoding_noise,inconsistent_department
+Zuri,Scott,44,Engineering,,150000,Software Architect,137,0,missing_employment_feature,missing_contract_type
+Caleb,Mabena,65,Operations,contract,1250000,Logistics Manager,56,0,extreme_income_outlier,income_outlier
+Refilwe,Okeke,57,Operations,permanent,158000,Operations Director,105,0,older_permanent,none
+Sibusiso,Dlamini,22,Support,permanent,58000,Service Coordinator,20,0,baseline_shift,none
+Evan,Turner,51,Marketing,,99000,Marketing Strategist,83,0,missing_employment_feature,missing_contract_type
+Caleb,Scott,47,Operations,contract,116000,Logistics Manager,112,0,baseline_shift,none
+Ayanda,Botha,30,Marketing,permanent,96000,Brand Specialist,68,0,baseline_shift,none
+Aisha,Naidoo,-4,Operations,permanent,127000,Operations Lead,60,0,invalid_age_range,age_outlier
+Owen,Sithole,34,Operations,permanent,140500,Operations Lead,149,0,duplicate_record,duplicate_name_and_features
+Tumelo,Kamau,-4,Sales,contract,147000,Account Manager,55,1,invalid_age_range,age_outlier
+Maya,Mahlangu,61,Engineering,contract,126500,Software Architect,88,0,older_contract,none
+Owen,Mokoena,32,Engineering,permanent,117000,Senior Software Engineer,92,1,label_noise_conflict,label_noise
+Mina,Patel,31,Finance,permanent,111000,Financial Analyst,11,0,baseline_shift,none
+Tariq,Maseko,40,HR,,94500,HR Business Partner,67,0,missing_employment_feature,missing_contract_type
+Yara,Martin,38,Support,permanent,83500,Technical Support,-3,0,extreme_tenure_outlier,tenure_outlier
+Boitumelo,Ali,59,Engineering,permanent,124500,Software Architect,133,0,older_permanent,none
+Thando,Moyo,44,Operations,permanent,130000,Logistics Manager,70,1,label_noise_conflict,label_noise
+Rina,Smith,55,Marketing,permanent,125000,Marketing Manager,174,0,older_permanent,none
+Caleb,Mensah,59,Finance,permanent,,Finance Manager,55,1,missing_financial_feature,missing_income
+Zanele,Shah,30,Support,permanent,106000,Technical Support,41,0,baseline_shift,none
+Maya,Okafor,57,Marketing,contract,106000,Marketing Strategist,83,1,contract_shift,none
+Boitumelo,Adeyemi,34,Marketing,permanent,99000,Brand Specialist,349,0,impossible_tenure_for_age,impossible_tenure_age
+Lesedi,Kim,20,Operations,permanent,73000,Senior Planner,1,1,label_noise_conflict,label_noise
+Evan,Berg,43,Engineering,permanent,150500,Software Architect,156,0,high_income_long_tenure,none
+Ayanda,Diallo,23,Engineering,permanent,91500,Software Engineer,52,0,baseline_shift,none
+Tariq,Chen,53,Engineering ,contract,83500,Software Engineer,6,1,category_encoding_noise,inconsistent_department
+Noel,Reed,25,Support,,50000,Service Coordinator,24,0,missing_employment_feature,missing_contract_type
+Thando,Okafor,24,Marketing,permanent,106000,Brand Specialist,15,0,label_noise_conflict,label_noise
+Owen,Sithole,28,Support,contract,91000,Support Specialist,109,1,contract_shift,none
+Sibusiso,Mabena,39,Engineering,permanent,117500,Software Engineer,19,0,high_income_short_tenure,none
+Maya,Evans,58,Engineering,contract,134500,Software Architect,175,0,high_income_long_tenure,none
+Aisha,Mensah,25,Sales,permanent,71000,Sales Executive,58,0,baseline_shift,none
+Lerato,Khumalo,62,Marketing,permanent,111000,Marketing Strategist,132,1,label_noise_conflict,label_noise
+Samira,Walker,28,Finance,contract,104000,Senior Accountant,242,0,impossible_tenure_for_age,impossible_tenure_age
+Amara,Lee,64,Support,contract,115000,Support Specialist,104,1,label_noise_conflict,label_noise
+Nandi,Mokoena,58,Marketing,permanent,97000,Marketing Strategist,108,0,older_permanent,none
+Jonas,Hall,38,Engineering,contract,137000,Software Architect,147,0,high_income_long_tenure,none
+Tariq,Moretti,43,Operations,contract,116000,Logistics Manager,139,0,baseline_shift,none
+Hana,Kamau,32,Operations,permanent,110500,Logistics Manager,84,0,baseline_shift,none
+Mpho,Mensah,59,Sales,permanent,118500,Account Manager,55,1,label_noise_conflict,label_noise
+Naledi,Adams,38,Sales,permanent,133000,Regional Sales Manager,153,0,high_income_long_tenure,none
+Andile,Patel,28,Engineering,permanent,108500,Senior Software Engineer,84,0,baseline_shift,none
+Lesedi,Garcia,59,Engineering,contract,134000,Software Architect,96,0,high_income_long_tenure,none
+Lethabo,Smith,17,Sales,permanent,110500,Account Manager,33,1,invalid_age_range,age_outlier
+Leo,Ndlovu,38,HR ,contract,115000,Talent Specialist,131,0,category_encoding_noise,inconsistent_department
+Maya,Dlamini,105,Operations,contract,71000,Senior Planner,23,1,invalid_age_range,age_outlier
+Karabo,Meyer,43,HR,,83500,HR Business Partner,26,1,missing_employment_feature,missing_contract_type
+Lwazi,Dlamini,17,Engineering,permanent,124500,Software Architect,104,0,invalid_age_range,age_outlier
+Yara,Mthembu,28,HR,permanent,82000,HR Business Partner,6,1,label_noise_conflict,label_noise
+Palesa,Khumalo,56,Engineering,permanent,137000,Software Architect,2,0,older_permanent,none
+Grace,Okafor,23,engineering,permanent,107500,Software Engineer,40,0,category_encoding_noise,inconsistent_department
+Priya,Kamau,29,Operations,contract,102500,Logistics Manager,88,0,baseline_shift,none
+Karabo,Jacobs,58,Finance,permanent,126500,Finance Manager,33,0,older_permanent,none
+Tumelo,Moyo,42,Finance,,147000,Finance Manager,141,0,missing_employment_feature,missing_contract_type
+Luca,Hall,23,Marketing,contract,33000,Content Assistant,2,0,contradictory_risk_profile,contradictory_profile
+Nora,Okeke,55,Sales,contract,90500,Account Manager,67,1,contract_shift,none
+Marco,Mokoena,64,Finance,permanent,131000,Finance Manager,86,0,older_permanent,none
+Lethabo,Berg,25,Marketing,contract,82000,Brand Specialist,56,1,contract_shift,none
+Khaya,Garcia,50,Support,permanent,5000,Support Specialist,59,0,extreme_income_outlier,income_outlier
+Amara,Rossi,24,Operations,contract,32500,Operations Coordinator,1,0,contradictory_risk_profile,contradictory_profile
+Caleb,Khumalo,49,Sales,permanent,94500,Sales Executive,49,0,baseline_shift,none
+Yara,Kamau,8,Sales,contract,84000,Sales Executive,60,0,invalid_age_range,age_outlier
+Kabelo,Mthembu,58,Engineering,permanent,119500,Senior Software Engineer,3,0,older_permanent,none
+Boitumelo,Adams,52,Support,contract,74000,Technical Support,16,1,contract_shift,none
+Naledi,Smith,51,Finance,permanent,123500,Finance Manager,480,0,extreme_tenure_outlier,tenure_outlier
+Naledi,Mensah,21,Operations,contract,63000,Process Analyst,196,0,impossible_tenure_for_age,impossible_tenure_age
+Ben,Adeyemi,25,HR,permanent,74000,HR Business Partner,8,0,baseline_shift,none
+Amahle,Kim,44,HR,permanent,121500,Talent Specialist,59,0,baseline_shift,none
+Priya,Shah,64,Support,contract,103000,Support Specialist,480,1,extreme_tenure_outlier,tenure_outlier
+Zanele,Mahlangu,57,Engineering,permanent,152000,Software Architect,97,1,label_noise_conflict,label_noise
+Karabo,Rossi,33,Finance,permanent,106500,Senior Accountant,83,0,baseline_shift,none
+Nandi,Petrov,56,Operations,permanent,115500,Logistics Manager,129,0,older_permanent,none
+Mohau,Alvarez,52,Operations,contract,97500,Logistics Manager,174,1,label_noise_conflict,label_noise
+Luca,Kamau,27,Marketing,contract,37500,Content Assistant,1,0,contradictory_risk_profile,contradictory_profile
+Maya,Khumalo,22,HR,contract,24500,HR Coordinator,1,0,contradictory_risk_profile,contradictory_profile
+Thando,Motaung,40,Finance,,132000,Finance Manager,162,1,missing_employment_feature,missing_contract_type
+Sibusiso,Ali,49,Operations,permanent,109500,Senior Planner,23,0,label_noise_conflict,label_noise
+Jonas,Nguyen,20,Engineering,permanent,89000,Platform Engineer,23,0,baseline_shift,none
+Malik,Okeke,34,Sales,permanent,132500,Regional Sales Manager,163,0,high_income_long_tenure,none
+Refilwe,Ndlovu,61,Sales,contract,,Account Manager,65,1,missing_financial_feature,missing_income
+Owen,Khumalo,23,Support,permanent,101500,Technical Support,60,0,baseline_shift,none
+Samira,Botha,45,Engineering,permanent,83500,Platform Engineer,56,0,baseline_shift,none
+Leo,Mabena,21,Sales,permanent,107000,Sales Executive,20,0,baseline_shift,none
+Priya,Alvarez,51,Operations,permanent,125500,Operations Lead,0,0,extreme_tenure_outlier,tenure_outlier
+Kabelo,Turner,25,Operations,contract,105000,Senior Planner,6,1,young_contract,none
+Kabelo,Das,20,Finance,permanent,999999,Financial Analyst,7,0,extreme_income_outlier,income_outlier
+Mina,Hall,49,Engineering,permanent,144000,Software Architect,127,1,label_noise_conflict,label_noise
+Ayanda,Berg,56,Marketing,contract,,Marketing Manager,90,0,missing_financial_feature,missing_income
+Dante,Mokoena,50,HR,permanent,104000,Talent Specialist,720,0,extreme_tenure_outlier,tenure_outlier
+Noel,Ali,35,Operations,permanent,,Operations Lead,176,0,missing_financial_feature,missing_income
+Lesedi,Turner,36,Operations,contract,163500,Operations Director,135,0,high_income_long_tenure,none
+Karabo,Mensah,25,Operations,contract,26500,Operations Coordinator,1,0,contradictory_risk_profile,contradictory_profile
+Jonas,Martin,44,Sales,permanent,86000,Sales Executive,76,1,baseline_shift,none
+Lesedi,Khumalo,49,support,permanent,114000,Technical Support,33,0,category_encoding_noise,inconsistent_department
+Lesedi,Shah,31,Marketing,contract,58000,Campaign Analyst,9,0,short_tenure_contract,none
+Naledi,Naidoo,59,Sales,permanent,152000,Regional Sales Manager,137,0,older_permanent,none
+Nandi,Khumalo,50,Support,contract,86500,Technical Support,512,0,impossible_tenure_for_age,impossible_tenure_age
+Amara,Mabena,24,Marketing,permanent,60500,Campaign Analyst,12,0,baseline_shift,none
+Palesa,Turner,-4,Engineering,permanent,134500,Software Architect,110,0,invalid_age_range,age_outlier
+Lerato,Alvarez,48,Support,contract,55000,Service Coordinator,27,0,baseline_shift,none
+Zanele,Mthembu,34,Engineering,permanent,92000,Senior Software Engineer,88,0,baseline_shift,none

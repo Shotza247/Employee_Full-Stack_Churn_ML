@@ -1,0 +1,34 @@
+first_name,last_name,age,department,contract_type,annual_income,job_title,tenure_months,churn,scenario,data_quality_issue
+Zuri,Maphosa,22,Support,contract,28000,Support Associate,3,1,young_contract,none
+Kabelo,Ndlovu,58,Operations,permanent,185000,Operations Director,144,0,high_income_long_tenure,none
+Amara,Okafor,31,Engineering,contract,42000,Platform Engineer,7,1,low_income_engineering,none
+Luca,Moretti,47,Sales,permanent,53000,Account Manager,18,1,low_income_midcareer,none
+Nia,Thompson,29,Marketing,contract,39000,Campaign Analyst,5,1,young_contract,none
+Elias,Petrov,39,Finance,permanent,132000,Finance Manager,84,0,high_income,none
+Sofia,Alvarez,26,Support,contract,61000,Support Specialist,11,1,short_tenure,none
+Malik,Johnson,34,Engineering,permanent,97000,Data Engineer,28,0,baseline_shift,none
+Hana,Kim,44,HR,permanent,71000,HR Advisor,16,1,low_tenure_midcareer,none
+Theo,Mensah,52,Finance,contract,46000,Payroll Analyst,9,1,older_contract,none
+Maya,Patel,36,Operations,permanent,88000,Process Analyst,52,0,baseline_shift,none
+Jonas,Berg,24,Sales,contract,32000,Sales Associate,2,1,young_contract,none
+Amina,Wilson,41,Engineering,contract,156000,Principal Engineer,96,0,high_income_long_tenure,none
+Noel,Garcia,67,Support,permanent,25000,Support Advisor,180,1,retirement_risk,none
+Layla,Chen,30,Marketing,permanent,118000,Marketing Strategist,13,0,high_income_short_tenure,none
+Owen,Smith,33,Sales,permanent,76000,Sales Executive,39,0,baseline_shift,none
+Fatima,Ali,27,HR,contract,29500,HR Coordinator,4,1,low_income_contract,none
+Evan,Reed,49,Operations,permanent,101000,Operations Lead,22,0,high_income_short_tenure,none
+Tariq,Adams,38,Support,contract,54000,Technical Support,6,1,short_tenure_contract,none
+Ivy,Nguyen,45,Engineering,permanent,110000,Software Architect,110,0,high_income_long_tenure,none
+Samira,Okeke,23,Marketing,contract,18000,Content Assistant,1,1,extreme_low_income,none
+Marco,Rossi,55,Sales,permanent,145000,Regional Director,132,0,high_income_long_tenure,none
+Grace,Lee,32,Finance,contract,68000,Financial Analyst,8,1,short_tenure_contract,none
+Dante,Young,40,Operations,permanent,83000,Logistics Manager,60,0,baseline_shift,none
+Nora,Evans,28,Support,contract,47000,Support Specialist,10,1,short_tenure_contract,none
+Priya,Shah,37,Engineering,permanent,92000,QA Engineer,44,0,baseline_shift,none
+Leo,Turner,61,HR,permanent,59000,HR Business Partner,126,0,older_permanent,none
+Mina,Walker,35,Marketing,contract,73000,Brand Specialist,15,1,contract_shift,none
+Caleb,Martin,43,Sales,permanent,69000,Account Executive,20,1,low_income_midcareer,none
+Rina,Das,25,Finance,contract,51000,Accounting Assistant,3,1,young_contract,none
+Yara,Scott,50,Operations,permanent,128000,Senior Planner,118,0,high_income_long_tenure,none
+Ben,Hall,29,Support,permanent,64000,Service Coordinator,14,0,baseline_shift,none
+Zuri,Maphosa,22,Support,contract,28000,Support Associate,3,1,duplicate_record,duplicate_name_and_features
