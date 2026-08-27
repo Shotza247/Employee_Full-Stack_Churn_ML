@@ -1,0 +1,1501 @@
+,Unnamed: 0,first_name,last_name,age,department,contract_type,job_title,tenure_months,churn,scenario,data_quality_issue,annual_income
+0,0.0,Jonas,Moyo,56.0,,,,36.0,0.0,older_permanent,,762680.0
+1,1.0,,,,Sales,permanent,Sales Executive,118.0,0.0,,none,466530.0
+2,2.0,Samira,,46.0,Engineering,,Senior Software Engineer,,,high_income_short_tenure,none,1368290.0
+3,3.0,,Chen,32.0,,permanent,,64.0,,baseline_shift,none,1433770.0
+4,4.0,,Ali,60.0,Finance,permanent,Payroll Analyst,91.0,,,,166220.0
+5,5.0,Boitumelo,Petrov,25.0,Engineering,permanent,,117.0,,baseline_shift,none,
+6,,Lethabo,Molefe,38.0,Support,,Technical Support,,0.0,baseline_shift,none,
+7,7.0,Yara,Walker,56.0,Support,contract,,11.0,1.0,short_tenure_contract,none,317250.0
+8,8.0,Amara,,,,permanent,Sales Executive,54.0,0.0,,none,662260.0
+9,,,Khumalo,,Operations,permanent,Senior Planner,45.0,0.0,,none,961820.0
+10,10.0,Evan,Adams,,,permanent,HR Coordinator,47.0,,baseline_shift,none,
+11,,Tumelo,Alvarez,28.0,Finance,permanent,Accounting Assistant,12.0,1.0,,none,192630.0
+12,12.0,,Adams,41.0,,permanent,Sales Executive,,,baseline_shift,none,
+13,13.0,Amina,,53.0,Sales,permanent,Sales Executive,21.0,,baseline_shift,none,
+14,,Zanele,Moretti,,Operations,,Senior Planner,,0.0,older_permanent,none,
+15,15.0,,Johnson,41.0,,permanent,Brand Specialist,11.0,0.0,,,1163320.0
+16,16.0,Dante,Maphosa,20.0,Support,permanent,Support Specialist,103.0,0.0,,,1045630.0
+17,17.0,,,39.0,,,Finance Manager,92.0,0.0,,none,
+18,18.0,Nandi,Msimang,19.0,Operations,contract,,5.0,,,none,1163710.0
+19,19.0,Rina,Molefe,41.0,Support,permanent,,81.0,0.0,,none,
+20,20.0,Owen,Chirwa,61.0,,contract,Campaign Analyst,56.0,0.0,older_contract,none,361720.0
+21,21.0,Kabelo,,47.0,Operations,permanent,Operations Coordinator,,0.0,low_income_midcareer,,265550.0
+22,22.0,Caleb,Msimang,55.0,Sales,permanent,Sales Executive,41.0,0.0,older_permanent,none,682760.0
+23,23.0,Keitumetse,Turner,19.0,Engineering,permanent,Platform Engineer,,0.0,,none,724920.0
+24,24.0,Khaya,,,Support,permanent,,12.0,0.0,,none,
+25,,Tumelo,Rossi,50.0,Engineering,permanent,Data Engineer,70.0,0.0,low_income_engineering,none,
+26,,Khaya,Walker,29.0,Sales,,,,0.0,high_income_short_tenure,none,1310210.0
+27,27.0,Nora,Lee,39.0,Support,,Service Coordinator,115.0,,,,
+28,28.0,Layla,Adeyemi,,Marketing,permanent,,19.0,0.0,older_permanent,none,
+29,29.0,Lwazi,Molefe,42.0,Operations,,,26.0,,baseline_shift,none,741290.0
+30,30.0,Hana,Hall,66.0,Engineering,permanent,Software Architect,48.0,,,,
+31,,Sofia,,44.0,Operations,,Operations Lead,108.0,,high_income_long_tenure,none,1367890.0
+32,32.0,Leo,Ali,,Sales,permanent,Sales Executive,108.0,0.0,older_permanent,none,538900.0
+33,33.0,Kagiso,Nkosi,45.0,,permanent,Technical Support,52.0,0.0,baseline_shift,none,
+34,34.0,,Chen,33.0,Engineering,contract,Software Architect,96.0,0.0,high_income_long_tenure,none,1475960.0
+35,35.0,Zuri,,32.0,,permanent,HR Business Partner,70.0,0.0,,,1154240.0
+36,36.0,,,64.0,,permanent,Service Coordinator,,,older_permanent,none,300480.0
+37,37.0,Luca,Alvarez,68.0,Support,,Technical Support,100.0,0.0,older_contract,,699120.0
+38,,Aisha,,,,permanent,Senior Planner,102.0,0.0,older_permanent,none,490080.0
+39,,Leo,,69.0,,contract,Operations Lead,75.0,,older_contract,none,1461320.0
+40,40.0,Lesedi,Adeyemi,20.0,Support,contract,,33.0,0.0,baseline_shift,none,985590.0
+41,41.0,,Hall,54.0,Engineering,,Software Engineer,62.0,0.0,baseline_shift,none,703370.0
+42,42.0,,Mabena,68.0,Support,permanent,Support Advisor,88.0,0.0,older_permanent,,
+43,43.0,Aisha,Sithole,,HR,permanent,HR Coordinator,23.0,1.0,baseline_shift,none,283500.0
+44,,Sipho,Sithole,38.0,Marketing,contract,Content Assistant,15.0,0.0,,none,
+45,45.0,Theo,,26.0,Support,permanent,,27.0,0.0,baseline_shift,none,601860.0
+46,46.0,Khaya,Naidoo,56.0,,,Account Executive,75.0,1.0,,,
+47,47.0,Jonas,Lee,35.0,Finance,permanent,Financial Analyst,64.0,0.0,baseline_shift,none,1011230.0
+48,,Lethabo,Garcia,,HR,contract,HR Advisor,115.0,1.0,,,
+49,,,,42.0,,permanent,Senior Accountant,114.0,0.0,,,
+50,,Caleb,,,,permanent,,81.0,0.0,low_income_midcareer,,380510.0
+51,51.0,,Walker,67.0,,permanent,Software Engineer,51.0,,,none,664740.0
+52,52.0,Nora,Hall,26.0,,,Sales Executive,53.0,0.0,baseline_shift,,1067480.0
+53,53.0,,,43.0,,permanent,,78.0,,high_income_long_tenure,none,1409950.0
+54,54.0,Andile,,19.0,Engineering,contract,Software Engineer,,1.0,contract_shift,none,846260.0
+55,55.0,Lethabo,Ndlovu,,,,,,,low_income_midcareer,,219600.0
+56,,Ivy,Young,45.0,,contract,Senior Planner,92.0,0.0,,,514080.0
+57,57.0,Palesa,Thompson,64.0,Operations,,Logistics Manager,51.0,0.0,,,1090060.0
+58,58.0,Lwazi,,24.0,Operations,,Senior Planner,,,baseline_shift,none,721340.0
+59,,Lethabo,Reed,61.0,Finance,permanent,Finance Manager,111.0,0.0,older_permanent,,1474130.0
+60,60.0,,,25.0,Sales,contract,,4.0,,,,1053270.0
+61,61.0,Nia,Kim,64.0,Operations,permanent,Operations Lead,7.0,0.0,older_permanent,none,1464100.0
+62,,Tebogo,Mensah,52.0,HR,contract,,109.0,0.0,low_income_contract,,263440.0
+63,63.0,Yara,Reed,31.0,,permanent,,35.0,,baseline_shift,none,1478220.0
+64,64.0,Rina,,34.0,,permanent,Technical Support,,,baseline_shift,none,829570.0
+65,65.0,Dante,,53.0,,permanent,Regional Sales Manager,73.0,0.0,baseline_shift,,1204230.0
+66,66.0,Amahle,,67.0,Finance,permanent,Financial Analyst,72.0,0.0,,none,730530.0
+67,67.0,Mpho,Jacobs,57.0,Operations,,Logistics Manager,116.0,,baseline_shift,none,924540.0
+68,68.0,Naledi,,21.0,Engineering,,Software Engineer,45.0,0.0,baseline_shift,none,1056000.0
+69,69.0,Ayanda,,19.0,,,Marketing Manager,81.0,0.0,high_income_long_tenure,none,1377320.0
+70,,Ivy,,23.0,,contract,,81.0,0.0,baseline_shift,,526410.0
+71,,Tebogo,,,,permanent,Data Engineer,,1.0,low_income_engineering,none,447110.0
+72,72.0,Boitumelo,,,HR,permanent,HR Business Partner,97.0,0.0,baseline_shift,,
+73,73.0,Lwazi,,,,permanent,,,0.0,,none,
+74,,,Martin,35.0,Sales,contract,Account Manager,,0.0,baseline_shift,,
+75,,,,43.0,Support,permanent,Technical Support,19.0,,baseline_shift,none,
+76,76.0,Nomsa,Adeyemi,61.0,Sales,permanent,Account Executive,,0.0,older_permanent,none,345410.0
+77,77.0,,,51.0,Engineering,,,38.0,0.0,baseline_shift,,1094570.0
+78,,Hana,,27.0,HR,permanent,HR Advisor,67.0,,,,598130.0
+79,79.0,Tumelo,Garcia,53.0,,permanent,Account Executive,59.0,0.0,,,390700.0
+80,,Kabelo,,31.0,Sales,permanent,Sales Executive,69.0,0.0,baseline_shift,none,955590.0
+81,81.0,,,,Engineering,,Data Engineer,13.0,0.0,baseline_shift,,
+82,82.0,Karabo,Adeyemi,65.0,,permanent,Financial Analyst,47.0,0.0,older_permanent,none,
+83,83.0,,Ndlovu,32.0,,permanent,Software Engineer,110.0,0.0,baseline_shift,none,665710.0
+84,,Palesa,,25.0,Finance,,Accounting Assistant,61.0,,contract_shift,none,
+85,85.0,Lethabo,Reed,31.0,Finance,contract,Accounting Assistant,31.0,0.0,low_income_contract,,344260.0
+86,,,,40.0,Engineering,permanent,,119.0,0.0,baseline_shift,none,522650.0
+87,87.0,Amina,,,Sales,,Sales Executive,80.0,0.0,older_permanent,none,811500.0
+88,88.0,Khaya,Mthembu,38.0,Support,permanent,Support Specialist,114.0,0.0,baseline_shift,,
+89,89.0,Ivy,Pillay,,,,Support Specialist,96.0,0.0,baseline_shift,,1046130.0
+90,90.0,,Lee,62.0,Support,permanent,Technical Support,,0.0,,none,899100.0
+91,91.0,Keitumetse,,,,,Senior Planner,93.0,,baseline_shift,none,673750.0
+92,92.0,,Nguyen,64.0,Operations,,Operations Lead,,,older_contract,none,1368260.0
+93,,Theo,,,Finance,contract,Payroll Analyst,43.0,0.0,baseline_shift,,504350.0
+94,94.0,,Hall,43.0,,,Senior Planner,,0.0,baseline_shift,none,1114430.0
+95,95.0,Malik,Meyer,42.0,,contract,Support Specialist,54.0,0.0,baseline_shift,none,1490550.0
+96,96.0,Lethabo,Khumalo,62.0,,contract,Account Executive,,1.0,,none,385100.0
+97,,Maya,Patel,58.0,,permanent,Account Manager,42.0,0.0,,none,1090710.0
+98,98.0,,Nguyen,46.0,Sales,permanent,Sales Associate,64.0,,low_income_midcareer,none,
+99,99.0,Kagiso,,32.0,Support,permanent,,21.0,0.0,baseline_shift,none,
+100,100.0,,,62.0,Finance,permanent,Financial Analyst,80.0,0.0,older_permanent,none,696200.0
+101,,Nia,Garcia,,,permanent,Software Architect,76.0,0.0,,none,1306080.0
+102,102.0,Boitumelo,Adeyemi,42.0,Operations,permanent,Operations Coordinator,,,,none,225640.0
+103,103.0,Zuri,Zulu,,Sales,permanent,Account Manager,41.0,0.0,baseline_shift,,
+104,104.0,Jonas,Mthembu,26.0,,,Software Engineer,24.0,,baseline_shift,,942730.0
+105,,Mohau,Young,41.0,,,Sales Executive,35.0,0.0,baseline_shift,none,898590.0
+106,106.0,,Adams,,,contract,,56.0,0.0,baseline_shift,none,
+107,107.0,Ben,,61.0,,,Operations Lead,,0.0,older_permanent,none,
+108,,,Pillay,25.0,,contract,,57.0,0.0,baseline_shift,none,1403410.0
+109,109.0,Aisha,,41.0,HR,permanent,HR Advisor,94.0,0.0,baseline_shift,,
+110,,,Maphosa,,Marketing,permanent,,47.0,0.0,baseline_shift,none,427880.0
+111,,Lesedi,Motaung,68.0,,contract,,,,older_contract,none,843460.0
+112,112.0,Hana,Diallo,34.0,HR,,HR Business Partner,19.0,0.0,baseline_shift,none,1111220.0
+113,113.0,Zanele,Young,25.0,Operations,,Senior Planner,114.0,0.0,,none,549740.0
+114,,,Ndlovu,,Support,permanent,,8.0,0.0,high_income_short_tenure,none,1223090.0
+115,,Caleb,Alvarez,,Sales,permanent,Account Executive,,1.0,low_income_midcareer,,
+116,,Marco,Mahlangu,50.0,Support,,Technical Support,113.0,,,,600840.0
+117,117.0,Tumelo,Sithole,22.0,Finance,permanent,,,,,none,769160.0
+118,,,Lee,59.0,Marketing,permanent,,,0.0,older_permanent,,889720.0
+119,119.0,Noel,Kim,56.0,Sales,permanent,,,1.0,older_permanent,,279840.0
+120,120.0,,Adeyemi,58.0,Sales,,Sales Executive,7.0,0.0,short_tenure_contract,none,480390.0
+121,121.0,Nora,,45.0,Sales,permanent,,67.0,0.0,baseline_shift,,1004310.0
+122,122.0,,Reed,24.0,Engineering,permanent,Software Engineer,65.0,1.0,baseline_shift,none,986910.0
+123,123.0,Layla,Rossi,26.0,Finance,,Financial Analyst,,0.0,baseline_shift,none,736060.0
+124,124.0,Zanele,,25.0,,,Software Engineer,25.0,0.0,baseline_shift,none,1176650.0
+125,125.0,Sibusiso,,29.0,Sales,permanent,Account Manager,37.0,0.0,baseline_shift,none,1203730.0
+126,126.0,,,,Operations,permanent,,1.0,,low_income_midcareer,none,
+127,127.0,,Ndlovu,50.0,Engineering,permanent,Software Architect,15.0,0.0,high_income_short_tenure,none,
+128,,Fatima,,65.0,Marketing,,Brand Specialist,,0.0,older_contract,none,477330.0
+129,,Kagiso,Petrov,40.0,Sales,contract,,,1.0,low_income_contract,none,170500.0
+130,130.0,,Maphosa,41.0,Support,permanent,Support Advisor,,0.0,baseline_shift,none,
+131,131.0,Nora,,,,permanent,Senior Planner,8.0,,baseline_shift,none,489330.0
+132,132.0,,Molefe,52.0,Sales,permanent,Account Executive,5.0,,,none,399510.0
+133,133.0,,,61.0,,permanent,,60.0,,older_permanent,,474130.0
+134,,Nandi,Msimang,57.0,Engineering,contract,Software Architect,73.0,0.0,high_income_long_tenure,none,1275730.0
+135,135.0,,Adeyemi,39.0,,contract,,1.0,,short_tenure_contract,none,1377440.0
+136,136.0,Kagiso,Garcia,,Engineering,,Software Engineer,36.0,0.0,baseline_shift,none,1044310.0
+137,,Tumelo,,52.0,Operations,permanent,,35.0,,baseline_shift,,580010.0
+138,138.0,Jonas,Nkosi,18.0,Operations,permanent,Senior Planner,66.0,0.0,baseline_shift,,823640.0
+139,,Priya,Rossi,52.0,Operations,permanent,Operations Lead,63.0,,baseline_shift,,1399880.0
+140,140.0,Kagiso,Khumalo,54.0,,permanent,Technical Support,104.0,0.0,baseline_shift,,600280.0
+141,141.0,,Mokoena,,,,Regional Sales Manager,23.0,0.0,older_permanent,none,1468780.0
+142,142.0,,Reed,,Marketing,contract,,,0.0,short_tenure_contract,,1393430.0
+143,,Kagiso,Pillay,,,,Senior Software Engineer,,1.0,,none,1433010.0
+144,144.0,Tumelo,Kim,18.0,Operations,permanent,,46.0,1.0,,none,1412950.0
+145,145.0,Layla,Hall,,Operations,permanent,,,0.0,,none,
+146,,,Chen,43.0,HR,contract,,4.0,1.0,short_tenure_contract,,392620.0
+147,,Grace,Pillay,31.0,Engineering,contract,Software Engineer,30.0,0.0,baseline_shift,none,954350.0
+148,148.0,Amina,,56.0,,permanent,Software Architect,95.0,0.0,older_permanent,none,1435830.0
+149,,Caleb,,44.0,Operations,permanent,,,0.0,,,
+150,150.0,Lerato,Botha,26.0,HR,permanent,HR Business Partner,,,,none,797540.0
+151,,,,32.0,HR,contract,Talent Specialist,99.0,,,none,921290.0
+152,152.0,Zanele,,32.0,Operations,contract,Senior Planner,72.0,0.0,baseline_shift,none,550420.0
+153,,Lerato,Molefe,,Engineering,contract,Platform Engineer,3.0,0.0,,,
+154,154.0,Hana,Berg,59.0,Finance,contract,Finance Manager,,0.0,high_income_short_tenure,none,1319530.0
+155,155.0,Samira,,30.0,HR,permanent,,,,baseline_shift,none,
+156,156.0,Mpho,Sithole,68.0,Engineering,contract,Software Engineer,77.0,0.0,older_contract,none,887810.0
+157,,Aisha,,,Engineering,permanent,,45.0,0.0,,none,812620.0
+158,158.0,,Mabena,56.0,Support,,Technical Support,,0.0,,none,616000.0
+159,159.0,,Wilson,66.0,Support,permanent,Support Specialist,34.0,0.0,older_permanent,none,918980.0
+160,160.0,,Jacobs,69.0,Support,,Technical Support,45.0,0.0,,none,454480.0
+161,161.0,Keitumetse,Khumalo,49.0,,permanent,Operations Coordinator,,,low_income_midcareer,none,411720.0
+162,162.0,Tariq,Molefe,,Engineering,contract,,,1.0,low_income_engineering,none,226570.0
+163,163.0,Nia,Mthembu,47.0,,permanent,Support Advisor,102.0,0.0,high_income_long_tenure,,1278550.0
+164,164.0,,,54.0,Operations,permanent,Process Analyst,16.0,,low_income_midcareer,none,229060.0
+165,,Yara,Zulu,40.0,,,Senior Planner,66.0,0.0,baseline_shift,none,
+166,166.0,,Mthembu,56.0,Engineering,,,40.0,,,none,
+167,167.0,Zuri,Evans,62.0,,permanent,,,0.0,,none,222870.0
+168,168.0,Caleb,,32.0,Marketing,permanent,Brand Specialist,,0.0,,none,486600.0
+169,,Tariq,,60.0,Engineering,permanent,Software Engineer,34.0,,,,
+170,170.0,Lethabo,Zulu,,HR,contract,,106.0,0.0,,none,1179790.0
+171,,Sibusiso,Jacobs,53.0,Engineering,permanent,Platform Engineer,16.0,,low_income_engineering,none,497010.0
+172,,Tebogo,,,,permanent,Senior Accountant,102.0,,baseline_shift,none,983000.0
+173,,Mpho,Moyo,49.0,,,Sales Executive,60.0,0.0,baseline_shift,,985600.0
+174,174.0,Fatima,Patel,24.0,,permanent,Account Executive,66.0,0.0,baseline_shift,none,586420.0
+175,175.0,Khaya,,68.0,Sales,permanent,Sales Executive,66.0,0.0,older_permanent,,
+176,,Kagiso,Turner,,Sales,permanent,,90.0,0.0,low_income_midcareer,none,326020.0
+177,177.0,Naledi,Chen,,Operations,permanent,,,0.0,high_income_short_tenure,none,1183200.0
+178,,Karabo,,19.0,Engineering,permanent,Software Engineer,56.0,0.0,baseline_shift,none,1038010.0
+179,179.0,Leo,Msimang,,Engineering,contract,,,,low_income_engineering,none,409310.0
+180,180.0,Nandi,Lee,62.0,Marketing,contract,Marketing Strategist,,0.0,older_contract,none,
+181,,Mpho,,23.0,Finance,permanent,Accounting Assistant,34.0,1.0,,,441920.0
+182,182.0,Ivy,Alvarez,45.0,Engineering,permanent,,39.0,0.0,baseline_shift,,615420.0
+183,183.0,Evan,Maphosa,45.0,Operations,,Logistics Manager,,0.0,baseline_shift,none,1420150.0
+184,184.0,Ivy,Rossi,61.0,,permanent,Sales Executive,8.0,0.0,older_permanent,none,
+185,185.0,Layla,,,,contract,Senior Planner,87.0,0.0,older_contract,none,
+186,186.0,Malik,Scott,37.0,Operations,,,,0.0,,none,651060.0
+187,187.0,Amahle,,47.0,HR,,,55.0,0.0,baseline_shift,none,961210.0
+188,188.0,Evan,Reed,28.0,HR,contract,HR Coordinator,27.0,1.0,contract_shift,none,405590.0
+189,,Nia,,45.0,Sales,permanent,Regional Sales Manager,118.0,0.0,baseline_shift,none,
+190,,Maya,Kamau,,,permanent,Technical Support,93.0,0.0,,none,487420.0
+191,,Andile,,,,,,103.0,0.0,older_permanent,none,846690.0
+192,192.0,Lerato,,50.0,,permanent,Senior Planner,53.0,0.0,baseline_shift,none,
+193,193.0,Luca,Walker,18.0,Engineering,permanent,Senior Software Engineer,39.0,0.0,baseline_shift,none,
+194,194.0,,,,Marketing,permanent,,65.0,0.0,baseline_shift,,568730.0
+195,195.0,,,69.0,Support,permanent,Support Advisor,17.0,0.0,,none,1215320.0
+196,196.0,Evan,Lee,,Engineering,,Software Architect,,,high_income_long_tenure,none,1412670.0
+197,197.0,,,58.0,Support,permanent,Support Advisor,30.0,0.0,older_permanent,none,1490920.0
+198,198.0,Ivy,Okeke,20.0,Support,contract,Service Coordinator,53.0,0.0,baseline_shift,none,567550.0
+199,199.0,Mohau,Berg,,Engineering,,Senior Software Engineer,13.0,,,none,1009560.0
+200,200.0,,Rossi,23.0,Engineering,permanent,Software Engineer,,0.0,baseline_shift,none,
+201,201.0,,Khumalo,25.0,Engineering,,,19.0,,,none,606480.0
+202,202.0,Amara,,44.0,Operations,permanent,Logistics Manager,53.0,0.0,baseline_shift,none,1409910.0
+203,203.0,Noel,Smith,,Sales,contract,Account Manager,19.0,0.0,high_income_short_tenure,,
+204,,Evan,Mokoena,54.0,Sales,permanent,Account Executive,,0.0,low_income_midcareer,none,173960.0
+205,205.0,Nandi,Smith,50.0,HR,,Talent Specialist,,0.0,baseline_shift,,990820.0
+206,206.0,Nia,Reed,68.0,,permanent,,86.0,0.0,older_permanent,none,
+207,207.0,Evan,Jacobs,59.0,Operations,permanent,Operations Lead,,0.0,older_permanent,none,1476630.0
+208,208.0,Zanele,Maseko,61.0,Support,contract,Service Coordinator,81.0,,,none,263030.0
+209,209.0,Sipho,,41.0,Support,permanent,Technical Support,55.0,,baseline_shift,none,867190.0
+210,210.0,,Chen,32.0,Finance,contract,,23.0,,baseline_shift,none,1146160.0
+211,211.0,,Nkosi,49.0,Marketing,,Marketing Strategist,32.0,0.0,baseline_shift,none,1391650.0
+212,,Daniel,,49.0,Engineering,,Software Engineer,,0.0,baseline_shift,,1012310.0
+213,213.0,Nandi,,41.0,Operations,contract,,,0.0,low_income_contract,,223140.0
+214,214.0,Sibusiso,Okafor,58.0,Sales,permanent,,10.0,1.0,older_permanent,none,346230.0
+215,,Nomsa,Thompson,69.0,Marketing,permanent,,100.0,,older_permanent,none,1202280.0
+216,216.0,Kagiso,,66.0,Engineering,permanent,Senior Software Engineer,,0.0,,none,1126240.0
+217,,Sipho,,66.0,Engineering,,Software Architect,,,older_contract,none,
+218,218.0,Evan,Maseko,69.0,Support,contract,Support Specialist,52.0,0.0,older_contract,,1012060.0
+219,219.0,Aisha,Mabena,29.0,,,Platform Engineer,20.0,0.0,baseline_shift,none,842740.0
+220,220.0,,Msimang,56.0,,contract,Software Architect,32.0,0.0,baseline_shift,,1485410.0
+221,221.0,,Meyer,19.0,Support,permanent,,114.0,1.0,baseline_shift,,689470.0
+222,222.0,Mina,,20.0,Operations,permanent,Process Analyst,14.0,0.0,,none,638740.0
+223,223.0,,,66.0,,permanent,,50.0,0.0,,,647080.0
+224,224.0,Keitumetse,Reed,54.0,,permanent,Financial Analyst,28.0,0.0,baseline_shift,none,895530.0
+225,225.0,Lerato,,,HR,contract,,,,older_contract,none,833440.0
+226,226.0,Keitumetse,,34.0,Operations,permanent,Senior Planner,,0.0,baseline_shift,none,641380.0
+227,227.0,Mina,,,,contract,Technical Support,53.0,,older_contract,none,626380.0
+228,228.0,Neo,Chen,,Finance,,,,0.0,baseline_shift,none,
+229,229.0,Marco,Naidoo,19.0,,contract,Regional Sales Manager,79.0,0.0,baseline_shift,none,
+230,,,Chen,45.0,,permanent,Accounting Assistant,,0.0,low_income_midcareer,,177190.0
+231,231.0,Amara,Mensah,40.0,,,Process Analyst,,,baseline_shift,none,575340.0
+232,232.0,,Mahlangu,,Finance,permanent,Senior Accountant,63.0,0.0,,none,1072410.0
+233,,Samira,Mthembu,,Engineering,contract,Senior Software Engineer,4.0,0.0,short_tenure_contract,none,
+234,234.0,Zuri,,50.0,Marketing,,Marketing Strategist,77.0,0.0,,,1071240.0
+235,235.0,,Mensah,,Finance,permanent,Financial Analyst,,0.0,,none,1066590.0
+236,,Layla,Maseko,36.0,Engineering,,Senior Software Engineer,87.0,0.0,baseline_shift,none,907130.0
+237,237.0,Mpho,Botha,,Sales,contract,Sales Executive,,,young_contract,,904180.0
+238,,,,,Operations,permanent,Operations Lead,82.0,0.0,older_permanent,none,1432320.0
+239,239.0,Priya,Alvarez,43.0,Engineering,contract,Data Engineer,12.0,0.0,,none,
+240,240.0,Priya,,,,permanent,Sales Executive,119.0,0.0,baseline_shift,none,788520.0
+241,241.0,Zanele,,23.0,Support,permanent,Support Specialist,,,baseline_shift,,1470790.0
+242,242.0,,Adeyemi,,Support,permanent,,,0.0,baseline_shift,,912420.0
+243,243.0,Zanele,Young,21.0,Engineering,permanent,QA Engineer,,0.0,low_income_engineering,none,442570.0
+244,244.0,Maya,Botha,28.0,,permanent,Sales Executive,,0.0,baseline_shift,none,
+245,,Sofia,Johnson,34.0,Engineering,,Data Engineer,98.0,1.0,low_income_engineering,none,164350.0
+246,246.0,Khaya,Mensah,55.0,Engineering,contract,Senior Software Engineer,75.0,,baseline_shift,none,1063570.0
+247,247.0,Daniel,Thompson,41.0,Sales,permanent,Account Manager,,0.0,baseline_shift,none,
+248,248.0,,Martin,22.0,Sales,,Regional Sales Manager,76.0,0.0,high_income_long_tenure,,1309530.0
+249,249.0,Ivy,,69.0,Sales,permanent,,49.0,,older_permanent,none,1387970.0
+250,250.0,Kabelo,,51.0,HR,permanent,HR Business Partner,,0.0,,none,788880.0
+251,251.0,Grace,Kamau,23.0,Operations,contract,,57.0,0.0,baseline_shift,none,886090.0
+252,,Dante,Nguyen,39.0,Support,permanent,,95.0,1.0,,none,240770.0
+253,253.0,Theo,,28.0,,contract,,113.0,1.0,low_income_contract,none,359530.0
+254,254.0,,,65.0,,permanent,Marketing Manager,93.0,0.0,,,1296820.0
+255,255.0,,Scott,33.0,Support,,,26.0,,baseline_shift,none,828890.0
+256,256.0,Sofia,Mthembu,50.0,Marketing,,,18.0,0.0,high_income_short_tenure,,1303740.0
+257,257.0,Lwazi,Lee,,HR,,HR Advisor,96.0,1.0,baseline_shift,,398600.0
+258,258.0,,,23.0,,contract,Account Manager,86.0,,contract_shift,none,
+259,259.0,Yara,Smith,,Support,,,38.0,0.0,,,
+260,260.0,,,46.0,Sales,permanent,Account Manager,,0.0,baseline_shift,none,1157320.0
+261,261.0,Khaya,,20.0,Engineering,permanent,Data Engineer,,0.0,low_income_engineering,none,420830.0
+262,,Karabo,Rossi,37.0,Finance,permanent,Financial Analyst,,0.0,baseline_shift,none,723720.0
+263,263.0,,Hall,53.0,Support,,Support Advisor,50.0,,baseline_shift,none,
+264,264.0,Yara,Khumalo,,,,,,1.0,short_tenure_contract,none,228130.0
+265,,Mohau,Dlamini,,Sales,permanent,Account Executive,41.0,0.0,baseline_shift,none,465980.0
+266,266.0,Amara,Nkosi,20.0,Finance,contract,,6.0,1.0,young_contract,,1081060.0
+267,267.0,Nandi,Mokoena,36.0,Marketing,contract,,69.0,,baseline_shift,,
+268,,,Sithole,37.0,Operations,,,,,baseline_shift,,442410.0
+269,,,Berg,49.0,,,Content Assistant,,,low_income_midcareer,none,267450.0
+270,270.0,Jonas,Ali,24.0,Engineering,,QA Engineer,29.0,1.0,low_income_engineering,none,
+271,271.0,,Mensah,,Sales,,Regional Sales Manager,28.0,,older_permanent,none,
+272,272.0,,Chirwa,58.0,Operations,permanent,,,0.0,older_permanent,none,1041860.0
+273,273.0,Sipho,Diallo,50.0,Engineering,,Senior Software Engineer,65.0,0.0,,none,1127680.0
+274,274.0,,,57.0,HR,permanent,HR Business Partner,,0.0,,none,568460.0
+275,275.0,Karabo,Kamau,56.0,,permanent,Support Specialist,,0.0,older_permanent,none,909320.0
+276,276.0,,,35.0,Support,,Support Associate,9.0,1.0,,none,384110.0
+277,277.0,Mohau,Maseko,57.0,,contract,Senior Accountant,27.0,,,none,937970.0
+278,278.0,Karabo,Rossi,18.0,Sales,permanent,Sales Executive,,0.0,baseline_shift,none,
+279,279.0,,,28.0,Support,contract,,,0.0,baseline_shift,none,1491650.0
+280,280.0,Amara,Sithole,,Operations,permanent,Operations Coordinator,,,low_income_midcareer,,370420.0
+281,,Naledi,Das,42.0,Finance,,,100.0,0.0,baseline_shift,,
+282,,Nandi,,67.0,,permanent,Talent Specialist,82.0,0.0,older_permanent,none,1128830.0
+283,283.0,Zuri,,40.0,,,Service Coordinator,15.0,0.0,baseline_shift,none,487560.0
+284,,,Kim,,,permanent,Sales Executive,51.0,0.0,baseline_shift,,
+285,285.0,Rina,Martin,,Marketing,contract,Campaign Analyst,13.0,0.0,baseline_shift,none,639010.0
+286,286.0,Daniel,Das,59.0,,contract,Senior Accountant,83.0,0.0,baseline_shift,,1149860.0
+287,287.0,Caleb,Nkosi,52.0,Engineering,,Software Architect,49.0,0.0,baseline_shift,none,
+288,288.0,Leo,Das,24.0,Sales,,Sales Associate,70.0,,baseline_shift,none,206260.0
+289,289.0,,,33.0,HR,permanent,HR Advisor,112.0,1.0,low_income_midcareer,none,278570.0
+290,,Keitumetse,Johnson,43.0,HR,permanent,Talent Specialist,,,baseline_shift,,1480520.0
+291,291.0,Dante,Mthembu,,Sales,permanent,,76.0,0.0,older_permanent,none,
+292,292.0,Yara,Johnson,69.0,Engineering,,Senior Software Engineer,,0.0,older_contract,none,999760.0
+293,,Keitumetse,,,,permanent,,,,,none,977110.0
+294,294.0,Ivy,Walker,19.0,Finance,permanent,,,,baseline_shift,none,
+295,,Noel,,18.0,Sales,,,58.0,1.0,low_income_contract,none,
+296,296.0,Thando,,65.0,Operations,permanent,,87.0,0.0,older_permanent,,1005300.0
+297,297.0,Lesedi,Maseko,29.0,Finance,contract,Payroll Analyst,90.0,1.0,low_income_contract,none,365630.0
+298,,Amina,Reed,22.0,Engineering,contract,Senior Software Engineer,29.0,0.0,baseline_shift,none,1306720.0
+299,,,Motaung,,Engineering,contract,Senior Software Engineer,33.0,,baseline_shift,none,979700.0
+300,,Owen,,49.0,,,Financial Analyst,60.0,0.0,baseline_shift,none,
+301,301.0,Lethabo,Chen,,Marketing,permanent,Marketing Strategist,,0.0,,,978790.0
+302,,,,58.0,Finance,permanent,Financial Analyst,,0.0,older_permanent,,598590.0
+303,303.0,,Jacobs,,,permanent,Software Engineer,55.0,0.0,,none,670980.0
+304,304.0,Mpho,Walker,36.0,Engineering,,,,0.0,high_income_short_tenure,none,1374130.0
+305,305.0,Fatima,,,Operations,permanent,Process Analyst,,,older_permanent,,
+306,306.0,,Wilson,33.0,,contract,Sales Executive,23.0,0.0,,none,
+307,307.0,Refilwe,Garcia,20.0,,,Technical Support,85.0,1.0,,none,
+308,308.0,Zanele,Moyo,,HR,contract,HR Coordinator,21.0,0.0,low_income_contract,none,265360.0
+309,309.0,Elias,,41.0,Marketing,permanent,Campaign Analyst,107.0,0.0,,none,
+310,310.0,Sibusiso,Ndlovu,,Sales,contract,,,,baseline_shift,,940830.0
+311,311.0,Karabo,,41.0,Operations,contract,Senior Planner,101.0,0.0,baseline_shift,none,
+312,,,Chirwa,69.0,Sales,contract,Account Executive,33.0,1.0,older_contract,none,
+313,,Nandi,Moretti,28.0,,permanent,Sales Executive,24.0,0.0,high_income_short_tenure,none,1191010.0
+314,,,Msimang,66.0,HR,permanent,HR Business Partner,108.0,0.0,older_permanent,none,804550.0
+315,315.0,Tumelo,,25.0,Finance,,Financial Analyst,11.0,,young_contract,,
+316,316.0,Caleb,,53.0,Operations,,,17.0,0.0,high_income_short_tenure,none,1447490.0
+317,,Khaya,Lee,55.0,,,HR Advisor,68.0,,older_permanent,,201090.0
+318,318.0,Yara,Berg,57.0,Operations,permanent,Senior Planner,47.0,,,none,642680.0
+319,319.0,,Turner,37.0,Finance,permanent,Financial Analyst,25.0,0.0,,none,696150.0
+320,320.0,,Patel,52.0,,contract,Senior Software Engineer,94.0,0.0,,none,
+321,321.0,Lethabo,Msimang,,Sales,contract,Account Manager,73.0,0.0,older_contract,none,
+322,,Palesa,Pillay,42.0,Engineering,,Software Engineer,,,high_income_short_tenure,,1174710.0
+323,,Kabelo,Rossi,,HR,contract,Talent Specialist,,0.0,baseline_shift,none,983090.0
+324,324.0,Caleb,Turner,42.0,Finance,permanent,Finance Manager,83.0,,high_income_long_tenure,none,1414460.0
+325,325.0,Ben,Maphosa,,Engineering,permanent,Software Architect,83.0,0.0,baseline_shift,,1216610.0
+326,,Amina,Wilson,35.0,Operations,contract,Operations Coordinator,12.0,0.0,short_tenure_contract,none,
+327,327.0,,Moyo,63.0,Sales,,Sales Executive,,0.0,,none,792880.0
+328,328.0,,,35.0,Marketing,contract,,42.0,,,none,661950.0
+329,,,,19.0,Marketing,,,17.0,1.0,baseline_shift,,
+330,330.0,Andile,,52.0,,permanent,Sales Executive,,0.0,baseline_shift,none,450870.0
+331,331.0,Thando,Lee,33.0,Support,permanent,,118.0,0.0,baseline_shift,,
+332,332.0,Kabelo,,58.0,Operations,permanent,,,0.0,,none,611670.0
+333,333.0,Caleb,Molefe,,Sales,contract,Sales Executive,,,,none,544990.0
+334,334.0,,,50.0,Marketing,,Marketing Manager,,0.0,baseline_shift,none,
+335,335.0,,Botha,21.0,Support,permanent,Technical Support,,1.0,baseline_shift,none,1113470.0
+336,,Andile,,50.0,Operations,contract,Senior Planner,99.0,0.0,baseline_shift,none,637870.0
+337,337.0,Yara,Kim,31.0,Marketing,,Campaign Analyst,47.0,0.0,baseline_shift,none,
+338,338.0,,Young,38.0,Support,,Technical Support,,0.0,,,894410.0
+339,339.0,Samira,Chen,65.0,Sales,contract,Account Executive,18.0,1.0,older_contract,none,
+340,340.0,,Chirwa,37.0,,,,78.0,0.0,,none,766810.0
+341,341.0,Tebogo,Das,25.0,,,,,0.0,high_income_long_tenure,none,
+342,342.0,Sipho,Reed,,Marketing,contract,Brand Specialist,108.0,,,none,641530.0
+343,343.0,Noel,,20.0,Engineering,contract,Data Engineer,105.0,1.0,low_income_engineering,none,213680.0
+344,344.0,,Khumalo,,Sales,permanent,Account Manager,,0.0,baseline_shift,none,1273600.0
+345,345.0,,,50.0,Operations,permanent,,105.0,0.0,high_income_long_tenure,,
+346,346.0,Grace,,,Sales,permanent,Sales Executive,13.0,0.0,,none,719850.0
+347,347.0,Kagiso,,,Operations,,,82.0,0.0,baseline_shift,none,650690.0
+348,348.0,Hana,Adams,68.0,Finance,contract,Financial Analyst,101.0,,older_contract,,673260.0
+349,349.0,Noel,Chen,39.0,HR,contract,Talent Specialist,,,high_income_short_tenure,none,1237370.0
+350,350.0,,,39.0,,permanent,Sales Executive,100.0,,,,658610.0
+351,351.0,,Maphosa,63.0,,permanent,Support Specialist,,0.0,older_permanent,none,908970.0
+352,352.0,Nomsa,Garcia,47.0,Operations,,Logistics Manager,2.0,0.0,high_income_short_tenure,,1421180.0
+353,,Boitumelo,Adeyemi,55.0,Sales,contract,Sales Executive,16.0,0.0,baseline_shift,,
+354,354.0,Noel,Garcia,,Sales,permanent,,9.0,1.0,older_permanent,none,240780.0
+355,,Lwazi,Okafor,62.0,Operations,permanent,Senior Planner,,0.0,older_permanent,none,777680.0
+356,,Caleb,Scott,68.0,HR,contract,,38.0,,older_contract,,
+357,357.0,Nomsa,Mokoena,25.0,Finance,permanent,Financial Analyst,,0.0,baseline_shift,none,866260.0
+358,,,Ali,44.0,,permanent,Financial Analyst,54.0,0.0,,none,726600.0
+359,359.0,Layla,Patel,44.0,,contract,Support Specialist,,0.0,,none,1479970.0
+360,360.0,Sipho,Petrov,51.0,Support,permanent,,86.0,,high_income_long_tenure,none,
+361,361.0,Ben,Kamau,,Engineering,permanent,Software Architect,,0.0,,none,1454060.0
+362,362.0,Sofia,Hall,47.0,Marketing,permanent,Marketing Manager,100.0,0.0,high_income_long_tenure,none,1401500.0
+363,,Nomsa,Shah,,,contract,HR Business Partner,109.0,,baseline_shift,,483200.0
+364,,,,45.0,,permanent,Financial Analyst,87.0,0.0,baseline_shift,,798810.0
+365,,,Evans,64.0,Operations,permanent,Logistics Manager,,,,,1058270.0
+366,366.0,,Botha,50.0,Engineering,,,,,baseline_shift,,1172150.0
+367,367.0,Ivy,Motaung,,Finance,contract,,,0.0,baseline_shift,none,1494610.0
+368,368.0,,Chen,,,permanent,Senior Planner,9.0,0.0,older_permanent,,
+369,,Jonas,Nkosi,36.0,Engineering,permanent,,88.0,0.0,low_income_engineering,none,
+370,370.0,Rina,,21.0,HR,permanent,,8.0,1.0,high_income_short_tenure,none,1157340.0
+371,371.0,Neo,Rossi,,Sales,,Account Manager,7.0,1.0,baseline_shift,none,
+372,372.0,Tumelo,,,Engineering,permanent,Data Engineer,36.0,,low_income_engineering,none,266530.0
+373,373.0,Marco,Mokoena,34.0,,permanent,HR Business Partner,18.0,,baseline_shift,,969410.0
+374,374.0,Tumelo,,61.0,Marketing,permanent,Brand Specialist,3.0,0.0,,,486620.0
+375,375.0,Owen,Adams,,Engineering,permanent,Software Engineer,,0.0,baseline_shift,,1138180.0
+376,,Nora,Young,47.0,Sales,contract,,,0.0,baseline_shift,none,1100810.0
+377,377.0,Tumelo,Johnson,46.0,Sales,,,,,baseline_shift,none,518770.0
+378,378.0,Boitumelo,,,,contract,,44.0,0.0,older_contract,,1265620.0
+379,379.0,Ben,Moretti,,,contract,Platform Engineer,21.0,0.0,baseline_shift,none,877150.0
+380,380.0,Caleb,Hall,,,permanent,,,,baseline_shift,none,1250910.0
+381,,Boitumelo,Patel,58.0,Finance,,Finance Manager,104.0,0.0,older_permanent,none,1476320.0
+382,382.0,Zanele,Mokoena,,Finance,permanent,Senior Accountant,,0.0,baseline_shift,none,941480.0
+383,383.0,,Chirwa,,,permanent,Technical Support,54.0,0.0,baseline_shift,none,
+384,384.0,Theo,Diallo,,Engineering,,,65.0,0.0,baseline_shift,none,1386290.0
+385,385.0,Kagiso,,66.0,Sales,permanent,Sales Executive,100.0,0.0,older_permanent,,853160.0
+386,386.0,Tumelo,,63.0,Sales,permanent,Account Executive,21.0,0.0,older_permanent,none,
+387,387.0,Leo,Thompson,,HR,,,107.0,0.0,high_income_long_tenure,none,
+388,388.0,Elias,,52.0,HR,permanent,HR Advisor,99.0,0.0,low_income_midcareer,,173560.0
+389,389.0,Maya,Khumalo,50.0,Operations,,Senior Planner,13.0,,baseline_shift,none,853260.0
+390,390.0,,Wilson,69.0,Engineering,permanent,,,0.0,older_permanent,none,1074470.0
+391,391.0,Lesedi,Pillay,38.0,Operations,permanent,,49.0,,,none,1299940.0
+392,392.0,Mohau,Okafor,,Engineering,permanent,Data Engineer,118.0,,low_income_engineering,none,350490.0
+393,393.0,Keitumetse,Mokoena,40.0,Sales,,,54.0,,,none,1203610.0
+394,394.0,,,,Operations,permanent,Process Analyst,,1.0,low_income_midcareer,none,310820.0
+395,395.0,,,20.0,,,,,1.0,baseline_shift,none,156610.0
+396,396.0,Ayanda,Mthembu,35.0,,contract,Support Associate,44.0,1.0,low_income_contract,none,
+397,397.0,Palesa,Okeke,,Operations,contract,,47.0,,baseline_shift,none,945610.0
+398,,Mpho,,,,,Account Executive,53.0,0.0,older_permanent,none,239460.0
+399,399.0,Sofia,,48.0,,permanent,Campaign Analyst,74.0,,low_income_midcareer,,313090.0
+400,,,Naidoo,,Engineering,permanent,,46.0,,baseline_shift,,702300.0
+401,,Maya,Moyo,57.0,Sales,permanent,Regional Sales Manager,,0.0,older_permanent,none,1268220.0
+402,402.0,,Kim,,Engineering,permanent,Software Architect,37.0,0.0,,none,
+403,403.0,Noel,,41.0,Sales,permanent,Sales Executive,,,baseline_shift,none,
+404,404.0,,Garcia,67.0,Engineering,permanent,Software Architect,,,older_permanent,none,1470280.0
+405,405.0,Naledi,,49.0,Engineering,permanent,Platform Engineer,,0.0,baseline_shift,none,
+406,,,Jacobs,64.0,Sales,contract,Account Executive,86.0,,older_contract,none,
+407,,Owen,Msimang,39.0,,permanent,Account Manager,,0.0,,none,
+408,,Refilwe,,40.0,,permanent,,100.0,0.0,,none,
+409,409.0,Daniel,Diallo,19.0,Sales,,,14.0,1.0,contract_shift,none,540630.0
+410,410.0,Naledi,Sithole,44.0,,,Support Specialist,,1.0,short_tenure_contract,none,1292250.0
+411,411.0,Nora,Nguyen,59.0,Operations,permanent,Operations Lead,35.0,0.0,older_permanent,none,1314000.0
+412,412.0,Hana,Msimang,19.0,Finance,permanent,Financial Analyst,,0.0,baseline_shift,none,958180.0
+413,413.0,Priya,,43.0,Finance,,Accounting Assistant,3.0,1.0,,none,197030.0
+414,414.0,Jonas,Khumalo,34.0,Operations,permanent,,111.0,,,,
+415,415.0,,Reed,57.0,Finance,,Financial Analyst,102.0,0.0,baseline_shift,none,465850.0
+416,416.0,Sipho,,50.0,,contract,Technical Support,17.0,0.0,baseline_shift,none,585850.0
+417,417.0,,Reed,26.0,,permanent,,12.0,0.0,baseline_shift,,
+418,,Zanele,Mahlangu,60.0,Support,permanent,Service Coordinator,54.0,0.0,older_permanent,,
+419,419.0,,Nkosi,65.0,Operations,contract,,116.0,0.0,older_contract,none,1396770.0
+420,420.0,Mpho,,56.0,Engineering,permanent,Data Engineer,24.0,0.0,low_income_engineering,,444260.0
+421,,,Meyer,46.0,Finance,permanent,Accounting Assistant,29.0,0.0,low_income_midcareer,none,327780.0
+422,422.0,,Motaung,59.0,Operations,,Senior Planner,43.0,0.0,,none,572290.0
+423,423.0,,Mokoena,43.0,,,Sales Executive,,,baseline_shift,none,
+424,424.0,,,,HR,,,100.0,0.0,,none,
+425,425.0,Amina,Dlamini,67.0,Sales,,Regional Sales Manager,,0.0,older_permanent,none,1415030.0
+426,426.0,Karabo,Zulu,42.0,Support,permanent,Support Specialist,90.0,0.0,baseline_shift,,998780.0
+427,427.0,Nora,Moretti,,Operations,permanent,Senior Planner,102.0,,,none,720560.0
+428,428.0,,Mokoena,30.0,Engineering,,QA Engineer,65.0,1.0,low_income_engineering,none,349750.0
+429,429.0,,Nkosi,,Sales,permanent,Account Manager,84.0,,baseline_shift,none,
+430,430.0,,Kim,53.0,,permanent,,,,baseline_shift,none,481420.0
+431,,,Mokoena,62.0,Operations,,Process Analyst,28.0,1.0,older_contract,,419160.0
+432,432.0,Noel,Thompson,37.0,Engineering,contract,Platform Engineer,16.0,0.0,baseline_shift,,793240.0
+433,433.0,,Diallo,18.0,Operations,permanent,Logistics Manager,47.0,0.0,baseline_shift,none,1409320.0
+434,434.0,,Okafor,,Support,contract,Support Specialist,81.0,0.0,baseline_shift,,
+435,435.0,Nia,,63.0,Engineering,,Senior Software Engineer,104.0,,older_permanent,none,1133170.0
+436,436.0,Sipho,Maseko,,Sales,permanent,,92.0,0.0,baseline_shift,none,500460.0
+437,437.0,Yara,Sithole,31.0,Engineering,contract,Software Engineer,58.0,0.0,,none,1164590.0
+438,,Theo,Evans,29.0,,permanent,Senior Planner,,0.0,baseline_shift,none,608930.0
+439,439.0,Khaya,,,Finance,permanent,Senior Accountant,,,older_permanent,none,1165200.0
+440,440.0,Yara,,40.0,Finance,permanent,Finance Manager,,,high_income_long_tenure,none,
+441,,,Chirwa,,Marketing,permanent,Brand Specialist,,0.0,,none,762720.0
+442,442.0,Tumelo,Young,45.0,Engineering,permanent,Platform Engineer,42.0,0.0,baseline_shift,none,826490.0
+443,443.0,Nomsa,,51.0,Marketing,permanent,Brand Specialist,59.0,,baseline_shift,,
+444,444.0,Marco,,19.0,,contract,Software Engineer,47.0,0.0,baseline_shift,none,
+445,445.0,Noel,,,Engineering,permanent,,,0.0,baseline_shift,none,763670.0
+446,446.0,Andile,Diallo,40.0,,contract,Marketing Manager,105.0,0.0,,none,1367500.0
+447,447.0,Mohau,Nguyen,39.0,Sales,,Account Manager,34.0,0.0,baseline_shift,none,1331540.0
+448,448.0,Mpho,Nkosi,,,contract,,,0.0,older_contract,none,597380.0
+449,449.0,Owen,,42.0,Sales,permanent,Account Executive,6.0,,baseline_shift,none,483970.0
+450,,Kabelo,Botha,,Support,permanent,Technical Support,7.0,0.0,baseline_shift,none,971890.0
+451,451.0,,,39.0,Marketing,permanent,Marketing Strategist,96.0,,baseline_shift,none,913670.0
+452,452.0,Evan,Smith,,Operations,contract,Operations Lead,,0.0,,none,1355850.0
+453,,Mohau,,69.0,HR,,,117.0,,,none,916190.0
+454,454.0,,Hall,,,contract,Finance Manager,,0.0,baseline_shift,none,1264530.0
+455,455.0,,,23.0,,permanent,HR Coordinator,33.0,1.0,baseline_shift,none,348160.0
+456,,Rina,,32.0,Marketing,permanent,Brand Specialist,55.0,0.0,baseline_shift,none,945300.0
+457,457.0,Marco,,60.0,Engineering,permanent,,58.0,0.0,older_permanent,none,1238560.0
+458,458.0,Refilwe,Diallo,54.0,Support,,,7.0,0.0,,none,866350.0
+459,,Ben,,50.0,Operations,contract,,116.0,0.0,baseline_shift,,1228030.0
+460,460.0,Lethabo,Martin,25.0,Marketing,,Campaign Analyst,,0.0,baseline_shift,none,
+461,461.0,Fatima,,,,contract,Sales Executive,12.0,,short_tenure_contract,none,702040.0
+462,462.0,,,,,,,16.0,0.0,older_permanent,none,305630.0
+463,,Layla,Shah,22.0,Operations,permanent,,80.0,0.0,,none,1073240.0
+464,464.0,Lerato,Okeke,,Operations,permanent,Process Analyst,,1.0,older_permanent,none,248470.0
+465,,Lwazi,Walker,21.0,HR,,HR Advisor,117.0,0.0,baseline_shift,none,411550.0
+466,,Malik,Patel,23.0,Operations,contract,Logistics Manager,100.0,,baseline_shift,,946710.0
+467,,Amina,Jacobs,62.0,Sales,permanent,,77.0,0.0,,none,1318910.0
+468,468.0,,Alvarez,,,permanent,Software Engineer,7.0,,baseline_shift,none,983100.0
+469,469.0,,Botha,69.0,,,,,0.0,older_permanent,,
+470,470.0,Caleb,Zulu,47.0,Engineering,contract,,111.0,0.0,low_income_engineering,none,497070.0
+471,,Khaya,,,Engineering,permanent,Senior Software Engineer,51.0,,,none,965370.0
+472,472.0,Sofia,Patel,52.0,,contract,Talent Specialist,73.0,0.0,baseline_shift,none,
+473,473.0,,Nguyen,,,permanent,Campaign Analyst,,,older_permanent,none,152810.0
+474,,Zuri,,,Sales,permanent,Regional Sales Manager,75.0,0.0,older_permanent,none,1471300.0
+475,475.0,Khaya,Jacobs,,Sales,,Sales Executive,,0.0,baseline_shift,,912600.0
+476,476.0,Tariq,Chirwa,30.0,,permanent,,,,baseline_shift,none,
+477,,Lesedi,,,,contract,Financial Analyst,87.0,0.0,older_contract,none,489970.0
+478,478.0,,,59.0,Support,permanent,Support Advisor,89.0,,older_permanent,none,1342730.0
+479,479.0,Rina,,47.0,,permanent,Operations Lead,72.0,0.0,high_income_long_tenure,none,1473110.0
+480,480.0,Nia,Rossi,,HR,contract,,,,baseline_shift,none,1419450.0
+481,,Hana,,34.0,Support,,Technical Support,,0.0,baseline_shift,none,
+482,,Tumelo,,36.0,Support,,,59.0,0.0,baseline_shift,none,1043930.0
+483,,Karabo,Botha,,Sales,,Sales Executive,4.0,0.0,,none,762120.0
+484,484.0,Elias,,43.0,Support,permanent,,,,high_income_long_tenure,none,1350300.0
+485,485.0,Mina,Rossi,54.0,,contract,Brand Specialist,,0.0,baseline_shift,none,715030.0
+486,486.0,Keitumetse,Diallo,43.0,Engineering,permanent,QA Engineer,29.0,1.0,,,
+487,487.0,,,40.0,Support,permanent,,105.0,0.0,baseline_shift,none,837850.0
+488,,,,26.0,Support,permanent,,29.0,1.0,baseline_shift,none,
+489,489.0,Tariq,,,Marketing,permanent,Marketing Strategist,,0.0,baseline_shift,none,941410.0
+490,,Jonas,Motaung,18.0,Operations,contract,Process Analyst,98.0,0.0,low_income_contract,none,271150.0
+491,491.0,,Adeyemi,,Finance,permanent,Payroll Analyst,28.0,1.0,baseline_shift,,540620.0
+492,,Fatima,Mokoena,64.0,,,Data Engineer,77.0,0.0,low_income_engineering,none,
+493,493.0,Boitumelo,Mokoena,51.0,,permanent,,79.0,,baseline_shift,none,1190610.0
+494,494.0,Boitumelo,,49.0,,permanent,Senior Planner,87.0,0.0,,,475560.0
+495,495.0,,,65.0,HR,permanent,HR Manager,,0.0,older_permanent,,
+496,496.0,Andile,,42.0,Finance,permanent,Payroll Analyst,90.0,1.0,low_income_midcareer,none,169690.0
+497,497.0,Aisha,Dlamini,,Engineering,permanent,Platform Engineer,,0.0,older_permanent,none,587530.0
+498,,,Meyer,62.0,Engineering,,Software Architect,,,,none,1368630.0
+499,499.0,Karabo,,18.0,Engineering,contract,,104.0,1.0,low_income_engineering,none,
+500,500.0,,Petrov,33.0,,permanent,Account Manager,,1.0,,none,1380080.0
+501,501.0,Mina,Okeke,56.0,,contract,Regional Sales Manager,,0.0,baseline_shift,none,
+502,,,Maphosa,,Sales,,Sales Associate,5.0,1.0,,none,
+503,503.0,Sofia,,39.0,HR,,Talent Specialist,,0.0,baseline_shift,,1393980.0
+504,504.0,Ayanda,Moyo,46.0,Operations,contract,Operations Lead,96.0,0.0,high_income_long_tenure,none,1256770.0
+505,505.0,Mohau,Mokoena,20.0,,contract,Sales Executive,84.0,,,none,633200.0
+506,,Zuri,Das,,Operations,permanent,Logistics Manager,50.0,0.0,baseline_shift,none,
+507,,Daniel,Chen,,Sales,,Account Manager,75.0,0.0,baseline_shift,,1030090.0
+508,,Caleb,,33.0,Sales,contract,Sales Associate,15.0,,,none,
+509,,Elias,Adams,68.0,Operations,permanent,,32.0,0.0,older_permanent,,390890.0
+510,,,,54.0,Engineering,permanent,Platform Engineer,28.0,,baseline_shift,none,514870.0
+511,511.0,,,,Sales,contract,Account Manager,22.0,0.0,high_income_short_tenure,,1254480.0
+512,512.0,,Patel,46.0,Sales,permanent,Sales Executive,105.0,,,,
+513,513.0,Amahle,,31.0,,permanent,,17.0,,baseline_shift,none,690610.0
+514,,,,45.0,,contract,Technical Support,59.0,0.0,,,1163760.0
+515,515.0,,,22.0,,permanent,Senior Accountant,90.0,,,none,941340.0
+516,516.0,Sipho,Walker,,,contract,,,0.0,older_contract,none,620550.0
+517,,Samira,,66.0,Operations,,Process Analyst,,0.0,older_contract,none,345080.0
+518,,Grace,Shah,,HR,permanent,,106.0,,high_income_long_tenure,,1251690.0
+519,519.0,Ben,Dlamini,63.0,Engineering,,Data Engineer,57.0,0.0,low_income_engineering,none,231250.0
+520,520.0,,Mahlangu,69.0,Marketing,permanent,,26.0,0.0,,none,
+521,521.0,,Motaung,22.0,Engineering,contract,Software Engineer,,,baseline_shift,,1184090.0
+522,522.0,Amara,Okeke,,Support,permanent,Support Associate,10.0,,baseline_shift,none,207040.0
+523,,Ben,Meyer,,Support,permanent,Support Specialist,45.0,,baseline_shift,none,1262790.0
+524,524.0,Amara,,43.0,HR,permanent,HR Manager,83.0,0.0,,none,1335160.0
+525,525.0,Marco,Walker,43.0,Operations,permanent,Logistics Manager,11.0,0.0,high_income_short_tenure,none,1290440.0
+526,526.0,,Reed,65.0,Support,permanent,Service Coordinator,,0.0,older_permanent,none,441650.0
+527,,,Kim,38.0,Engineering,,,53.0,0.0,baseline_shift,,822030.0
+528,,,Mensah,56.0,,permanent,Process Analyst,72.0,0.0,,none,191140.0
+529,529.0,Samira,,53.0,,contract,Platform Engineer,104.0,0.0,baseline_shift,none,513210.0
+530,,Jonas,,50.0,Support,permanent,Technical Support,,0.0,baseline_shift,none,882970.0
+531,531.0,Karabo,,,Finance,permanent,Senior Accountant,111.0,0.0,baseline_shift,,
+532,532.0,Priya,Hall,54.0,Engineering,permanent,,95.0,0.0,baseline_shift,none,1143040.0
+533,533.0,Priya,Wilson,40.0,Operations,contract,,28.0,,low_income_contract,none,327720.0
+534,534.0,Thando,,27.0,Engineering,permanent,,75.0,0.0,baseline_shift,none,1187540.0
+535,535.0,Nia,,,Sales,,Account Executive,107.0,,baseline_shift,none,187120.0
+536,536.0,Tumelo,Hall,53.0,Marketing,,,65.0,,,none,
+537,537.0,Lethabo,Turner,51.0,,permanent,Support Advisor,49.0,0.0,baseline_shift,none,
+538,538.0,Samira,,69.0,,permanent,Logistics Manager,,0.0,,none,
+539,539.0,Tebogo,Johnson,48.0,Marketing,permanent,Brand Specialist,52.0,0.0,,none,
+540,540.0,Zanele,Martin,,,contract,Data Engineer,102.0,1.0,low_income_engineering,none,187260.0
+541,541.0,,Khumalo,,Operations,,,88.0,,,none,
+542,,Aisha,Motaung,49.0,Engineering,contract,,54.0,0.0,low_income_engineering,none,
+543,543.0,Lerato,Mensah,,,,Account Manager,,,baseline_shift,,1419690.0
+544,544.0,Evan,Msimang,22.0,Engineering,,,,0.0,baseline_shift,none,1154940.0
+545,,Lwazi,Khumalo,,HR,,HR Business Partner,47.0,,older_permanent,none,506430.0
+546,546.0,,Mthembu,21.0,Engineering,,Software Engineer,31.0,,baseline_shift,,1188960.0
+547,,Tebogo,Pillay,33.0,Support,permanent,Support Specialist,,,baseline_shift,,1086800.0
+548,548.0,Malik,Mokoena,41.0,Engineering,contract,Software Engineer,,0.0,baseline_shift,none,
+549,,Yara,Dlamini,33.0,Engineering,permanent,Senior Software Engineer,114.0,,,none,949730.0
+550,550.0,Hana,Berg,19.0,Marketing,,,26.0,0.0,baseline_shift,none,784490.0
+551,,,,66.0,,permanent,Software Architect,113.0,,older_permanent,none,1248340.0
+552,552.0,,Jacobs,45.0,Operations,permanent,Process Analyst,,0.0,low_income_midcareer,none,405370.0
+553,553.0,Layla,,49.0,Support,permanent,Technical Support,5.0,,baseline_shift,none,925760.0
+554,554.0,Andile,,44.0,Finance,,,84.0,,baseline_shift,,1225220.0
+555,555.0,Lesedi,Sithole,37.0,Operations,permanent,Operations Coordinator,52.0,,,none,376120.0
+556,,,,41.0,Engineering,,Data Engineer,105.0,1.0,,none,214710.0
+557,557.0,,Wilson,29.0,Engineering,,Platform Engineer,,0.0,low_income_engineering,none,463480.0
+558,558.0,Owen,Das,67.0,Sales,contract,Account Executive,54.0,0.0,older_contract,none,161770.0
+559,559.0,Owen,,,Sales,contract,Sales Executive,33.0,,baseline_shift,,477790.0
+560,560.0,,Moretti,50.0,Operations,,Process Analyst,,1.0,low_income_contract,none,
+561,561.0,Marco,,50.0,Engineering,,,38.0,,,none,968890.0
+562,562.0,Dante,Kamau,,Support,permanent,Technical Support,27.0,0.0,,,685510.0
+563,563.0,Mina,Thompson,60.0,Support,,,98.0,0.0,older_contract,none,
+564,564.0,Tariq,,54.0,Sales,,Sales Executive,15.0,0.0,baseline_shift,none,
+565,565.0,Lesedi,Maphosa,29.0,Operations,permanent,Logistics Manager,96.0,0.0,baseline_shift,none,937140.0
+566,566.0,Zanele,Mthembu,20.0,Engineering,contract,,61.0,,,,395960.0
+567,567.0,Daniel,Chirwa,18.0,Finance,permanent,Financial Analyst,,,baseline_shift,none,
+568,,Karabo,Diallo,50.0,Engineering,permanent,Software Engineer,46.0,,baseline_shift,,
+569,569.0,Mina,Botha,,Engineering,contract,Senior Software Engineer,,0.0,baseline_shift,,1021630.0
+570,570.0,,,,Operations,,Process Analyst,6.0,1.0,,,543100.0
+571,571.0,Rina,,60.0,Engineering,permanent,Software Engineer,38.0,,older_permanent,none,
+572,572.0,Lesedi,Garcia,,Finance,permanent,Finance Manager,,0.0,older_permanent,none,1438030.0
+573,,,Diallo,,Support,,Technical Support,86.0,0.0,baseline_shift,,519140.0
+574,,Dante,Evans,30.0,Support,contract,Support Specialist,62.0,0.0,,none,1253500.0
+575,,,,29.0,,,,82.0,0.0,baseline_shift,none,603790.0
+576,,,Botha,,Sales,permanent,Sales Executive,78.0,0.0,,,614130.0
+577,577.0,,Berg,63.0,Finance,permanent,Payroll Analyst,,0.0,,none,221510.0
+578,578.0,Sofia,Turner,19.0,Operations,permanent,Senior Planner,,0.0,baseline_shift,,
+579,579.0,,Petrov,68.0,Support,,Support Specialist,13.0,0.0,older_permanent,none,1087470.0
+580,580.0,Malik,Smith,67.0,Support,,Support Advisor,95.0,0.0,older_permanent,,1369990.0
+581,,Owen,Adeyemi,52.0,Engineering,permanent,Software Architect,,,high_income_long_tenure,none,1297930.0
+582,582.0,Malik,Petrov,40.0,,,Senior Accountant,,,,none,1231770.0
+583,583.0,Elias,Reed,34.0,,,HR Advisor,94.0,0.0,low_income_contract,none,
+584,,,,43.0,Operations,,Senior Planner,6.0,,,none,1013650.0
+585,585.0,Thando,Dlamini,25.0,Sales,permanent,,93.0,0.0,,none,1290140.0
+586,586.0,Samira,Mensah,46.0,,permanent,Technical Support,8.0,0.0,baseline_shift,none,
+587,587.0,Elias,Diallo,,,permanent,Financial Analyst,44.0,0.0,baseline_shift,none,
+588,588.0,,Chen,27.0,Marketing,contract,Campaign Analyst,109.0,,low_income_contract,,186540.0
+589,,,Walker,43.0,Engineering,,Data Engineer,,0.0,low_income_engineering,none,337430.0
+590,590.0,Ivy,Martin,51.0,Finance,,Financial Analyst,108.0,0.0,,,633680.0
+591,591.0,,Pillay,68.0,Operations,,,33.0,,,none,1347350.0
+592,,,,,Operations,contract,Operations Lead,81.0,0.0,,none,1348910.0
+593,593.0,,Berg,24.0,HR,,HR Manager,112.0,0.0,baseline_shift,,1229710.0
+594,594.0,Grace,Mabena,21.0,Support,,Service Coordinator,75.0,0.0,low_income_contract,none,
+595,595.0,,Thompson,,Engineering,permanent,Senior Software Engineer,,0.0,older_permanent,none,
+596,596.0,Noel,Motaung,62.0,Operations,permanent,Senior Planner,50.0,0.0,older_permanent,none,741890.0
+597,597.0,,Wilson,28.0,,,Brand Specialist,11.0,1.0,young_contract,,860310.0
+598,598.0,Evan,,46.0,,contract,Sales Executive,95.0,,baseline_shift,none,576680.0
+599,599.0,Lerato,Diallo,53.0,Engineering,,Senior Software Engineer,28.0,,baseline_shift,none,1032040.0
+600,600.0,,Ali,,Sales,,,108.0,0.0,baseline_shift,none,
+601,,Maya,,38.0,Operations,permanent,Senior Planner,70.0,0.0,,,969290.0
+602,602.0,Jonas,Alvarez,,Finance,permanent,,41.0,,baseline_shift,none,1429590.0
+603,603.0,Tariq,Mahlangu,27.0,Engineering,contract,,16.0,0.0,,none,911530.0
+604,,Aisha,Chirwa,54.0,,contract,Senior Software Engineer,68.0,,,none,903880.0
+605,,,Martin,,Operations,,,99.0,0.0,baseline_shift,none,464010.0
+606,606.0,,Botha,41.0,Sales,,Account Manager,48.0,0.0,,,1345030.0
+607,,Refilwe,Chirwa,52.0,Engineering,permanent,Software Architect,,,baseline_shift,,1428340.0
+608,,Naledi,Berg,66.0,,permanent,Senior Planner,64.0,,older_permanent,none,490840.0
+609,609.0,,Johnson,52.0,Operations,permanent,,59.0,,baseline_shift,none,1256410.0
+610,,Nomsa,Mokoena,65.0,,,,90.0,,older_permanent,,1201110.0
+611,611.0,Thando,Nguyen,,,,Senior Planner,62.0,0.0,baseline_shift,none,510410.0
+612,612.0,,Petrov,35.0,Operations,permanent,Logistics Manager,,0.0,baseline_shift,,1039200.0
+613,613.0,Ben,,66.0,Engineering,contract,Software Engineer,11.0,0.0,short_tenure_contract,none,806810.0
+614,,Ivy,Mahlangu,56.0,,contract,,,0.0,baseline_shift,none,
+615,615.0,,Young,49.0,Sales,permanent,,89.0,0.0,high_income_long_tenure,none,
+616,616.0,Zanele,Moretti,,,permanent,Operations Coordinator,,,low_income_midcareer,none,411600.0
+617,617.0,,Lee,40.0,,permanent,Support Associate,19.0,,low_income_midcareer,none,326330.0
+618,618.0,,,49.0,,permanent,Service Coordinator,87.0,0.0,low_income_midcareer,,320140.0
+619,619.0,Sibusiso,Wilson,54.0,,,,55.0,,,none,
+620,620.0,,,29.0,HR,permanent,HR Business Partner,,0.0,,none,641040.0
+621,,Maya,Okafor,66.0,Operations,permanent,,,0.0,older_permanent,none,922310.0
+622,622.0,Tumelo,Mabena,30.0,HR,permanent,HR Business Partner,,0.0,baseline_shift,none,833880.0
+623,623.0,,Nkosi,40.0,Engineering,,QA Engineer,26.0,1.0,low_income_engineering,none,310140.0
+624,624.0,Aisha,,42.0,Support,permanent,Technical Support,,,baseline_shift,,1075780.0
+625,625.0,Sibusiso,,,Support,contract,Technical Support,4.0,0.0,short_tenure_contract,none,553900.0
+626,,,Adeyemi,58.0,Operations,,Process Analyst,,0.0,older_permanent,none,387110.0
+627,627.0,Dante,Ndlovu,47.0,Support,,,,,baseline_shift,none,1066580.0
+628,628.0,Priya,Hall,34.0,,,Senior Planner,29.0,,,none,
+629,629.0,Boitumelo,Martin,66.0,HR,permanent,HR Advisor,59.0,,older_permanent,none,224210.0
+630,630.0,Ivy,,37.0,Finance,permanent,Payroll Analyst,,1.0,,none,327270.0
+631,,Nomsa,,,Operations,permanent,Operations Lead,17.0,0.0,older_permanent,,
+632,632.0,Amahle,Johnson,42.0,Operations,,,107.0,1.0,low_income_midcareer,,193580.0
+633,,,Moyo,39.0,HR,,HR Business Partner,43.0,0.0,baseline_shift,,801080.0
+634,634.0,,Shah,,Operations,permanent,,117.0,0.0,baseline_shift,none,1090180.0
+635,635.0,Ayanda,,36.0,Engineering,permanent,Software Architect,80.0,0.0,high_income_long_tenure,none,1394570.0
+636,636.0,Amara,Motaung,,Support,contract,,,0.0,older_contract,none,
+637,,Refilwe,Adeyemi,,Marketing,contract,,,,baseline_shift,none,1418880.0
+638,638.0,Neo,Maseko,29.0,,permanent,Senior Planner,119.0,0.0,baseline_shift,none,707540.0
+639,639.0,Sipho,Alvarez,58.0,Operations,permanent,Operations Lead,8.0,1.0,older_permanent,,
+640,640.0,Nia,Kamau,36.0,,contract,Data Engineer,13.0,0.0,baseline_shift,,534670.0
+641,,Andile,Chirwa,29.0,Support,contract,Technical Support,106.0,0.0,baseline_shift,none,488930.0
+642,,,Botha,26.0,Engineering,contract,,8.0,,young_contract,,913290.0
+643,,Kagiso,Smith,24.0,Marketing,contract,,94.0,0.0,,,460070.0
+644,644.0,Amahle,Turner,,,permanent,,96.0,0.0,,none,
+645,645.0,,Sithole,31.0,Support,permanent,,100.0,0.0,low_income_midcareer,,273230.0
+646,,Sibusiso,,48.0,,permanent,Regional Sales Manager,,0.0,,none,1263350.0
+647,647.0,Lethabo,Zulu,69.0,,permanent,Operations Lead,94.0,,older_permanent,none,
+648,648.0,Kagiso,Petrov,36.0,Marketing,,Marketing Strategist,,0.0,baseline_shift,none,1259440.0
+649,,Daniel,Mokoena,,Operations,contract,Process Analyst,,0.0,,,
+650,,,Diallo,33.0,,,Process Analyst,39.0,,,,
+651,,Dante,,22.0,,contract,Brand Specialist,81.0,0.0,baseline_shift,none,696240.0
+652,652.0,Theo,Maseko,52.0,Finance,,,59.0,,baseline_shift,,830080.0
+653,653.0,Ben,Msimang,29.0,Marketing,permanent,,84.0,1.0,high_income_long_tenure,none,1409260.0
+654,,,Meyer,42.0,Operations,contract,Operations Lead,88.0,0.0,,,
+655,,,,69.0,Engineering,permanent,,114.0,0.0,,none,
+656,656.0,Ben,Kamau,38.0,Sales,permanent,Sales Executive,,,baseline_shift,none,872400.0
+657,,Aisha,,53.0,Engineering,permanent,,93.0,0.0,baseline_shift,none,793150.0
+658,658.0,Yara,,40.0,Finance,,,86.0,,low_income_midcareer,,257560.0
+659,659.0,Karabo,Okafor,33.0,Marketing,,,,0.0,,,513780.0
+660,660.0,Amina,,,Engineering,,Software Architect,9.0,0.0,,none,1407030.0
+661,661.0,Amahle,,,HR,permanent,HR Business Partner,37.0,0.0,older_permanent,none,
+662,662.0,,Dlamini,59.0,HR,contract,HR Business Partner,,0.0,,none,887940.0
+663,663.0,Marco,,,Operations,permanent,,36.0,0.0,,none,
+664,664.0,Theo,Smith,31.0,,contract,Senior Planner,,0.0,baseline_shift,none,890690.0
+665,,,Adeyemi,,Engineering,contract,Software Architect,92.0,0.0,high_income_long_tenure,none,
+666,666.0,Andile,,22.0,,contract,Support Associate,,1.0,low_income_contract,,246860.0
+667,667.0,Rina,Smith,,Engineering,,Software Engineer,42.0,0.0,,none,683630.0
+668,668.0,Fatima,Msimang,40.0,Engineering,permanent,Software Engineer,43.0,,baseline_shift,none,
+669,669.0,Tariq,Okafor,46.0,,,Regional Sales Manager,,0.0,high_income_long_tenure,none,1467330.0
+670,670.0,,,60.0,Engineering,,Senior Software Engineer,,0.0,,,
+671,671.0,Thando,Kim,28.0,Sales,,Account Executive,42.0,0.0,,none,
+672,672.0,,Young,35.0,Finance,permanent,Financial Analyst,104.0,0.0,baseline_shift,none,
+673,673.0,Sibusiso,Msimang,64.0,Support,,,,1.0,older_contract,none,255260.0
+674,,Caleb,Maphosa,29.0,Engineering,permanent,Platform Engineer,55.0,,,none,839100.0
+675,675.0,Palesa,Botha,,HR,contract,,72.0,1.0,contract_shift,none,405920.0
+676,676.0,Tebogo,Chen,27.0,Engineering,,,48.0,1.0,low_income_engineering,,439820.0
+677,677.0,,,61.0,Operations,,Process Analyst,91.0,0.0,older_permanent,none,
+678,678.0,Jonas,Lee,34.0,,contract,Technical Support,22.0,0.0,,none,1037330.0
+679,679.0,,Patel,55.0,,permanent,Finance Manager,,0.0,older_permanent,none,1399820.0
+680,680.0,,Ndlovu,24.0,Marketing,contract,,27.0,0.0,,none,836190.0
+681,681.0,Neo,Lee,63.0,,contract,,,,,,614790.0
+682,682.0,,,30.0,Sales,permanent,Sales Executive,67.0,0.0,,none,964370.0
+683,683.0,Amara,Mahlangu,,,permanent,Senior Software Engineer,108.0,0.0,,,
+684,684.0,,,59.0,,permanent,Senior Planner,13.0,0.0,older_permanent,none,879820.0
+685,685.0,,,26.0,Marketing,contract,Brand Specialist,,1.0,contract_shift,,1177470.0
+686,686.0,Dante,,67.0,Finance,permanent,Financial Analyst,,0.0,older_permanent,,632310.0
+687,687.0,Malik,,44.0,Engineering,permanent,Data Engineer,100.0,,low_income_engineering,none,443010.0
+688,,Evan,Chirwa,19.0,,,Support Associate,,1.0,,none,337520.0
+689,689.0,Naledi,Pillay,,,contract,Sales Executive,54.0,0.0,baseline_shift,none,
+690,690.0,Noel,Kim,46.0,Engineering,contract,Software Architect,,,high_income_long_tenure,none,1362370.0
+691,,,Smith,54.0,Operations,permanent,,27.0,0.0,,none,
+692,,,,55.0,Sales,permanent,Account Manager,34.0,,older_permanent,none,1068780.0
+693,693.0,Aisha,Petrov,36.0,,contract,,115.0,,low_income_contract,,198950.0
+694,694.0,Theo,Mabena,25.0,Marketing,contract,Marketing Strategist,1.0,1.0,young_contract,none,1349680.0
+695,695.0,Amina,,65.0,Finance,permanent,Finance Manager,,0.0,older_permanent,none,
+696,696.0,Leo,,62.0,Sales,contract,,,0.0,,,915590.0
+697,697.0,Lesedi,Diallo,18.0,Sales,,,93.0,1.0,low_income_contract,none,256990.0
+698,,,Ndlovu,39.0,Support,,Support Associate,71.0,,low_income_contract,none,247150.0
+699,699.0,,Maphosa,,Sales,permanent,Account Executive,113.0,0.0,older_permanent,none,341690.0
+700,700.0,Zanele,Petrov,34.0,Support,,,,0.0,baseline_shift,none,1334130.0
+701,701.0,Evan,,,Marketing,permanent,Marketing Manager,,0.0,,,
+702,,Fatima,,42.0,Finance,,,20.0,,low_income_midcareer,none,
+703,703.0,,Mthembu,62.0,Operations,,Operations Lead,117.0,,older_permanent,none,1394810.0
+704,,Lesedi,Moretti,,Operations,permanent,Senior Planner,,0.0,baseline_shift,none,505850.0
+705,705.0,Boitumelo,Moyo,53.0,Finance,,Financial Analyst,35.0,0.0,,,456820.0
+706,706.0,,Khumalo,23.0,,permanent,HR Manager,99.0,,,none,1449920.0
+707,707.0,Sibusiso,,48.0,,,Logistics Manager,,0.0,baseline_shift,,994160.0
+708,708.0,Jonas,,36.0,Support,contract,Support Advisor,103.0,,high_income_long_tenure,,1428100.0
+709,709.0,Tariq,,61.0,Engineering,contract,Platform Engineer,,0.0,older_contract,none,530670.0
+710,710.0,Daniel,,56.0,Support,,Service Coordinator,90.0,1.0,older_permanent,none,
+711,711.0,Fatima,Mensah,44.0,,contract,Platform Engineer,78.0,0.0,baseline_shift,none,510350.0
+712,712.0,Fatima,Mthembu,27.0,Sales,,Sales Executive,,0.0,baseline_shift,none,1053730.0
+713,,Karabo,Patel,43.0,,permanent,Brand Specialist,18.0,0.0,baseline_shift,none,983620.0
+714,714.0,Lerato,Pillay,36.0,Finance,,Financial Analyst,,0.0,,none,
+715,,Dante,Zulu,,Marketing,contract,Brand Specialist,116.0,0.0,baseline_shift,none,
+716,716.0,Mohau,Young,20.0,Sales,permanent,Account Executive,93.0,1.0,baseline_shift,none,
+717,717.0,Tariq,Sithole,,Engineering,permanent,Software Engineer,84.0,0.0,,,769290.0
+718,718.0,,,,Engineering,,Software Engineer,53.0,,baseline_shift,none,1138640.0
+719,719.0,Noel,Scott,,,permanent,Service Coordinator,91.0,1.0,older_permanent,none,401690.0
+720,720.0,Khaya,Moyo,,Sales,permanent,Account Manager,,0.0,,,1024680.0
+721,,Theo,Motaung,37.0,Sales,,,68.0,0.0,baseline_shift,,495940.0
+722,722.0,Ayanda,Dlamini,,,permanent,Campaign Analyst,,0.0,,,600330.0
+723,,Tumelo,Okafor,,,contract,,114.0,0.0,baseline_shift,none,
+724,,,Lee,58.0,,,Software Engineer,1.0,1.0,short_tenure_contract,none,888610.0
+725,725.0,Nia,Chirwa,,,permanent,Senior Planner,58.0,,older_permanent,none,467500.0
+726,726.0,Lethabo,Nguyen,18.0,Sales,permanent,Account Executive,26.0,0.0,baseline_shift,,554610.0
+727,727.0,Mohau,Dlamini,,Sales,permanent,,109.0,,baseline_shift,none,932220.0
+728,728.0,,,30.0,Engineering,permanent,Senior Software Engineer,,0.0,high_income_short_tenure,,
+729,,,Kamau,,,,Account Executive,116.0,,low_income_midcareer,,392260.0
+730,,Leo,Ali,66.0,,permanent,Process Analyst,,0.0,,,
+731,731.0,Theo,Chirwa,,Sales,,Sales Associate,10.0,,short_tenure_contract,none,356090.0
+732,732.0,Luca,Young,50.0,,contract,Regional Sales Manager,,,baseline_shift,none,1455130.0
+733,,Kabelo,,55.0,Sales,,Account Manager,75.0,0.0,older_permanent,none,1192110.0
+734,,,,23.0,Engineering,permanent,Senior Software Engineer,41.0,0.0,baseline_shift,none,1398650.0
+735,,Amara,,,Sales,permanent,Sales Executive,105.0,0.0,,none,895200.0
+736,736.0,Amara,Das,,Operations,permanent,Senior Planner,,0.0,older_permanent,,793090.0
+737,,Nora,Petrov,49.0,Finance,,Accounting Assistant,65.0,,baseline_shift,none,
+738,,,Patel,62.0,Operations,permanent,Operations Lead,17.0,,older_permanent,none,1339470.0
+739,739.0,Theo,Shah,,Engineering,,Data Engineer,,,low_income_engineering,none,
+740,740.0,Zuri,,38.0,Engineering,permanent,Platform Engineer,98.0,0.0,,none,460550.0
+741,741.0,Rina,,,Marketing,contract,,109.0,0.0,high_income_long_tenure,none,1290990.0
+742,742.0,Grace,Mahlangu,38.0,Sales,permanent,Sales Associate,41.0,0.0,,,261380.0
+743,743.0,Thando,Mensah,28.0,Engineering,,Data Engineer,93.0,,low_income_engineering,none,
+744,,Lwazi,Diallo,,,contract,Software Engineer,68.0,,baseline_shift,none,652000.0
+745,745.0,Nandi,Scott,53.0,Engineering,permanent,Senior Software Engineer,69.0,,baseline_shift,none,1162680.0
+746,,Boitumelo,Mthembu,52.0,Support,contract,Service Coordinator,11.0,,short_tenure_contract,none,
+747,747.0,Jonas,Molefe,36.0,Engineering,,,56.0,0.0,,none,468220.0
+748,748.0,Thando,Mokoena,37.0,Operations,permanent,Process Analyst,51.0,,baseline_shift,none,551080.0
+749,749.0,Mina,,,HR,permanent,Talent Specialist,21.0,,high_income_short_tenure,,1439550.0
+750,750.0,Lwazi,Naidoo,64.0,Finance,permanent,Payroll Analyst,99.0,1.0,older_permanent,none,229670.0
+751,,,,,,permanent,,76.0,0.0,older_permanent,none,1257190.0
+752,752.0,Caleb,Zulu,,Support,contract,Service Coordinator,26.0,1.0,older_contract,none,268710.0
+753,,Lwazi,Mensah,,,permanent,Payroll Analyst,,0.0,,none,431790.0
+754,754.0,Ayanda,Mthembu,32.0,,permanent,Sales Executive,19.0,0.0,,,
+755,755.0,Priya,Chen,48.0,Finance,permanent,,109.0,,,none,502620.0
+756,756.0,Daniel,Motaung,18.0,Sales,contract,Sales Executive,,0.0,baseline_shift,none,932130.0
+757,757.0,,Kamau,20.0,,contract,Senior Accountant,,0.0,baseline_shift,none,1324070.0
+758,758.0,,Dlamini,33.0,Support,permanent,Technical Support,47.0,,baseline_shift,,1012690.0
+759,,Sibusiso,Okafor,40.0,Operations,contract,Senior Planner,119.0,0.0,baseline_shift,none,755450.0
+760,760.0,Malik,Maphosa,28.0,Operations,contract,Process Analyst,71.0,0.0,baseline_shift,,549220.0
+761,761.0,,Molefe,29.0,Finance,contract,Payroll Analyst,26.0,0.0,,none,579130.0
+762,762.0,Ben,Motaung,27.0,Sales,permanent,Sales Executive,40.0,,baseline_shift,,
+763,763.0,Malik,Wilson,49.0,Finance,contract,Financial Analyst,5.0,1.0,short_tenure_contract,none,
+764,764.0,Owen,Adeyemi,33.0,,,Senior Software Engineer,,,high_income_short_tenure,none,
+765,765.0,Kagiso,,25.0,Engineering,permanent,Platform Engineer,,1.0,baseline_shift,none,
+766,766.0,Grace,Scott,,Marketing,contract,Campaign Analyst,4.0,1.0,short_tenure_contract,none,431410.0
+767,767.0,,Mahlangu,29.0,Support,contract,Technical Support,23.0,,contract_shift,,1123590.0
+768,768.0,Palesa,Okafor,,,contract,Marketing Manager,,0.0,high_income_long_tenure,none,1382790.0
+769,769.0,Hana,Diallo,,Engineering,permanent,Platform Engineer,84.0,,,none,565680.0
+770,770.0,Grace,Mensah,25.0,Finance,permanent,Financial Analyst,15.0,,baseline_shift,,1125390.0
+771,,Samira,Young,45.0,,,Technical Support,,0.0,baseline_shift,none,618510.0
+772,772.0,,Pillay,53.0,,permanent,Financial Analyst,116.0,0.0,baseline_shift,none,698230.0
+773,773.0,Priya,,,Sales,permanent,Account Executive,,0.0,low_income_midcareer,none,383120.0
+774,774.0,,Mensah,25.0,Engineering,permanent,Senior Software Engineer,93.0,0.0,baseline_shift,none,
+775,,Noel,Jacobs,67.0,Finance,,,8.0,,older_permanent,,274110.0
+776,776.0,Mohau,Molefe,,Finance,permanent,Financial Analyst,41.0,,baseline_shift,none,720090.0
+777,,Keitumetse,Okeke,,Engineering,permanent,Platform Engineer,112.0,0.0,low_income_engineering,none,
+778,778.0,Malik,Kim,54.0,Engineering,permanent,Software Engineer,19.0,,baseline_shift,none,720220.0
+779,779.0,Layla,,58.0,Engineering,,,112.0,0.0,,none,862290.0
+780,780.0,Evan,Nguyen,,Operations,permanent,Logistics Manager,103.0,0.0,baseline_shift,none,
+781,,Sofia,,,Support,permanent,Technical Support,46.0,,baseline_shift,none,1117740.0
+782,782.0,Aisha,Scott,,Engineering,permanent,QA Engineer,28.0,,low_income_engineering,none,
+783,,Kabelo,Wilson,,Operations,permanent,Process Analyst,110.0,,baseline_shift,,426050.0
+784,,Layla,,50.0,Sales,,Account Manager,,0.0,,none,1148530.0
+785,785.0,Yara,Hall,37.0,Marketing,permanent,Campaign Analyst,68.0,0.0,baseline_shift,none,
+786,786.0,Lethabo,Mokoena,30.0,Finance,,,15.0,,,,913730.0
+787,787.0,,Chirwa,45.0,HR,permanent,HR Business Partner,99.0,,,none,
+788,788.0,Yara,Kim,65.0,Engineering,,Software Engineer,37.0,0.0,older_contract,none,850170.0
+789,789.0,Naledi,Mahlangu,46.0,Operations,,Senior Planner,1.0,0.0,baseline_shift,none,
+790,,Amara,Okeke,30.0,Marketing,contract,,,,baseline_shift,none,
+791,791.0,,Turner,63.0,Support,contract,Service Coordinator,,0.0,older_contract,none,215480.0
+792,792.0,Ivy,,52.0,Operations,,Operations Lead,24.0,,high_income_short_tenure,none,
+793,793.0,Nandi,Msimang,23.0,Operations,permanent,Operations Coordinator,27.0,,baseline_shift,none,
+794,794.0,Sipho,,35.0,Marketing,permanent,Marketing Strategist,40.0,0.0,baseline_shift,,1212970.0
+795,,Nomsa,Mabena,68.0,Finance,,,,0.0,older_permanent,,754280.0
+796,796.0,Yara,Shah,22.0,,permanent,Financial Analyst,61.0,0.0,,none,743530.0
+797,797.0,Lethabo,Dlamini,64.0,Sales,permanent,Regional Sales Manager,,,,none,1281320.0
+798,798.0,Owen,,,Marketing,permanent,,,0.0,low_income_midcareer,,310520.0
+799,799.0,Lerato,Mabena,,Operations,contract,,93.0,0.0,baseline_shift,,1156890.0
+800,,Nomsa,,,Engineering,permanent,Senior Software Engineer,24.0,,high_income_short_tenure,none,
+801,801.0,,Mensah,47.0,Marketing,contract,Content Assistant,,1.0,,none,151630.0
+802,802.0,Fatima,Moyo,67.0,,permanent,,106.0,,older_permanent,none,
+803,803.0,,Hall,,Sales,contract,Account Executive,,1.0,short_tenure_contract,none,374200.0
+804,804.0,,Chirwa,,,,Senior Accountant,67.0,0.0,,none,1355750.0
+805,805.0,,,,Sales,permanent,,,0.0,baseline_shift,none,443000.0
+806,806.0,,Scott,18.0,Engineering,,Software Engineer,57.0,0.0,,none,1048810.0
+807,807.0,Rina,Pillay,35.0,Marketing,permanent,Content Assistant,49.0,0.0,low_income_midcareer,none,257490.0
+808,,Nia,Hall,49.0,Finance,,Senior Accountant,87.0,0.0,,,1191310.0
+809,809.0,Aisha,,64.0,,,Support Advisor,53.0,,older_permanent,,1435630.0
+810,810.0,Mohau,Walker,66.0,,permanent,Platform Engineer,,,,,524870.0
+811,811.0,Lethabo,Okeke,28.0,Engineering,,QA Engineer,23.0,,,none,362230.0
+812,,Malik,Kamau,38.0,,permanent,Senior Planner,,0.0,baseline_shift,,
+813,,Fatima,,43.0,Marketing,,Content Assistant,69.0,0.0,,none,433800.0
+814,814.0,,Hall,42.0,,permanent,Service Coordinator,95.0,1.0,low_income_midcareer,none,410350.0
+815,815.0,Amara,Alvarez,39.0,Engineering,permanent,,,0.0,,,456200.0
+816,,,Ali,44.0,HR,permanent,Talent Specialist,62.0,0.0,,,1323600.0
+817,817.0,Nomsa,Molefe,66.0,Sales,permanent,,41.0,,older_permanent,none,683520.0
+818,818.0,Kagiso,Msimang,30.0,Support,permanent,Support Associate,,1.0,low_income_midcareer,none,181910.0
+819,819.0,Grace,Adeyemi,50.0,,permanent,,,0.0,,none,1055360.0
+820,820.0,Theo,Pillay,51.0,,contract,Senior Software Engineer,54.0,0.0,baseline_shift,none,1195760.0
+821,,Grace,Martin,58.0,,permanent,Payroll Analyst,,0.0,older_permanent,none,186310.0
+822,822.0,,Nkosi,,HR,,HR Business Partner,101.0,,,none,
+823,,Malik,Reed,18.0,Engineering,contract,Software Engineer,57.0,,baseline_shift,none,1053530.0
+824,,Mohau,Nkosi,,Operations,contract,Operations Coordinator,,1.0,short_tenure_contract,none,
+825,,Noel,,65.0,Operations,contract,Operations Lead,,,,none,1378110.0
+826,,Owen,Thompson,23.0,,,,7.0,1.0,young_contract,none,1427340.0
+827,827.0,,Garcia,45.0,Engineering,permanent,Software Engineer,,,,none,
+828,828.0,Ivy,Martin,34.0,Operations,,,38.0,0.0,,none,
+829,829.0,Amina,Dlamini,22.0,Operations,,,85.0,1.0,baseline_shift,none,
+830,830.0,Tariq,Adams,48.0,Operations,permanent,Senior Planner,,0.0,,,1117220.0
+831,831.0,,Khumalo,,Operations,permanent,Senior Planner,84.0,0.0,baseline_shift,none,451110.0
+832,832.0,Jonas,Berg,55.0,,permanent,Technical Support,3.0,1.0,older_permanent,,789360.0
+833,833.0,Layla,Scott,,Marketing,permanent,,51.0,0.0,baseline_shift,,759200.0
+834,834.0,Neo,Shah,40.0,Marketing,permanent,Brand Specialist,,,,,
+835,,,Mthembu,,Finance,,Payroll Analyst,47.0,0.0,low_income_midcareer,,227880.0
+836,836.0,Fatima,Kim,54.0,Finance,permanent,Payroll Analyst,,1.0,,,430820.0
+837,837.0,Amahle,,,Support,contract,Support Advisor,92.0,0.0,high_income_long_tenure,none,1382870.0
+838,838.0,Sofia,Berg,27.0,,,Account Manager,,,baseline_shift,none,1045700.0
+839,839.0,Sipho,Walker,36.0,Engineering,permanent,Software Engineer,38.0,,baseline_shift,,1160150.0
+840,840.0,Amahle,Walker,34.0,,contract,Support Specialist,115.0,0.0,,,
+841,841.0,Ayanda,Evans,38.0,Engineering,permanent,,,0.0,baseline_shift,none,1033400.0
+842,842.0,,,31.0,Engineering,,,,0.0,baseline_shift,,
+843,,Priya,,26.0,,,Senior Software Engineer,41.0,,baseline_shift,none,1300530.0
+844,844.0,Sofia,Alvarez,,Sales,permanent,,,,older_permanent,none,633550.0
+845,,Caleb,Young,18.0,Finance,permanent,Senior Accountant,13.0,0.0,high_income_short_tenure,none,
+846,846.0,,Ali,68.0,,,Sales Executive,87.0,0.0,older_contract,none,790270.0
+847,847.0,,Adams,62.0,Operations,permanent,Logistics Manager,,0.0,,,
+848,848.0,Zuri,Das,30.0,Support,permanent,Support Associate,50.0,0.0,baseline_shift,none,449560.0
+849,,,Adams,21.0,,permanent,,30.0,0.0,baseline_shift,,
+850,850.0,,Moretti,18.0,,,Marketing Strategist,,,baseline_shift,none,1399170.0
+851,,Nomsa,Patel,66.0,Operations,permanent,Operations Lead,,0.0,older_permanent,none,
+852,,Maya,Mensah,57.0,,,Financial Analyst,25.0,0.0,older_permanent,none,575330.0
+853,853.0,Amara,Chirwa,49.0,Sales,,Account Manager,112.0,,baseline_shift,,938150.0
+854,854.0,,Mokoena,,,permanent,Platform Engineer,,0.0,baseline_shift,none,
+855,855.0,Lwazi,Evans,45.0,Engineering,,Senior Software Engineer,51.0,0.0,baseline_shift,none,1247870.0
+856,856.0,,Reed,48.0,Sales,permanent,Sales Executive,78.0,0.0,baseline_shift,none,760630.0
+857,,,Mabena,,Engineering,,Senior Software Engineer,,0.0,baseline_shift,none,1428960.0
+858,858.0,Aisha,,56.0,Finance,contract,,112.0,,baseline_shift,none,
+859,859.0,Lesedi,Adeyemi,43.0,Finance,,Senior Accountant,47.0,0.0,,none,
+860,860.0,,Ndlovu,,,,Senior Accountant,,0.0,baseline_shift,none,1012050.0
+861,,Priya,,20.0,,contract,Account Executive,100.0,,low_income_contract,,219100.0
+862,862.0,Thando,Petrov,67.0,Sales,permanent,Sales Executive,39.0,,older_permanent,none,
+863,863.0,Hana,,29.0,Finance,permanent,Payroll Analyst,16.0,,baseline_shift,none,499640.0
+864,864.0,Ivy,Dlamini,18.0,HR,permanent,HR Coordinator,22.0,,baseline_shift,none,321530.0
+865,865.0,Zuri,,61.0,Support,,,85.0,0.0,older_permanent,none,747650.0
+866,866.0,Tumelo,,22.0,Finance,permanent,Senior Accountant,54.0,,baseline_shift,,
+867,867.0,,,47.0,Support,,Service Coordinator,21.0,,baseline_shift,none,540710.0
+868,868.0,,Petrov,47.0,,permanent,Marketing Manager,72.0,0.0,high_income_long_tenure,none,1279900.0
+869,,Evan,,,Operations,permanent,Senior Planner,113.0,0.0,baseline_shift,none,845190.0
+870,870.0,Elias,Ndlovu,65.0,,permanent,Data Engineer,16.0,0.0,low_income_engineering,none,245030.0
+871,871.0,Tariq,Meyer,64.0,,permanent,,59.0,0.0,older_permanent,none,1104570.0
+872,,Aisha,Naidoo,40.0,Sales,permanent,Sales Executive,119.0,0.0,,none,608380.0
+873,873.0,,Berg,32.0,,permanent,Talent Specialist,,,baseline_shift,,1402000.0
+874,874.0,Caleb,,,,,Senior Software Engineer,,0.0,baseline_shift,none,
+875,,,Mokoena,38.0,Operations,permanent,Process Analyst,74.0,1.0,low_income_midcareer,,418060.0
+876,876.0,Amina,Patel,31.0,Finance,permanent,Financial Analyst,32.0,0.0,baseline_shift,none,851190.0
+877,877.0,Kagiso,Das,,Engineering,,Data Engineer,59.0,0.0,,none,537140.0
+878,878.0,,Kamau,28.0,,permanent,Brand Specialist,34.0,0.0,baseline_shift,none,704190.0
+879,879.0,,Adeyemi,68.0,HR,permanent,HR Manager,9.0,,older_permanent,none,1204320.0
+880,,Naledi,,,,permanent,Senior Software Engineer,81.0,0.0,older_permanent,none,1079490.0
+881,881.0,Priya,Maphosa,55.0,Support,permanent,,11.0,1.0,older_permanent,none,1485330.0
+882,882.0,Keitumetse,,51.0,Operations,,Logistics Manager,96.0,0.0,,none,919710.0
+883,883.0,Ayanda,,55.0,,,Logistics Manager,10.0,1.0,,none,1084710.0
+884,884.0,Nora,Walker,67.0,,permanent,Sales Executive,86.0,0.0,older_permanent,,
+885,885.0,Amina,Martin,51.0,Engineering,contract,Senior Software Engineer,17.0,,baseline_shift,none,1139890.0
+886,,Mpho,Turner,35.0,Sales,contract,Sales Executive,,0.0,baseline_shift,none,990800.0
+887,,,Dlamini,47.0,Sales,contract,Sales Executive,48.0,0.0,baseline_shift,none,927940.0
+888,888.0,Nandi,Chirwa,32.0,HR,,HR Advisor,52.0,0.0,,,
+889,889.0,,Msimang,,,,,111.0,0.0,high_income_long_tenure,,1394470.0
+890,890.0,Elias,,68.0,Support,permanent,Support Advisor,,0.0,,none,
+891,891.0,,Msimang,51.0,Engineering,contract,Senior Software Engineer,21.0,,baseline_shift,,912720.0
+892,,Luca,Mabena,69.0,Operations,,Senior Planner,101.0,0.0,older_contract,none,
+893,893.0,,,,Engineering,,Platform Engineer,102.0,0.0,baseline_shift,none,589500.0
+894,,Theo,Mokoena,50.0,Engineering,contract,Senior Software Engineer,,0.0,baseline_shift,,
+895,,Owen,,41.0,Engineering,permanent,Senior Software Engineer,65.0,0.0,,none,1405880.0
+896,896.0,Naledi,,32.0,,permanent,Content Assistant,63.0,,low_income_midcareer,none,
+897,897.0,Theo,Mensah,47.0,Support,permanent,Support Specialist,89.0,0.0,,,
+898,898.0,Jonas,Zulu,,Sales,permanent,Account Manager,51.0,0.0,,,
+899,899.0,Jonas,Dlamini,68.0,Finance,,,36.0,0.0,older_permanent,none,
+900,900.0,Marco,,34.0,Engineering,,Senior Software Engineer,81.0,0.0,baseline_shift,none,975660.0
+901,,Nora,Nguyen,22.0,Support,permanent,,105.0,0.0,,none,
+902,902.0,Khaya,,46.0,HR,permanent,,,0.0,,none,730050.0
+903,903.0,Leo,Thompson,21.0,Sales,permanent,Account Executive,66.0,,baseline_shift,none,585410.0
+904,904.0,,Young,27.0,HR,permanent,HR Advisor,104.0,0.0,,none,383870.0
+905,905.0,Zanele,,34.0,,permanent,,15.0,0.0,baseline_shift,,1089800.0
+906,906.0,Tumelo,Rossi,27.0,Finance,permanent,,96.0,1.0,,none,1004570.0
+907,907.0,Samira,,34.0,Operations,,Senior Planner,,0.0,baseline_shift,none,
+908,,,,37.0,Marketing,permanent,Marketing Strategist,70.0,0.0,baseline_shift,none,1342460.0
+909,909.0,,,41.0,,permanent,Platform Engineer,,,baseline_shift,none,707310.0
+910,910.0,Tariq,Lee,,Finance,,Financial Analyst,111.0,0.0,baseline_shift,none,596380.0
+911,,Leo,Maseko,,Operations,,,,0.0,low_income_midcareer,none,355670.0
+912,912.0,Nomsa,,23.0,,permanent,,39.0,,,none,728040.0
+913,913.0,Mpho,Kamau,19.0,Sales,contract,Account Manager,57.0,0.0,,,1238210.0
+914,914.0,,Jacobs,30.0,,contract,Account Executive,81.0,0.0,low_income_contract,none,187540.0
+915,915.0,Yara,Ali,60.0,Operations,,,,1.0,older_contract,none,420440.0
+916,916.0,Dante,Botha,60.0,Operations,permanent,,41.0,0.0,,none,822600.0
+917,,Zuri,Wilson,65.0,Engineering,permanent,Software Engineer,93.0,0.0,,none,819120.0
+918,918.0,Maya,Scott,28.0,Support,,Service Coordinator,73.0,1.0,baseline_shift,,237060.0
+919,919.0,,Maphosa,,Engineering,permanent,Data Engineer,13.0,0.0,,none,238940.0
+920,920.0,Andile,Molefe,64.0,Finance,permanent,,70.0,0.0,,,
+921,921.0,Daniel,Nguyen,40.0,Finance,permanent,,6.0,0.0,,none,969420.0
+922,,,,33.0,Marketing,permanent,,84.0,0.0,,none,447250.0
+923,923.0,Samira,,48.0,Engineering,contract,Software Engineer,52.0,0.0,baseline_shift,none,1195550.0
+924,924.0,Hana,Shah,28.0,,permanent,Process Analyst,117.0,1.0,baseline_shift,none,244960.0
+925,925.0,Dante,Msimang,33.0,Operations,,Senior Planner,3.0,0.0,short_tenure_contract,none,
+926,,Refilwe,Okeke,25.0,Engineering,permanent,Senior Software Engineer,81.0,0.0,,none,1166040.0
+927,,Nora,Moyo,21.0,Finance,contract,Financial Analyst,63.0,0.0,baseline_shift,none,
+928,928.0,Tebogo,Mensah,57.0,Engineering,contract,,49.0,,baseline_shift,none,563210.0
+929,929.0,Ayanda,,21.0,Engineering,permanent,Software Engineer,76.0,0.0,,none,701470.0
+930,,Noel,Johnson,42.0,Operations,permanent,,,0.0,,none,1063960.0
+931,931.0,Kagiso,Johnson,20.0,Support,permanent,Service Coordinator,,0.0,baseline_shift,none,537870.0
+932,932.0,Layla,,49.0,Operations,contract,Process Analyst,,,low_income_contract,,
+933,933.0,Andile,Motaung,20.0,,permanent,Senior Planner,55.0,0.0,baseline_shift,none,
+934,,Amahle,,44.0,Operations,,Logistics Manager,,0.0,baseline_shift,none,1377210.0
+935,,Thando,Nguyen,46.0,Finance,contract,Financial Analyst,65.0,,baseline_shift,none,830560.0
+936,,Nia,,49.0,Support,permanent,Support Advisor,81.0,,high_income_long_tenure,,1491530.0
+937,,Noel,Nkosi,67.0,Operations,permanent,Logistics Manager,67.0,0.0,older_permanent,none,951020.0
+938,,Mina,Diallo,68.0,Sales,permanent,Account Manager,90.0,0.0,older_permanent,none,
+939,939.0,,,,Operations,,,15.0,0.0,baseline_shift,none,826950.0
+940,,,Lee,,Sales,,Regional Sales Manager,100.0,0.0,high_income_long_tenure,none,1322350.0
+941,941.0,Andile,,,Finance,,Senior Accountant,,0.0,,none,
+942,,,Ndlovu,,Sales,,,96.0,0.0,low_income_midcareer,none,340330.0
+943,943.0,Ivy,Mthembu,45.0,Finance,permanent,,,1.0,low_income_midcareer,none,
+944,944.0,,Maseko,,Operations,permanent,,18.0,0.0,,none,1307250.0
+945,945.0,,Mokoena,39.0,Finance,contract,Payroll Analyst,,,low_income_contract,none,
+946,946.0,Amina,Hall,,,permanent,Sales Executive,83.0,0.0,baseline_shift,none,553720.0
+947,,Noel,Msimang,23.0,Operations,contract,Senior Planner,,1.0,contract_shift,none,1044640.0
+948,948.0,Noel,,,Finance,permanent,Finance Manager,116.0,0.0,high_income_long_tenure,,1323220.0
+949,949.0,Ayanda,,,Sales,permanent,Sales Executive,,0.0,baseline_shift,none,1150820.0
+950,,Amina,Turner,58.0,Sales,contract,,104.0,1.0,low_income_contract,,201100.0
+951,,,Kamau,29.0,Support,contract,Service Coordinator,78.0,1.0,,none,270870.0
+952,952.0,Lerato,,43.0,,contract,,58.0,0.0,baseline_shift,none,976170.0
+953,953.0,Nomsa,Lee,63.0,Marketing,permanent,,33.0,0.0,older_permanent,none,1154830.0
+954,,Lethabo,,51.0,,contract,Data Engineer,,1.0,low_income_engineering,none,245960.0
+955,,,Khumalo,66.0,Marketing,,,34.0,,older_contract,,
+956,956.0,Dante,Smith,,Marketing,contract,Content Assistant,61.0,1.0,low_income_contract,none,333130.0
+957,,Kabelo,Okeke,43.0,Marketing,permanent,Marketing Manager,119.0,0.0,high_income_long_tenure,none,1281750.0
+958,,Tariq,Zulu,62.0,Finance,contract,Finance Manager,4.0,0.0,short_tenure_contract,none,
+959,959.0,Elias,,44.0,Engineering,permanent,Data Engineer,88.0,0.0,,none,387050.0
+960,960.0,,,,Sales,permanent,,59.0,0.0,baseline_shift,none,
+961,961.0,,Mensah,43.0,Operations,permanent,Senior Planner,29.0,0.0,,none,1188920.0
+962,962.0,Amina,Petrov,64.0,Finance,contract,,83.0,1.0,older_contract,none,170230.0
+963,963.0,Caleb,,39.0,Sales,,Account Manager,6.0,0.0,,,1346540.0
+964,,Lwazi,Mthembu,64.0,,permanent,Logistics Manager,,0.0,older_permanent,none,950730.0
+965,,,Molefe,47.0,Support,contract,Technical Support,,0.0,baseline_shift,none,1071970.0
+966,966.0,Lwazi,Dlamini,60.0,Sales,,,40.0,0.0,older_permanent,none,794290.0
+967,967.0,Sibusiso,Young,,,permanent,Senior Software Engineer,,,older_permanent,,1191950.0
+968,968.0,,Kamau,,Marketing,permanent,,,,,none,488480.0
+969,969.0,Daniel,Dlamini,43.0,Finance,contract,Accounting Assistant,65.0,0.0,baseline_shift,none,427660.0
+970,970.0,Elias,Walker,53.0,,,HR Business Partner,69.0,,baseline_shift,none,830990.0
+971,,,Wilson,18.0,Engineering,contract,Platform Engineer,27.0,0.0,baseline_shift,none,841220.0
+972,972.0,Zuri,Mokoena,25.0,Engineering,,Platform Engineer,,,baseline_shift,,
+973,973.0,Sofia,Lee,,,,Operations Lead,6.0,1.0,older_permanent,,1341190.0
+974,974.0,Dante,Petrov,52.0,Engineering,permanent,,104.0,0.0,baseline_shift,none,
+975,,Ben,,69.0,,permanent,Data Engineer,13.0,0.0,low_income_engineering,none,
+976,976.0,Sipho,,32.0,,permanent,,112.0,,baseline_shift,none,517270.0
+977,977.0,Mina,,64.0,,,Marketing Manager,,0.0,older_contract,none,1240790.0
+978,978.0,Naledi,Maseko,39.0,Operations,permanent,Senior Planner,62.0,0.0,,,
+979,,,Naidoo,31.0,Engineering,,Data Engineer,99.0,0.0,low_income_engineering,none,310290.0
+980,980.0,,Thompson,,Sales,contract,,,,,,
+981,,,Johnson,45.0,,contract,Regional Sales Manager,76.0,0.0,high_income_long_tenure,none,1253840.0
+982,982.0,Amara,Wilson,40.0,Sales,permanent,Sales Executive,,0.0,,none,839260.0
+983,,Owen,,31.0,,permanent,Sales Executive,43.0,0.0,,none,
+984,,,Mensah,41.0,,,,74.0,0.0,,none,932290.0
+985,985.0,Samira,Alvarez,19.0,HR,permanent,HR Business Partner,89.0,,,none,570920.0
+986,986.0,Marco,Adams,,Operations,permanent,,,,older_permanent,none,775390.0
+987,987.0,,Moretti,43.0,Support,contract,Service Coordinator,95.0,1.0,low_income_contract,none,
+988,988.0,Tumelo,Alvarez,31.0,Finance,,Financial Analyst,68.0,0.0,,,
+989,989.0,Andile,Msimang,68.0,Engineering,permanent,Data Engineer,44.0,1.0,low_income_engineering,none,204690.0
+990,990.0,,,,Finance,,,23.0,1.0,baseline_shift,none,
+991,,Nandi,Molefe,20.0,,permanent,Software Engineer,,,baseline_shift,none,912560.0
+992,992.0,Maya,Nguyen,64.0,Engineering,,Senior Software Engineer,22.0,,older_permanent,none,1141340.0
+993,993.0,Lwazi,,40.0,Finance,,,115.0,0.0,high_income_long_tenure,,
+994,994.0,,Martin,63.0,,,Senior Software Engineer,,0.0,older_permanent,,997300.0
+995,,,,60.0,Engineering,permanent,Data Engineer,101.0,0.0,low_income_engineering,none,
+996,,Nandi,Dlamini,64.0,Marketing,permanent,Brand Specialist,72.0,0.0,older_permanent,none,
+997,997.0,Owen,Mensah,,,contract,,7.0,1.0,short_tenure_contract,,366210.0
+998,998.0,Nandi,Alvarez,35.0,,,Account Manager,,0.0,baseline_shift,none,
+999,999.0,Daniel,,,HR,,HR Business Partner,,0.0,older_permanent,none,490510.0
+1000,1000.0,,,52.0,Finance,permanent,Financial Analyst,119.0,0.0,baseline_shift,none,648110.0
+1001,1001.0,Sibusiso,,68.0,,contract,,,0.0,older_contract,none,454470.0
+1002,1002.0,,Chirwa,32.0,Sales,contract,Regional Sales Manager,114.0,0.0,high_income_long_tenure,none,1430460.0
+1003,,Hana,Kamau,,Operations,contract,Senior Planner,16.0,0.0,,none,990450.0
+1004,1004.0,,Thompson,54.0,Operations,contract,Operations Lead,119.0,0.0,high_income_long_tenure,,1318590.0
+1005,1005.0,Lesedi,Botha,45.0,Sales,contract,Account Executive,83.0,0.0,low_income_contract,none,184710.0
+1006,,Refilwe,Reed,27.0,,contract,,51.0,0.0,baseline_shift,,
+1007,,Dante,Evans,56.0,Operations,contract,Senior Planner,,,baseline_shift,none,
+1008,,Karabo,Motaung,34.0,Operations,,Senior Planner,116.0,0.0,baseline_shift,none,692200.0
+1009,1009.0,,,56.0,,contract,Senior Software Engineer,,0.0,baseline_shift,none,1088080.0
+1010,1010.0,Lwazi,Petrov,39.0,Marketing,contract,,72.0,0.0,baseline_shift,none,680720.0
+1011,1011.0,,,43.0,Sales,contract,,97.0,0.0,baseline_shift,none,
+1012,1012.0,Amahle,,,,,Service Coordinator,113.0,,older_permanent,none,382840.0
+1013,,,Das,,Finance,contract,Financial Analyst,,0.0,short_tenure_contract,none,983690.0
+1014,1014.0,Thando,Thompson,34.0,,permanent,Support Associate,53.0,,low_income_midcareer,none,
+1015,1015.0,Mohau,Chen,30.0,,permanent,HR Manager,75.0,0.0,high_income_long_tenure,none,
+1016,1016.0,Amina,Hall,37.0,Marketing,,Brand Specialist,5.0,0.0,baseline_shift,,855530.0
+1017,,,Chen,42.0,Engineering,,Software Engineer,27.0,0.0,baseline_shift,none,1097880.0
+1018,1018.0,Malik,,21.0,,,,12.0,0.0,baseline_shift,none,
+1019,1019.0,Nia,Shah,27.0,,,Sales Associate,17.0,1.0,low_income_contract,none,229990.0
+1020,,,Okafor,20.0,,,,,,young_contract,none,374360.0
+1021,1021.0,Theo,Motaung,58.0,HR,permanent,HR Business Partner,97.0,0.0,older_permanent,none,
+1022,1022.0,Elias,,62.0,Finance,,Finance Manager,,1.0,older_permanent,none,1481680.0
+1023,1023.0,Mpho,Adams,35.0,Finance,permanent,,57.0,0.0,baseline_shift,none,1238990.0
+1024,,,Turner,64.0,Engineering,permanent,,28.0,1.0,low_income_engineering,,412010.0
+1025,1025.0,Elias,Ali,53.0,Engineering,permanent,Data Engineer,78.0,,low_income_engineering,none,201050.0
+1026,1026.0,Palesa,Adams,,Engineering,,,69.0,0.0,older_permanent,,1326660.0
+1027,,Amina,Hall,,Marketing,,Marketing Strategist,118.0,0.0,baseline_shift,none,
+1028,,Maya,Shah,,Finance,contract,Payroll Analyst,59.0,0.0,low_income_contract,,178390.0
+1029,,,Lee,64.0,,contract,Financial Analyst,,0.0,older_contract,,839200.0
+1030,1030.0,Boitumelo,Rossi,,Operations,,Process Analyst,62.0,0.0,baseline_shift,,586190.0
+1031,1031.0,Aisha,Wilson,57.0,,permanent,Financial Analyst,50.0,0.0,older_permanent,none,578210.0
+1032,1032.0,,Naidoo,66.0,HR,,HR Manager,112.0,0.0,older_permanent,none,1407360.0
+1033,1033.0,,Okafor,,Sales,permanent,Account Executive,,0.0,,,
+1034,1034.0,Tebogo,Lee,36.0,,permanent,,,,low_income_midcareer,none,225310.0
+1035,1035.0,Noel,,59.0,Sales,permanent,Sales Executive,86.0,,older_permanent,none,
+1036,1036.0,Ben,,58.0,Sales,permanent,,,0.0,older_permanent,none,
+1037,,,Pillay,54.0,Marketing,permanent,Brand Specialist,66.0,,baseline_shift,none,
+1038,,Palesa,Maphosa,23.0,,permanent,Finance Manager,94.0,0.0,,,
+1039,1039.0,Caleb,Hall,69.0,Finance,contract,Senior Accountant,47.0,,older_contract,none,
+1040,1040.0,Boitumelo,,,Marketing,,Brand Specialist,,,baseline_shift,none,
+1041,1041.0,,,51.0,Sales,permanent,Regional Sales Manager,68.0,0.0,,,1462340.0
+1042,1042.0,Ben,Okafor,62.0,,permanent,Service Coordinator,33.0,,older_permanent,none,346750.0
+1043,1043.0,Mina,Adams,23.0,,contract,Technical Support,13.0,,baseline_shift,,
+1044,1044.0,,,54.0,,contract,,84.0,1.0,low_income_engineering,,
+1045,,Ivy,Okeke,,,,Technical Support,54.0,0.0,baseline_shift,none,
+1046,1046.0,Neo,Botha,39.0,Finance,permanent,Payroll Analyst,7.0,0.0,,none,568000.0
+1047,1047.0,Ayanda,Dlamini,,Operations,,Logistics Manager,79.0,,,none,1110440.0
+1048,,Elias,Martin,,Engineering,contract,Data Engineer,87.0,,,,203470.0
+1049,1049.0,Fatima,Mahlangu,23.0,Marketing,permanent,,,0.0,high_income_short_tenure,none,1487150.0
+1050,1050.0,Zuri,Sithole,65.0,Operations,contract,Senior Planner,87.0,0.0,older_contract,none,
+1051,,Sibusiso,Ndlovu,21.0,,,,19.0,1.0,low_income_contract,none,
+1052,1052.0,,Msimang,47.0,Engineering,permanent,Software Engineer,,,baseline_shift,none,
+1053,1053.0,Marco,Motaung,28.0,Engineering,contract,Platform Engineer,93.0,0.0,baseline_shift,,
+1054,1054.0,Ayanda,Shah,,Engineering,permanent,QA Engineer,,0.0,,none,320730.0
+1055,,Aisha,Khumalo,48.0,Support,permanent,Technical Support,29.0,0.0,,,
+1056,1056.0,,Lee,41.0,Engineering,permanent,Data Engineer,,0.0,low_income_engineering,none,
+1057,1057.0,Noel,Rossi,,Operations,contract,Operations Lead,82.0,0.0,high_income_long_tenure,none,1393020.0
+1058,,Lwazi,Zulu,,Operations,,Logistics Manager,63.0,,baseline_shift,,1303590.0
+1059,1059.0,Kagiso,,,Finance,permanent,,,,older_permanent,none,
+1060,1060.0,,Pillay,48.0,Support,permanent,Technical Support,105.0,0.0,baseline_shift,,804280.0
+1061,1061.0,,,57.0,,permanent,HR Business Partner,57.0,0.0,older_permanent,none,
+1062,1062.0,,,54.0,,permanent,,,,,none,1486110.0
+1063,1063.0,Sibusiso,,53.0,,permanent,Software Architect,90.0,0.0,high_income_long_tenure,none,1264870.0
+1064,1064.0,Lerato,Mokoena,41.0,,contract,Support Associate,62.0,,baseline_shift,none,432280.0
+1065,1065.0,Marco,,,Sales,permanent,,29.0,0.0,baseline_shift,none,
+1066,1066.0,Sipho,Smith,23.0,Support,permanent,Support Specialist,74.0,0.0,,none,
+1067,1067.0,Zanele,,19.0,Marketing,permanent,Content Assistant,17.0,1.0,,,
+1068,1068.0,Ben,Adeyemi,37.0,,permanent,,66.0,1.0,,none,
+1069,1069.0,,Lee,,Operations,permanent,Senior Planner,6.0,0.0,baseline_shift,,1028960.0
+1070,1070.0,Grace,Hall,,Support,permanent,Technical Support,58.0,,baseline_shift,,772920.0
+1071,1071.0,Caleb,Wilson,,HR,permanent,HR Coordinator,,1.0,baseline_shift,none,440550.0
+1072,1072.0,Fatima,Maseko,,Marketing,permanent,Campaign Analyst,28.0,0.0,,none,578910.0
+1073,1073.0,Lethabo,Maphosa,,Sales,permanent,Sales Executive,62.0,,,none,969120.0
+1074,1074.0,Luca,Ali,66.0,,contract,Marketing Strategist,,0.0,older_contract,none,
+1075,1075.0,Ben,,47.0,Support,contract,Support Associate,69.0,0.0,low_income_contract,none,213040.0
+1076,1076.0,,Kamau,55.0,Support,contract,,82.0,0.0,,none,223450.0
+1077,1077.0,Jonas,Diallo,68.0,Finance,permanent,Senior Accountant,90.0,0.0,older_permanent,none,1060060.0
+1078,1078.0,,,19.0,Finance,permanent,,84.0,,high_income_long_tenure,none,
+1079,1079.0,,Sithole,32.0,Engineering,contract,QA Engineer,41.0,1.0,low_income_engineering,none,344460.0
+1080,,,Young,,,,Sales Associate,49.0,1.0,,none,173360.0
+1081,1081.0,Amahle,Okafor,25.0,,,,91.0,,baseline_shift,,770320.0
+1082,1082.0,Maya,Maphosa,,Support,,Technical Support,49.0,,,none,1128520.0
+1083,1083.0,Lwazi,Adeyemi,,Finance,,Payroll Analyst,76.0,,older_permanent,none,334740.0
+1084,,,Smith,62.0,Engineering,,Software Engineer,71.0,0.0,older_permanent,none,707180.0
+1085,1085.0,Zuri,Mthembu,61.0,Marketing,,,,,,none,596290.0
+1086,1086.0,,,22.0,HR,contract,HR Advisor,10.0,1.0,young_contract,none,602320.0
+1087,1087.0,Elias,,23.0,Engineering,permanent,Senior Software Engineer,98.0,0.0,baseline_shift,,1015440.0
+1088,1088.0,,Rossi,43.0,Operations,contract,,89.0,0.0,baseline_shift,none,656690.0
+1089,1089.0,Tumelo,Okafor,21.0,,contract,Platform Engineer,35.0,0.0,baseline_shift,none,841840.0
+1090,1090.0,,Mokoena,36.0,,,Payroll Analyst,80.0,1.0,low_income_midcareer,,281400.0
+1091,,,Evans,37.0,,,Marketing Strategist,2.0,,high_income_short_tenure,,1414680.0
+1092,1092.0,Priya,Motaung,50.0,Sales,,,24.0,,baseline_shift,none,984570.0
+1093,1093.0,Hana,Smith,,Marketing,,,74.0,,,,293570.0
+1094,1094.0,,Moretti,,Marketing,permanent,Marketing Manager,38.0,0.0,,none,
+1095,1095.0,Ben,Das,,,contract,Brand Specialist,22.0,0.0,baseline_shift,,
+1096,,Boitumelo,,,,,HR Manager,,0.0,older_permanent,none,
+1097,1097.0,,Dlamini,,Operations,contract,Senior Planner,43.0,0.0,baseline_shift,,806330.0
+1098,1098.0,Yara,Nguyen,43.0,,,,,0.0,baseline_shift,,1111110.0
+1099,1099.0,Fatima,Hall,31.0,,permanent,Technical Support,39.0,0.0,baseline_shift,none,
+1100,,Ivy,Evans,55.0,Finance,permanent,Financial Analyst,91.0,,older_permanent,none,
+1101,,Leo,,54.0,Support,permanent,Support Specialist,29.0,0.0,baseline_shift,none,1082690.0
+1102,1102.0,,Moretti,28.0,,permanent,,111.0,0.0,,none,890710.0
+1103,,Nomsa,Mthembu,53.0,,,,102.0,0.0,baseline_shift,none,
+1104,1104.0,Nandi,Dlamini,30.0,Support,permanent,,,,baseline_shift,,
+1105,1105.0,Boitumelo,Chirwa,60.0,Sales,permanent,,91.0,0.0,older_permanent,,637770.0
+1106,,Grace,Lee,20.0,Marketing,permanent,Brand Specialist,41.0,1.0,,none,
+1107,1107.0,Naledi,Walker,50.0,Engineering,,Senior Software Engineer,,0.0,,none,
+1108,1108.0,Thando,Mensah,,Engineering,,QA Engineer,20.0,1.0,low_income_engineering,none,258000.0
+1109,1109.0,Karabo,Mabena,67.0,,permanent,Platform Engineer,,,older_permanent,none,528230.0
+1110,1110.0,Naledi,Chen,27.0,Engineering,,Platform Engineer,19.0,0.0,baseline_shift,,788780.0
+1111,1111.0,Lwazi,Kim,22.0,Finance,contract,Payroll Analyst,84.0,1.0,,none,337080.0
+1112,1112.0,Dante,Scott,,Marketing,contract,Brand Specialist,,0.0,baseline_shift,,788700.0
+1113,,Khaya,Kim,27.0,,permanent,Campaign Analyst,111.0,1.0,baseline_shift,,242830.0
+1114,1114.0,Daniel,Dlamini,,,contract,Talent Specialist,66.0,0.0,older_contract,none,937070.0
+1115,,,Khumalo,19.0,HR,contract,HR Coordinator,,1.0,,,207740.0
+1116,,Amina,,,Support,contract,,,0.0,baseline_shift,none,1114680.0
+1117,,Zuri,Shah,57.0,,permanent,,,,,none,1113340.0
+1118,,Lwazi,Martin,19.0,Finance,,Accounting Assistant,22.0,1.0,low_income_contract,none,331330.0
+1119,,Rina,,37.0,Sales,contract,Sales Associate,67.0,0.0,low_income_contract,none,157810.0
+1120,1120.0,Yara,Martin,18.0,,contract,Marketing Strategist,6.0,1.0,,none,1295860.0
+1121,1121.0,,Evans,54.0,,,Campaign Analyst,79.0,1.0,,none,426240.0
+1122,1122.0,Rina,Kim,26.0,,permanent,,27.0,,baseline_shift,none,
+1123,,Grace,Martin,34.0,Support,,Support Associate,,1.0,low_income_midcareer,none,334890.0
+1124,,Kabelo,Berg,,,contract,Process Analyst,73.0,1.0,,none,441180.0
+1125,,Nandi,,,,permanent,Talent Specialist,97.0,0.0,baseline_shift,none,1154170.0
+1126,1126.0,Thando,,32.0,Finance,permanent,,,0.0,,,968160.0
+1127,1127.0,Evan,Meyer,41.0,Sales,,Sales Associate,48.0,1.0,low_income_contract,none,
+1128,1128.0,Nomsa,Botha,55.0,Sales,permanent,,70.0,,older_permanent,none,1061790.0
+1129,1129.0,,Dlamini,52.0,HR,,HR Advisor,105.0,,low_income_midcareer,,386480.0
+1130,,Jonas,Okafor,47.0,Operations,permanent,,59.0,0.0,baseline_shift,,
+1131,1131.0,Refilwe,Khumalo,48.0,Support,contract,Service Coordinator,100.0,,,,336580.0
+1132,1132.0,,Young,,,,,59.0,0.0,older_permanent,none,362530.0
+1133,1133.0,,,22.0,,,Financial Analyst,2.0,,,none,1036640.0
+1134,,Kagiso,Hall,61.0,Operations,,Logistics Manager,29.0,,older_permanent,,
+1135,1135.0,Zanele,Nkosi,67.0,Sales,contract,Regional Sales Manager,,0.0,older_contract,,
+1136,,Lesedi,Turner,31.0,Sales,permanent,Sales Executive,65.0,1.0,baseline_shift,none,869470.0
+1137,1137.0,Nomsa,Naidoo,28.0,Support,permanent,Technical Support,,,baseline_shift,none,760010.0
+1138,1138.0,Hana,,,Sales,,Account Manager,26.0,0.0,baseline_shift,none,1377750.0
+1139,1139.0,Ayanda,,,,permanent,Technical Support,89.0,0.0,baseline_shift,none,482430.0
+1140,1140.0,Noel,Moretti,29.0,Finance,,Financial Analyst,10.0,1.0,young_contract,none,
+1141,1141.0,,Mahlangu,,Engineering,permanent,,,0.0,baseline_shift,none,728280.0
+1142,1142.0,,Das,,HR,permanent,HR Advisor,,0.0,,,
+1143,1143.0,Naledi,Maseko,,Support,permanent,,,0.0,baseline_shift,none,529910.0
+1144,,,Walker,57.0,Support,permanent,Support Specialist,,0.0,older_permanent,,1004450.0
+1145,1145.0,,Adams,39.0,,permanent,Senior Planner,51.0,0.0,,,952570.0
+1146,,,,46.0,Sales,permanent,,48.0,,baseline_shift,,527110.0
+1147,1147.0,Mohau,,25.0,Operations,,Operations Coordinator,21.0,1.0,low_income_contract,none,215300.0
+1148,1148.0,Ayanda,Nkosi,28.0,Finance,,Accounting Assistant,22.0,,,none,
+1149,1149.0,Lerato,,,Finance,permanent,Financial Analyst,100.0,0.0,older_permanent,none,807940.0
+1150,1150.0,,Naidoo,54.0,Engineering,,Software Architect,98.0,0.0,,none,
+1151,1151.0,,Lee,,,permanent,Senior Software Engineer,,,,none,1479700.0
+1152,1152.0,,Nguyen,,,contract,Support Associate,,0.0,low_income_contract,none,191350.0
+1153,1153.0,Nandi,Mokoena,52.0,,contract,Marketing Manager,,0.0,,none,1244720.0
+1154,1154.0,,,38.0,Engineering,,Senior Software Engineer,28.0,,baseline_shift,none,1401470.0
+1155,1155.0,Yara,Okafor,54.0,HR,permanent,Talent Specialist,,0.0,baseline_shift,none,1040870.0
+1156,1156.0,Priya,Zulu,,Operations,permanent,Senior Planner,113.0,0.0,baseline_shift,none,
+1157,,Thando,Berg,,,permanent,Logistics Manager,45.0,0.0,baseline_shift,none,1449510.0
+1158,1158.0,,Chen,,,contract,Operations Coordinator,68.0,0.0,low_income_contract,none,
+1159,1159.0,,Maphosa,,Sales,contract,Sales Associate,7.0,1.0,short_tenure_contract,none,350740.0
+1160,,,,,Sales,,,,0.0,baseline_shift,none,828430.0
+1161,,Nomsa,Ali,,Finance,permanent,Payroll Analyst,9.0,,baseline_shift,,
+1162,,Ben,,62.0,Sales,permanent,Account Executive,36.0,0.0,older_permanent,none,262050.0
+1163,,Mpho,Msimang,59.0,Operations,contract,Operations Lead,,0.0,high_income_long_tenure,none,1396610.0
+1164,1164.0,Naledi,,42.0,Operations,contract,Operations Coordinator,,1.0,short_tenure_contract,,
+1165,,Elias,,35.0,Engineering,permanent,,10.0,,,,1486630.0
+1166,,Layla,Shah,57.0,Engineering,contract,Software Architect,36.0,,,none,1405760.0
+1167,1167.0,Tariq,Alvarez,25.0,Sales,permanent,Sales Executive,73.0,,baseline_shift,,
+1168,1168.0,,Ndlovu,,Sales,contract,Account Manager,,0.0,baseline_shift,none,
+1169,,,Mabena,57.0,Support,,Support Advisor,46.0,0.0,older_permanent,none,
+1170,,,Botha,,,permanent,,,0.0,,none,1204870.0
+1171,1171.0,Thando,,49.0,Engineering,contract,Platform Engineer,32.0,0.0,baseline_shift,none,694000.0
+1172,1172.0,Samira,Martin,68.0,Operations,,Senior Planner,,0.0,older_permanent,,468520.0
+1173,1173.0,,Petrov,55.0,,permanent,Senior Planner,,,older_permanent,none,677560.0
+1174,,Ivy,Maphosa,50.0,Operations,permanent,Operations Lead,48.0,0.0,baseline_shift,none,1303570.0
+1175,1175.0,Amara,Kim,40.0,HR,permanent,Talent Specialist,,0.0,,none,1340520.0
+1176,,Ivy,Mensah,32.0,Support,,Technical Support,,0.0,baseline_shift,none,714810.0
+1177,1177.0,Tumelo,Diallo,,Operations,permanent,,74.0,1.0,low_income_midcareer,none,162830.0
+1178,1178.0,,Adams,42.0,Operations,permanent,Senior Planner,114.0,0.0,baseline_shift,none,486910.0
+1179,,,Smith,34.0,Engineering,,Senior Software Engineer,27.0,0.0,baseline_shift,none,
+1180,,,Okeke,,Sales,permanent,Account Executive,54.0,,low_income_midcareer,none,
+1181,1181.0,Andile,Scott,64.0,Engineering,permanent,,,,low_income_engineering,none,234380.0
+1182,1182.0,Mpho,Young,19.0,HR,permanent,HR Coordinator,,1.0,baseline_shift,,
+1183,,Fatima,Okafor,31.0,Marketing,permanent,Campaign Analyst,116.0,1.0,low_income_midcareer,none,247520.0
+1184,1184.0,,,57.0,Engineering,permanent,Software Engineer,,,,,704260.0
+1185,1185.0,Ben,Johnson,57.0,Marketing,contract,Campaign Analyst,,,,,418190.0
+1186,,Priya,Molefe,68.0,Engineering,contract,Senior Software Engineer,,0.0,older_contract,none,1070510.0
+1187,1187.0,,,56.0,Engineering,permanent,,111.0,0.0,low_income_engineering,none,479940.0
+1188,1188.0,Lwazi,,,Sales,permanent,Account Manager,15.0,0.0,,none,
+1189,1189.0,Marco,Young,23.0,,contract,,,,young_contract,none,1106650.0
+1190,1190.0,Lerato,Mthembu,23.0,Operations,contract,,93.0,0.0,,none,
+1191,,,Mokoena,20.0,Sales,,Account Manager,73.0,,baseline_shift,,
+1192,1192.0,Boitumelo,,,,,,27.0,0.0,baseline_shift,none,1372320.0
+1193,,,Mokoena,,,,Brand Specialist,26.0,0.0,older_permanent,none,587320.0
+1194,1194.0,,,,,,Data Engineer,19.0,0.0,baseline_shift,none,613050.0
+1195,1195.0,,,59.0,Operations,,,92.0,,low_income_contract,,243460.0
+1196,1196.0,Palesa,,69.0,Finance,permanent,Payroll Analyst,17.0,0.0,older_permanent,none,155870.0
+1197,,Evan,Thompson,32.0,Finance,permanent,Accounting Assistant,43.0,0.0,low_income_midcareer,none,277630.0
+1198,1198.0,Tariq,Msimang,,Engineering,permanent,Software Engineer,,0.0,older_permanent,none,846150.0
+1199,1199.0,Lwazi,,46.0,,permanent,Senior Software Engineer,42.0,0.0,,none,
+1200,,Neo,,50.0,Operations,,,50.0,0.0,baseline_shift,none,1063530.0
+1201,1201.0,,Adams,69.0,Operations,permanent,Logistics Manager,,0.0,older_permanent,none,
+1202,1202.0,Kabelo,Sithole,,Marketing,,Campaign Analyst,109.0,,low_income_midcareer,none,405560.0
+1203,1203.0,Samira,Adams,56.0,Support,permanent,,40.0,0.0,older_permanent,none,740420.0
+1204,1204.0,Mina,Mensah,,Support,permanent,Support Associate,39.0,,,none,330990.0
+1205,1205.0,Marco,,,Finance,contract,Finance Manager,113.0,0.0,,none,1240890.0
+1206,,Malik,Mabena,46.0,Sales,contract,,,,baseline_shift,,488660.0
+1207,,Aisha,,55.0,,permanent,Regional Sales Manager,23.0,,,none,1204000.0
+1208,1208.0,Noel,Dlamini,50.0,Operations,contract,,111.0,,baseline_shift,none,992460.0
+1209,1209.0,Kabelo,Moretti,54.0,,,Marketing Strategist,,0.0,baseline_shift,none,919750.0
+1210,1210.0,Lerato,Das,,Marketing,contract,Brand Specialist,52.0,0.0,baseline_shift,none,965570.0
+1211,,Daniel,Hall,,Support,,Technical Support,47.0,0.0,baseline_shift,,875160.0
+1212,1212.0,Dante,Ndlovu,21.0,Engineering,permanent,Data Engineer,,0.0,low_income_engineering,,476020.0
+1213,1213.0,Sibusiso,Molefe,,Engineering,,Software Architect,97.0,0.0,,none,1442950.0
+1214,1214.0,Ben,,19.0,Finance,contract,Senior Accountant,110.0,0.0,baseline_shift,,
+1215,1215.0,,Maseko,27.0,Operations,contract,Logistics Manager,,0.0,,none,1471610.0
+1216,1216.0,Noel,Msimang,22.0,Sales,permanent,Sales Associate,43.0,,,,151550.0
+1217,1217.0,Amara,Meyer,27.0,HR,permanent,Talent Specialist,48.0,0.0,baseline_shift,none,1389500.0
+1218,,Sipho,Molefe,50.0,Operations,permanent,Senior Planner,34.0,0.0,baseline_shift,none,824940.0
+1219,1219.0,,Smith,55.0,,permanent,Logistics Manager,,0.0,older_permanent,none,912290.0
+1220,1220.0,Caleb,Ali,30.0,Sales,permanent,Account Manager,75.0,0.0,baseline_shift,,1196480.0
+1221,1221.0,Mohau,Johnson,48.0,Engineering,permanent,,61.0,0.0,baseline_shift,none,535470.0
+1222,,Keitumetse,,64.0,Engineering,permanent,Data Engineer,50.0,,low_income_engineering,,
+1223,,Hana,Evans,53.0,Finance,,Payroll Analyst,,0.0,,none,364470.0
+1224,1224.0,Nandi,Evans,,Engineering,permanent,,62.0,,older_permanent,,1029600.0
+1225,1225.0,,Nkosi,41.0,Support,contract,Technical Support,58.0,,,none,
+1226,1226.0,Lethabo,Shah,,Sales,permanent,,33.0,0.0,,none,
+1227,1227.0,Elias,Garcia,32.0,HR,permanent,HR Manager,,,high_income_long_tenure,none,
+1228,,Sofia,Zulu,46.0,Finance,permanent,Financial Analyst,16.0,,high_income_short_tenure,none,1179320.0
+1229,,Evan,,,Operations,permanent,Operations Lead,82.0,0.0,baseline_shift,none,
+1230,1230.0,Sofia,,22.0,Operations,contract,Senior Planner,94.0,,,none,637810.0
+1231,1231.0,Priya,Scott,46.0,,,Platform Engineer,48.0,0.0,baseline_shift,none,687980.0
+1232,1232.0,Marco,Petrov,64.0,,permanent,Logistics Manager,119.0,0.0,older_permanent,,1136960.0
+1233,1233.0,,Meyer,21.0,Engineering,contract,Platform Engineer,,,young_contract,none,659390.0
+1234,1234.0,Nora,,29.0,Engineering,,Data Engineer,82.0,0.0,low_income_engineering,,445160.0
+1235,1235.0,,Naidoo,62.0,Finance,,Financial Analyst,38.0,0.0,older_contract,none,652900.0
+1236,1236.0,Ivy,Motaung,19.0,Operations,permanent,,19.0,,high_income_short_tenure,,1416880.0
+1237,1237.0,Thando,Ndlovu,44.0,Sales,permanent,Sales Executive,36.0,0.0,,none,1016610.0
+1238,1238.0,Nora,Okeke,48.0,Sales,permanent,,59.0,0.0,,none,879540.0
+1239,,Nandi,,68.0,Finance,permanent,Payroll Analyst,63.0,,older_permanent,none,
+1240,1240.0,,Patel,68.0,Finance,permanent,Financial Analyst,,0.0,older_permanent,none,829900.0
+1241,,Kagiso,,,Support,,,46.0,,,,
+1242,1242.0,Tumelo,Scott,53.0,,,,3.0,0.0,high_income_short_tenure,none,
+1243,1243.0,Mina,Molefe,43.0,Engineering,contract,Software Architect,74.0,0.0,,none,1486690.0
+1244,,Ayanda,,60.0,Engineering,permanent,,102.0,0.0,low_income_engineering,none,176590.0
+1245,1245.0,,,44.0,,permanent,,65.0,0.0,baseline_shift,none,
+1246,1246.0,Rina,Maphosa,22.0,HR,contract,HR Business Partner,119.0,0.0,baseline_shift,none,
+1247,1247.0,Nia,Msimang,37.0,Engineering,permanent,Data Engineer,91.0,,,,300370.0
+1248,1248.0,,Martin,28.0,,permanent,Support Advisor,110.0,0.0,high_income_long_tenure,none,1414980.0
+1249,1249.0,Leo,Mabena,27.0,,contract,Operations Coordinator,8.0,,,none,
+1250,1250.0,Samira,Lee,,,,,51.0,0.0,,,
+1251,1251.0,Boitumelo,Kim,55.0,Sales,permanent,,110.0,0.0,older_permanent,,237870.0
+1252,,Lethabo,Mensah,23.0,Engineering,contract,Software Engineer,106.0,,baseline_shift,none,767090.0
+1253,1253.0,Rina,Shah,25.0,Engineering,,,81.0,0.0,low_income_engineering,,495180.0
+1254,1254.0,Sipho,Mensah,40.0,,contract,HR Business Partner,73.0,,baseline_shift,,689090.0
+1255,,,,,,permanent,,6.0,,older_permanent,none,
+1256,1256.0,,Mabena,43.0,,contract,,107.0,1.0,low_income_contract,none,
+1257,,,Molefe,,Engineering,permanent,,89.0,0.0,low_income_engineering,none,200750.0
+1258,1258.0,Refilwe,Okeke,,Support,,,39.0,0.0,older_contract,,433650.0
+1259,1259.0,,Adams,29.0,Finance,,,113.0,1.0,low_income_contract,,260020.0
+1260,1260.0,,Motaung,43.0,,permanent,QA Engineer,60.0,0.0,low_income_engineering,,289470.0
+1261,1261.0,,Reed,,,contract,,28.0,0.0,baseline_shift,none,1098400.0
+1262,1262.0,Tariq,Adams,57.0,Engineering,,Software Architect,97.0,0.0,,none,1312190.0
+1263,,Thando,,35.0,Engineering,permanent,Software Engineer,54.0,0.0,,,
+1264,1264.0,Maya,,,Finance,permanent,Financial Analyst,37.0,0.0,baseline_shift,none,
+1265,,,Mthembu,50.0,,contract,Brand Specialist,9.0,,short_tenure_contract,none,
+1266,1266.0,,,64.0,Support,contract,,82.0,0.0,older_contract,none,
+1267,1267.0,Tariq,Lee,57.0,,,Senior Planner,56.0,0.0,,none,492280.0
+1268,1268.0,,,60.0,Operations,permanent,Senior Planner,59.0,,,,584720.0
+1269,1269.0,Yara,,29.0,Finance,contract,,85.0,0.0,baseline_shift,none,
+1270,1270.0,Caleb,Thompson,61.0,,,Sales Executive,,0.0,short_tenure_contract,,747110.0
+1271,,Amara,Thompson,53.0,Engineering,,Senior Software Engineer,61.0,0.0,baseline_shift,none,921750.0
+1272,1272.0,Nia,,65.0,,,,58.0,0.0,older_permanent,none,793070.0
+1273,1273.0,Lesedi,Moyo,21.0,Finance,contract,Financial Analyst,107.0,0.0,baseline_shift,none,617330.0
+1274,1274.0,Daniel,Dlamini,22.0,Operations,permanent,Logistics Manager,60.0,0.0,,none,1432020.0
+1275,1275.0,Kabelo,,54.0,HR,,Talent Specialist,102.0,0.0,,none,1100280.0
+1276,,,,25.0,,,Technical Support,40.0,0.0,baseline_shift,,1074930.0
+1277,,Elias,Mabena,,Marketing,permanent,,36.0,0.0,older_permanent,none,1401490.0
+1278,,,Scott,,Support,permanent,Service Coordinator,,0.0,older_permanent,none,232590.0
+1279,,Zuri,,45.0,Operations,permanent,Operations Lead,107.0,0.0,high_income_long_tenure,none,1437750.0
+1280,1280.0,,,,Sales,,Sales Associate,37.0,,low_income_midcareer,,298490.0
+1281,1281.0,Nia,,26.0,Sales,contract,Account Manager,,0.0,baseline_shift,,967680.0
+1282,1282.0,Caleb,,,Engineering,permanent,,92.0,0.0,older_permanent,none,1211080.0
+1283,1283.0,Amina,Mokoena,46.0,Marketing,,Brand Specialist,,0.0,,none,1047090.0
+1284,1284.0,Samira,Chen,31.0,Engineering,permanent,Software Engineer,98.0,,baseline_shift,none,698690.0
+1285,1285.0,Owen,,57.0,Operations,permanent,Operations Lead,,0.0,older_permanent,none,1418880.0
+1286,1286.0,Priya,Sithole,,Sales,,Sales Executive,,0.0,,none,780950.0
+1287,1287.0,Lwazi,Chirwa,39.0,Finance,permanent,Senior Accountant,,1.0,high_income_short_tenure,,1328860.0
+1288,1288.0,,Okafor,28.0,,permanent,Senior Planner,58.0,0.0,baseline_shift,none,859100.0
+1289,1289.0,Dante,,40.0,Sales,,Sales Associate,,1.0,low_income_midcareer,none,
+1290,1290.0,,Garcia,18.0,Support,permanent,Technical Support,,0.0,baseline_shift,none,
+1291,1291.0,Leo,Chen,63.0,Support,,,4.0,0.0,older_permanent,none,898130.0
+1292,1292.0,Luca,Mokoena,54.0,Sales,,Account Manager,86.0,0.0,baseline_shift,none,
+1293,,Nomsa,Lee,38.0,,permanent,Platform Engineer,7.0,0.0,,none,666310.0
+1294,1294.0,Rina,,43.0,Marketing,,,61.0,0.0,low_income_midcareer,none,248850.0
+1295,1295.0,Tumelo,,63.0,HR,permanent,HR Business Partner,,,older_permanent,none,813140.0
+1296,,,Rossi,53.0,Operations,permanent,Senior Planner,54.0,0.0,,none,
+1297,,,Mensah,40.0,,permanent,Marketing Strategist,88.0,0.0,,,1109980.0
+1298,1298.0,Kagiso,Pillay,18.0,HR,permanent,,68.0,,baseline_shift,,648120.0
+1299,,,Berg,68.0,Support,permanent,,92.0,,older_permanent,none,
+1300,1300.0,Layla,Berg,57.0,,,Technical Support,79.0,0.0,older_permanent,none,599000.0
+1301,1301.0,Lerato,Pillay,32.0,Operations,contract,Operations Coordinator,1.0,1.0,short_tenure_contract,none,312880.0
+1302,1302.0,Aisha,Ali,38.0,Finance,,Financial Analyst,55.0,0.0,baseline_shift,none,
+1303,1303.0,,Botha,64.0,Support,contract,Support Specialist,3.0,,short_tenure_contract,none,1004360.0
+1304,,,,,Engineering,,Platform Engineer,,0.0,baseline_shift,,614030.0
+1305,1305.0,,Dlamini,26.0,Support,contract,Technical Support,,0.0,,none,1061700.0
+1306,,Khaya,Kim,27.0,Sales,permanent,Account Executive,114.0,0.0,,,241680.0
+1307,1307.0,Kagiso,Mensah,,,contract,,1.0,0.0,,none,648790.0
+1308,1308.0,Boitumelo,Moretti,43.0,Operations,,Senior Planner,,,baseline_shift,none,
+1309,1309.0,Evan,,58.0,,permanent,,38.0,,older_permanent,none,471740.0
+1310,1310.0,,Walker,,Engineering,,Software Architect,85.0,0.0,,none,1251550.0
+1311,1311.0,Naledi,Mokoena,69.0,,permanent,Senior Planner,112.0,0.0,older_permanent,none,868530.0
+1312,1312.0,Theo,Shah,,,,Platform Engineer,29.0,0.0,baseline_shift,none,790460.0
+1313,1313.0,,,,,permanent,Process Analyst,,,,none,646780.0
+1314,1314.0,,Maseko,,,contract,Account Executive,113.0,1.0,contract_shift,,416490.0
+1315,,Thando,,55.0,Operations,permanent,,74.0,0.0,older_permanent,none,1427950.0
+1316,,Mohau,,,Operations,contract,,,1.0,contract_shift,none,1036680.0
+1317,1317.0,,,24.0,Sales,,,,0.0,baseline_shift,none,1049060.0
+1318,1318.0,Lesedi,,,,contract,Logistics Manager,114.0,,baseline_shift,none,1110190.0
+1319,,,Johnson,44.0,Operations,,Senior Planner,71.0,0.0,baseline_shift,none,930020.0
+1320,1320.0,Amina,Patel,51.0,,permanent,Data Engineer,67.0,,low_income_engineering,,438030.0
+1321,,Khaya,,44.0,Engineering,permanent,,109.0,,low_income_engineering,none,
+1322,1322.0,,Chen,34.0,Support,permanent,Support Associate,,1.0,low_income_midcareer,none,237700.0
+1323,,,,,,permanent,Campaign Analyst,,0.0,,none,260930.0
+1324,1324.0,Sipho,,61.0,Sales,permanent,Regional Sales Manager,83.0,0.0,older_permanent,,
+1325,1325.0,,,,,,Logistics Manager,,,,none,1153110.0
+1326,1326.0,,Mthembu,41.0,,contract,Accounting Assistant,68.0,1.0,low_income_contract,,325690.0
+1327,,Maya,,42.0,Engineering,permanent,,69.0,0.0,,none,
+1328,1328.0,,,24.0,Support,permanent,Technical Support,,,baseline_shift,,778240.0
+1329,1329.0,Jonas,Scott,,Finance,permanent,,68.0,0.0,older_permanent,none,
+1330,1330.0,Keitumetse,Evans,,Engineering,permanent,Data Engineer,12.0,0.0,baseline_shift,none,
+1331,1331.0,Lwazi,Molefe,41.0,Sales,permanent,,,0.0,low_income_midcareer,none,172610.0
+1332,1332.0,Evan,Smith,50.0,Finance,permanent,Senior Accountant,27.0,0.0,baseline_shift,none,
+1333,1333.0,Khaya,Dlamini,66.0,,,Service Coordinator,,0.0,,none,
+1334,1334.0,Jonas,,46.0,Engineering,permanent,,106.0,0.0,baseline_shift,none,555830.0
+1335,1335.0,Caleb,,60.0,Operations,contract,Operations Lead,23.0,,older_contract,none,
+1336,1336.0,Amara,Evans,39.0,Support,permanent,Technical Support,25.0,,baseline_shift,,1003710.0
+1337,1337.0,Naledi,Young,,Operations,permanent,Logistics Manager,21.0,0.0,high_income_short_tenure,none,1260320.0
+1338,1338.0,Tebogo,Garcia,,Support,,,61.0,,baseline_shift,,
+1339,,,,67.0,Support,permanent,Support Specialist,,,,none,
+1340,1340.0,,,38.0,Marketing,permanent,Brand Specialist,52.0,0.0,baseline_shift,none,888690.0
+1341,1341.0,Sofia,Lee,66.0,Engineering,permanent,Data Engineer,88.0,0.0,,none,
+1342,1342.0,Marco,Young,24.0,,,Financial Analyst,,0.0,baseline_shift,none,983750.0
+1343,1343.0,Lethabo,Mensah,,Finance,permanent,,109.0,0.0,baseline_shift,none,1110550.0
+1344,1344.0,Tariq,Chen,37.0,Operations,,,55.0,0.0,baseline_shift,none,
+1345,1345.0,,Thompson,58.0,Engineering,,Software Engineer,46.0,0.0,baseline_shift,none,692450.0
+1346,1346.0,Ayanda,Okeke,66.0,Engineering,,,,0.0,older_contract,none,580560.0
+1347,1347.0,Hana,Walker,37.0,HR,permanent,,55.0,0.0,baseline_shift,none,735570.0
+1348,1348.0,Refilwe,Reed,,Sales,permanent,Account Executive,96.0,,low_income_midcareer,none,325430.0
+1349,1349.0,Nia,Pillay,,Support,contract,Technical Support,5.0,0.0,,none,1110380.0
+1350,1350.0,Elias,,57.0,Sales,,Account Executive,36.0,1.0,older_permanent,none,
+1351,1351.0,Keitumetse,Young,66.0,,permanent,Marketing Manager,110.0,0.0,older_permanent,none,1316560.0
+1352,,Hana,,24.0,,contract,,,1.0,low_income_contract,none,320870.0
+1353,,Malik,Okeke,18.0,Sales,permanent,Account Executive,,0.0,baseline_shift,none,463370.0
+1354,1354.0,,Scott,49.0,,,,106.0,0.0,,,803330.0
+1355,1355.0,Refilwe,Meyer,30.0,,contract,Senior Planner,58.0,0.0,baseline_shift,none,854480.0
+1356,1356.0,Tariq,Maphosa,,,permanent,,39.0,1.0,low_income_midcareer,none,196480.0
+1357,,Yara,Lee,40.0,,,Operations Lead,,0.0,high_income_long_tenure,,1455760.0
+1358,,Dante,Mokoena,68.0,Engineering,permanent,Platform Engineer,97.0,0.0,low_income_engineering,none,
+1359,1359.0,Andile,Adams,36.0,,,,113.0,0.0,baseline_shift,,506340.0
+1360,1360.0,Nandi,Nkosi,49.0,Operations,,,,0.0,high_income_long_tenure,,1295980.0
+1361,1361.0,Lwazi,Walker,47.0,Engineering,permanent,Data Engineer,61.0,,baseline_shift,none,643340.0
+1362,1362.0,Mpho,Lee,,Support,,,9.0,,baseline_shift,none,836480.0
+1363,,Owen,Chirwa,66.0,HR,,HR Advisor,6.0,,older_permanent,none,
+1364,1364.0,,Okafor,62.0,Marketing,contract,,,,older_contract,none,850280.0
+1365,,Neo,Jacobs,46.0,Operations,,,109.0,1.0,,,372070.0
+1366,1366.0,,Nguyen,47.0,HR,permanent,,35.0,0.0,baseline_shift,none,965540.0
+1367,1367.0,Lethabo,,,Engineering,permanent,Software Engineer,39.0,0.0,baseline_shift,none,982760.0
+1368,1368.0,Dante,Alvarez,57.0,Engineering,,,22.0,0.0,older_permanent,,677810.0
+1369,1369.0,Caleb,Okafor,36.0,Support,,Technical Support,41.0,0.0,baseline_shift,none,760350.0
+1370,1370.0,,,35.0,,permanent,Data Engineer,118.0,0.0,low_income_engineering,none,
+1371,,Palesa,,18.0,Engineering,contract,,5.0,,young_contract,,593630.0
+1372,,,Nkosi,,Support,,Technical Support,42.0,0.0,baseline_shift,none,
+1373,,Nandi,Thompson,68.0,Finance,permanent,,87.0,0.0,older_permanent,none,1493930.0
+1374,1374.0,Fatima,,,Support,contract,,81.0,0.0,,none,963480.0
+1375,1375.0,Nia,Msimang,67.0,,contract,Software Architect,76.0,,,none,1288160.0
+1376,1376.0,Boitumelo,Molefe,19.0,Support,permanent,Support Advisor,,,high_income_long_tenure,none,1380530.0
+1377,1377.0,Marco,Chen,45.0,,contract,Software Engineer,80.0,0.0,,none,812620.0
+1378,1378.0,Palesa,Lee,66.0,,permanent,Finance Manager,67.0,0.0,older_permanent,none,
+1379,1379.0,,,67.0,,contract,Sales Executive,30.0,0.0,older_contract,none,824110.0
+1380,,Grace,Mthembu,47.0,HR,contract,HR Coordinator,57.0,0.0,low_income_contract,none,
+1381,1381.0,Evan,,55.0,Support,permanent,,86.0,0.0,older_permanent,none,532110.0
+1382,1382.0,Palesa,,68.0,,permanent,Campaign Analyst,73.0,0.0,older_permanent,none,
+1383,,Thando,Turner,21.0,Engineering,permanent,QA Engineer,29.0,,low_income_engineering,none,399950.0
+1384,,Hana,Botha,18.0,,,Sales Executive,111.0,,baseline_shift,,495420.0
+1385,1385.0,Hana,Motaung,25.0,Engineering,contract,QA Engineer,37.0,1.0,low_income_engineering,,256510.0
+1386,1386.0,,Evans,46.0,Marketing,,Marketing Strategist,87.0,0.0,baseline_shift,none,1142390.0
+1387,1387.0,Ayanda,Alvarez,56.0,,permanent,,,0.0,older_permanent,none,939310.0
+1388,1388.0,,,,Sales,,Sales Executive,32.0,,,none,1171120.0
+1389,1389.0,Elias,Adams,49.0,Engineering,permanent,QA Engineer,46.0,1.0,low_income_engineering,,317150.0
+1390,1390.0,Fatima,,27.0,,,Technical Support,116.0,0.0,baseline_shift,none,763500.0
+1391,1391.0,,Berg,27.0,Operations,permanent,Senior Planner,,0.0,,,864250.0
+1392,1392.0,,Diallo,36.0,HR,contract,Talent Specialist,112.0,0.0,baseline_shift,none,1011200.0
+1393,,,Hall,63.0,Operations,contract,Operations Lead,23.0,0.0,older_contract,,
+1394,1394.0,Andile,Nkosi,,,permanent,Brand Specialist,45.0,0.0,baseline_shift,none,896370.0
+1395,1395.0,Keitumetse,Kamau,50.0,,permanent,Technical Support,,0.0,,none,851940.0
+1396,,Dante,Petrov,40.0,Engineering,contract,Senior Software Engineer,119.0,,baseline_shift,,919170.0
+1397,1397.0,,Moretti,,Engineering,permanent,Software Engineer,104.0,0.0,baseline_shift,none,792000.0
+1398,1398.0,Daniel,Meyer,49.0,Engineering,permanent,,85.0,0.0,baseline_shift,none,1208480.0
+1399,1399.0,Amahle,Moyo,,Support,contract,Support Advisor,,,,,1210220.0
+1400,1400.0,Sofia,Adeyemi,24.0,Operations,contract,Senior Planner,101.0,1.0,,none,750580.0
+1401,1401.0,Fatima,Mabena,,Support,,Technical Support,6.0,,short_tenure_contract,,
+1402,1402.0,,Dlamini,,,permanent,Senior Accountant,,1.0,baseline_shift,none,
+1403,1403.0,Yara,,18.0,Engineering,contract,QA Engineer,18.0,0.0,low_income_engineering,none,377850.0
+1404,1404.0,Amara,Hall,,Engineering,permanent,Senior Software Engineer,94.0,0.0,,none,1094750.0
+1405,1405.0,Dante,,41.0,Sales,permanent,Sales Associate,22.0,,low_income_midcareer,none,172820.0
+1406,,Dante,Mokoena,40.0,,permanent,,,0.0,baseline_shift,none,825340.0
+1407,1407.0,Mpho,Alvarez,25.0,,,Technical Support,33.0,,baseline_shift,none,899640.0
+1408,,Nora,Botha,64.0,Operations,,Operations Lead,30.0,0.0,older_contract,none,
+1409,1409.0,,Alvarez,54.0,HR,,,81.0,0.0,baseline_shift,none,655830.0
+1410,1410.0,,Martin,20.0,Engineering,permanent,,,,baseline_shift,none,533920.0
+1411,,,,68.0,,,Process Analyst,32.0,0.0,,none,224610.0
+1412,,,Sithole,50.0,,permanent,Account Manager,,0.0,baseline_shift,none,1151230.0
+1413,,,Scott,45.0,Operations,permanent,Process Analyst,115.0,1.0,low_income_midcareer,none,
+1414,1414.0,Keitumetse,Patel,64.0,Engineering,contract,,78.0,,older_contract,,1362510.0
+1415,1415.0,Grace,Evans,25.0,Engineering,,Platform Engineer,10.0,1.0,young_contract,,774930.0
+1416,1416.0,,Nguyen,51.0,Sales,contract,Sales Executive,,0.0,baseline_shift,none,510270.0
+1417,1417.0,Mpho,Pillay,52.0,Operations,permanent,Logistics Manager,115.0,0.0,,none,1085470.0
+1418,1418.0,,Adeyemi,49.0,Sales,permanent,Sales Executive,,0.0,baseline_shift,none,1151270.0
+1419,1419.0,Kabelo,Mahlangu,41.0,HR,permanent,HR Business Partner,34.0,,,none,940030.0
+1420,1420.0,Lwazi,,31.0,,contract,Platform Engineer,73.0,0.0,,none,
+1421,,,Mokoena,,Sales,permanent,Sales Executive,,,baseline_shift,none,
+1422,1422.0,Malik,Okafor,63.0,Marketing,permanent,Brand Specialist,28.0,0.0,older_permanent,none,
+1423,,Keitumetse,Chen,60.0,Engineering,permanent,,11.0,0.0,older_permanent,none,
+1424,1424.0,Lwazi,,33.0,Engineering,permanent,Data Engineer,78.0,0.0,,none,
+1425,1425.0,Keitumetse,Adams,21.0,,contract,Senior Planner,39.0,0.0,baseline_shift,none,907690.0
+1426,1426.0,Ben,Johnson,69.0,,permanent,Sales Executive,119.0,,older_permanent,,816770.0
+1427,1427.0,Lesedi,,54.0,Engineering,contract,Senior Software Engineer,,0.0,,none,985550.0
+1428,1428.0,Amahle,Mabena,38.0,Sales,permanent,Regional Sales Manager,118.0,0.0,high_income_long_tenure,none,
+1429,1429.0,,Scott,31.0,Support,permanent,Technical Support,19.0,0.0,high_income_short_tenure,none,1166650.0
+1430,1430.0,Nora,Moretti,48.0,Finance,permanent,Financial Analyst,118.0,0.0,baseline_shift,none,
+1431,,,,65.0,Engineering,permanent,Senior Software Engineer,15.0,0.0,older_permanent,none,1067030.0
+1432,,,Molefe,35.0,,,,28.0,0.0,low_income_midcareer,,363120.0
+1433,,Nomsa,,24.0,Marketing,contract,Marketing Strategist,24.0,,high_income_short_tenure,none,1329610.0
+1434,1434.0,Dante,Mabena,,Support,,Technical Support,72.0,,baseline_shift,none,553790.0
+1435,,Sipho,Mthembu,24.0,Marketing,,Campaign Analyst,107.0,1.0,,none,322970.0
+1436,1436.0,Mohau,Patel,50.0,,permanent,Data Engineer,9.0,,low_income_engineering,none,
+1437,1437.0,Evan,,40.0,Support,permanent,,47.0,0.0,baseline_shift,none,1352340.0
+1438,,Mohau,Mabena,38.0,Engineering,permanent,Data Engineer,33.0,0.0,,none,590140.0
+1439,1439.0,Tebogo,Chirwa,36.0,Marketing,permanent,,62.0,0.0,baseline_shift,,
+1440,1440.0,Marco,Reed,65.0,Sales,permanent,Account Executive,,1.0,older_permanent,none,261200.0
+1441,,Lwazi,Petrov,36.0,HR,permanent,HR Coordinator,19.0,0.0,low_income_midcareer,,
+1442,1442.0,,,53.0,,contract,Senior Software Engineer,67.0,0.0,baseline_shift,none,942390.0
+1443,1443.0,Neo,Meyer,46.0,Sales,,Regional Sales Manager,,0.0,high_income_long_tenure,none,
+1444,1444.0,,Berg,35.0,,permanent,,40.0,,,,
+1445,1445.0,Daniel,Jacobs,,Engineering,permanent,Software Engineer,47.0,0.0,,none,1100400.0
+1446,1446.0,,,18.0,Marketing,,Campaign Analyst,106.0,1.0,,none,
+1447,1447.0,Owen,Dlamini,64.0,HR,,,65.0,,older_permanent,,573590.0
+1448,1448.0,Fatima,Okeke,,Engineering,contract,,29.0,1.0,contract_shift,none,1137460.0
+1449,1449.0,,Das,37.0,Marketing,permanent,Marketing Strategist,50.0,0.0,baseline_shift,,1359060.0
+1450,1450.0,Daniel,,28.0,Marketing,contract,Campaign Analyst,98.0,,low_income_contract,,225970.0
+1451,,,,59.0,HR,contract,HR Business Partner,115.0,0.0,,none,620930.0
+1452,1452.0,,,,Marketing,contract,Marketing Strategist,13.0,0.0,,,1296500.0
+1453,1453.0,Mohau,Motaung,20.0,Finance,contract,Finance Manager,,,,,1359560.0
+1454,1454.0,Hana,Nguyen,,Sales,,Account Manager,1.0,0.0,short_tenure_contract,,1305980.0
+1455,,,Adams,,HR,permanent,Talent Specialist,,0.0,baseline_shift,none,1482410.0
+1456,1456.0,Nia,Lee,,Engineering,permanent,Data Engineer,,0.0,low_income_engineering,none,
+1457,1457.0,Palesa,Maphosa,22.0,Marketing,contract,Campaign Analyst,,0.0,,,467780.0
+1458,1458.0,Maya,Scott,54.0,,contract,Data Engineer,,0.0,low_income_engineering,none,338000.0
+1459,,Karabo,,55.0,,contract,Service Coordinator,77.0,0.0,low_income_midcareer,none,403720.0
+1460,1460.0,Layla,Lee,47.0,,permanent,Sales Executive,48.0,0.0,baseline_shift,none,765160.0
+1461,1461.0,Sipho,Martin,26.0,,permanent,QA Engineer,49.0,1.0,low_income_engineering,none,355380.0
+1462,1462.0,Sofia,Okeke,51.0,Support,permanent,Technical Support,,0.0,baseline_shift,none,
+1463,1463.0,,Lee,61.0,Sales,contract,Sales Executive,,0.0,older_contract,none,861550.0
+1464,1464.0,Nora,Patel,52.0,Engineering,,Software Engineer,61.0,,,,745000.0
+1465,1465.0,Tariq,,69.0,Sales,,Regional Sales Manager,29.0,0.0,older_permanent,none,1256590.0
+1466,,,Adeyemi,39.0,,,Accounting Assistant,39.0,1.0,baseline_shift,,427160.0
+1467,,Sipho,,61.0,Operations,permanent,,88.0,0.0,older_permanent,none,1493080.0
+1468,1468.0,Amahle,Evans,,,permanent,QA Engineer,26.0,0.0,low_income_engineering,none,173520.0
+1469,1469.0,Palesa,Okeke,34.0,Operations,permanent,Logistics Manager,17.0,,,none,1480040.0
+1470,1470.0,Caleb,Ali,,Operations,contract,,71.0,0.0,baseline_shift,none,
+1471,1471.0,Amara,,47.0,,permanent,,13.0,0.0,low_income_engineering,none,235560.0
+1472,1472.0,,Reed,63.0,Engineering,permanent,,69.0,0.0,,none,1018360.0
+1473,1473.0,,Chirwa,40.0,Engineering,permanent,Platform Engineer,,0.0,baseline_shift,,650980.0
+1474,1474.0,Sipho,Reed,49.0,Engineering,permanent,,49.0,,baseline_shift,none,1271690.0
+1475,1475.0,,Martin,34.0,Sales,contract,Account Manager,,0.0,,,1410600.0
+1476,1476.0,Neo,Scott,67.0,Operations,contract,,7.0,1.0,short_tenure_contract,,1455440.0
+1477,1477.0,Naledi,,,Engineering,contract,Data Engineer,58.0,,low_income_engineering,none,153400.0
+1478,1478.0,Amara,Kim,34.0,Engineering,,Software Engineer,49.0,0.0,,none,
+1479,,Nandi,Sithole,31.0,Engineering,contract,,103.0,0.0,low_income_engineering,,
+1480,1480.0,Lwazi,Hall,26.0,,permanent,,53.0,0.0,baseline_shift,none,1464300.0
+1481,1481.0,,Alvarez,57.0,Support,,Support Advisor,65.0,,older_permanent,none,
+1482,,Owen,,19.0,,permanent,Senior Software Engineer,113.0,0.0,baseline_shift,none,
+1483,1483.0,Yara,Naidoo,62.0,Finance,contract,,,0.0,older_contract,,1149310.0
+1484,1484.0,,Pillay,,,,Senior Planner,,0.0,baseline_shift,none,
+1485,1485.0,,Mabena,56.0,,permanent,,,0.0,older_permanent,,
+1486,,Kabelo,Martin,,,permanent,Data Engineer,25.0,0.0,,none,527720.0
+1487,1487.0,,Chirwa,39.0,Finance,contract,Financial Analyst,3.0,0.0,short_tenure_contract,,734780.0
+1488,1488.0,Caleb,Mensah,60.0,Marketing,,Campaign Analyst,,0.0,,,417620.0
+1489,1489.0,Lerato,,63.0,Operations,permanent,Senior Planner,29.0,,,none,705680.0
+1490,1490.0,Kagiso,Petrov,21.0,,permanent,Marketing Strategist,117.0,0.0,baseline_shift,none,1000900.0
+1491,1491.0,Nia,,43.0,,contract,Data Engineer,107.0,,low_income_engineering,none,
+1492,1492.0,Rina,Hall,46.0,Engineering,permanent,,,0.0,baseline_shift,,
+1493,1493.0,Tumelo,,62.0,,permanent,HR Business Partner,26.0,0.0,older_permanent,,
+1494,1494.0,Keitumetse,Nkosi,51.0,Support,,Support Specialist,16.0,0.0,baseline_shift,none,997540.0
+1495,1495.0,Karabo,Mokoena,40.0,Engineering,contract,Software Engineer,25.0,0.0,,none,929880.0
+1496,,Daniel,Motaung,54.0,Operations,contract,,54.0,,,none,1473790.0
+1497,1497.0,Tebogo,Motaung,28.0,Finance,,,28.0,,baseline_shift,none,
+1498,1498.0,,Pillay,23.0,Support,,Support Specialist,,0.0,baseline_shift,none,1057680.0
+1499,1499.0,,Martin,35.0,,contract,Process Analyst,56.0,0.0,baseline_shift,none,504280.0
