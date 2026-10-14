@@ -92,36 +92,40 @@ def import_employee_dataframe(data, db_path=DB_PATH):
     for row_number, row in data.iterrows():
         reason = None
         try:
-            key = (str(row.first_name).strip().lower(), str(row.last_name).strip().lower(), int(row.age), float(row.annual_income), int(row.tenure_months))
-            if not row.first_name or not row.last_name or not row.job_title:
+            first_name = "" if pd.isna(row.first_name) else str(row.first_name).strip()
+            last_name = "" if pd.isna(row.last_name) else str(row.last_name).strip()
+            job_title = "" if pd.isna(row.job_title) else str(row.job_title).strip()
+            if not first_name or not last_name or not job_title:
                 reason = "missing name or job title"
-            elif not 18 <= key[2] <= 99 or key[3] < 0 or not 0 <= key[4] <= 240:
-                reason = "age, income, or tenure outside accepted range"
-            elif row.department not in valid_departments or row.contract_type not in valid_contracts:
-                reason = "unknown department or contract type"
-            elif "churn" in data.columns and int(row.churn) not in {0, 1}:
-                reason = "churn must be 0 or 1"
-            elif key in seen:
-                reason = "duplicate record in uploaded file"
             else:
-                seen.add(key)
-                with get_connection(db_path) as connection:
-                    existing = connection.execute(
-                        """SELECT COUNT(*) FROM employees e
-                           JOIN salaries s ON s.employee_id = e.employee_id
-                           JOIN jobs j ON j.employee_id = e.employee_id
-                           WHERE lower(e.first_name) = ? AND lower(e.last_name) = ?
-                           AND e.age = ? AND s.annual_income = ? AND j.tenure_months = ?""",
-                        key,
-                    ).fetchone()[0]
-                if existing:
-                    reason = "record already exists in database"
+                key = (first_name.lower(), last_name.lower(), int(row.age), float(row.annual_income), int(row.tenure_months))
+                if not 18 <= key[2] <= 99 or key[3] < 0 or not 0 <= key[4] <= 240:
+                    reason = "age, income, or tenure outside accepted range"
+                elif row.department not in valid_departments or row.contract_type not in valid_contracts:
+                    reason = "unknown department or contract type"
+                elif "churn" in data.columns and int(row.churn) not in {0, 1}:
+                    reason = "churn must be 0 or 1"
+                elif key in seen:
+                    reason = "duplicate record in uploaded file"
+                else:
+                    seen.add(key)
+                    with get_connection(db_path) as connection:
+                        existing = connection.execute(
+                            """SELECT COUNT(*) FROM employees e
+                               JOIN salaries s ON s.employee_id = e.employee_id
+                               JOIN jobs j ON j.employee_id = e.employee_id
+                               WHERE lower(e.first_name) = ? AND lower(e.last_name) = ?
+                               AND e.age = ? AND s.annual_income = ? AND j.tenure_months = ?""",
+                            key,
+                        ).fetchone()[0]
+                    if existing:
+                        reason = "record already exists in database"
         except (TypeError, ValueError):
             reason = "non-numeric age, income, tenure, or churn"
         if reason:
             rejected.append({"source_row": int(row_number) + 2, "reason": reason, **row.to_dict()})
             continue
-        employee_id = insert_employee_with_label(row.first_name.strip(), row.last_name.strip(), key[2], row.department, row.contract_type, key[3], row.job_title.strip(), key[4], int(row.churn) if "churn" in data.columns else None, db_path)
+        employee_id = insert_employee_with_label(first_name, last_name, key[2], row.department, row.contract_type, key[3], job_title, key[4], int(row.churn) if "churn" in data.columns else None, db_path)
         accepted.append({"source_row": int(row_number) + 2, "employee_id": employee_id})
     return pd.DataFrame(accepted), pd.DataFrame(rejected)
 
