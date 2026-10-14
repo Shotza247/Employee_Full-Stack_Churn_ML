@@ -1,13 +1,13 @@
 # Databricks notebook source
 import matplotlib.pyplot as plt
 import pandas as pd
-import requests
 import streamlit as st
 from datetime import datetime, timedelta
 from sklearn.metrics import auc, confusion_matrix, roc_curve
 
 from churn_app.database import (
     get_all_employees,
+    get_employee_features,
     get_model_runs,
     get_predictions_by_run,
     get_training_data,
@@ -16,8 +16,8 @@ from churn_app.database import (
     insert_employee,
     populate_sample_data,
 )
+from churn_app.prediction import load_model, predict_employee
 
-API_URL = "http://127.0.0.1:8000/predict"
 REQUIRED_COLUMNS = {"first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months"}
 VALID_DEPARTMENTS = {"Marketing", "Sales", "Engineering", "HR", "Support", "Operations", "Finance"}
 VALID_CONTRACTS = {"permanent", "contract"}
@@ -26,13 +26,16 @@ init_db()
 populate_sample_data()
 
 
-def call_predict_api(employee_id: int, timeout: float = 5.0):
-    try:
-        response = requests.post(API_URL, json={"employee_id": int(employee_id)}, timeout=timeout)
-        response.raise_for_status()
-        return response.json()
-    except requests.RequestException as error:
-        return {"error": str(error)}
+@st.cache_resource
+def get_prediction_model():
+    return load_model()
+
+
+def predict_employee_locally(employee_id: int):
+    row = get_employee_features(int(employee_id))
+    if row is None:
+        return {"error": f"Employee not found: {employee_id}"}
+    return predict_employee(get_prediction_model(), row)
 
 
 def calculate_risk_band(probability: float) -> str:
@@ -126,7 +129,11 @@ with st.sidebar:
                 st.dataframe(uploaded_df.head(5), hide_index=True, use_container_width=True)
                 if st.button("Import valid rows", type="primary", use_container_width=True):
                     accepted, rejected = import_employee_dataframe(uploaded_df)
-                    st.session_state["last_import"] = {"accepted": accepted, "rejected": rejected}
+                    st.session_state["last_import"] = {
+                        "accepted": accepted,
+                        "rejected": rejected,
+                        "predictions": None,
+                    }
                     st.rerun()
         except (pd.errors.ParserError, UnicodeDecodeError) as error:
             st.error(f"Could not read CSV: {error}")
@@ -136,10 +143,31 @@ with st.sidebar:
     last_import = st.session_state.get("last_import")
     if last_import:
         st.success(f"Imported {len(last_import['accepted'])} rows")
+        if not last_import["accepted"].empty:
+            if st.button("Predict imported employees", use_container_width=True):
+                prediction_rows = []
+                try:
+                    with st.spinner("Predicting churn for imported employees..."):
+                        for employee_id in last_import["accepted"]["employee_id"]:
+                            result = predict_employee_locally(int(employee_id))
+                            prediction_rows.append({"employee_id": int(employee_id), **result})
+                except FileNotFoundError as error:
+                    st.error(f"Cannot predict until a trained model is available: {error}")
+                else:
+                    last_import["predictions"] = pd.DataFrame(prediction_rows)
+                    st.session_state["last_import"] = last_import
         if not last_import["rejected"].empty:
             st.warning(f"Rejected {len(last_import['rejected'])} rows")
             with st.expander("Rejected rows"):
                 st.dataframe(last_import["rejected"], hide_index=True, use_container_width=True)
+
+last_import = st.session_state.get("last_import")
+if last_import and last_import.get("predictions") is not None:
+    st.subheader("Predictions for imported employees")
+    imported_predictions = last_import["predictions"]
+    if "error" in imported_predictions.columns and imported_predictions["error"].notna().any():
+        st.warning("Some imported employees could not be scored.")
+    st.dataframe(imported_predictions, hide_index=True, use_container_width=True)
 
 with st.expander("Add a single employee"):
     with st.form("employee_form"):
@@ -157,12 +185,19 @@ with st.expander("Add a single employee"):
                 st.error("First name, last name, and job title are required.")
             else:
                 new_id = insert_employee(first_name.strip(), last_name.strip(), int(age), department, contract_type, float(annual_income), job_title.strip(), int(tenure_months))
-                st.success(f"Inserted employee with ID {new_id}.")
-                result = call_predict_api(new_id)
-                if result.get("error"):
-                    st.warning(f"Prediction API error: {result['error']}")
+                if new_id is None:
+                    st.error("Employee was inserted, but no employee ID was returned; prediction is unavailable.")
                 else:
-                    st.write(f"Churn probability: {float(result['churn_probability']):.1%} | Risk: **{result['risk_band']}**")
+                    st.success(f"Inserted employee with ID {new_id}.")
+                    try:
+                        result = predict_employee_locally(new_id)
+                    except FileNotFoundError as error:
+                        st.warning(f"Prediction unavailable: {error}")
+                    else:
+                        if result.get("error"):
+                            st.warning(result["error"])
+                        else:
+                            st.write(f"Churn probability: {float(result['churn_probability']):.1%} | Risk: **{result['risk_band']}**")
 
 employees = get_all_employees()
 if employees:
@@ -174,12 +209,22 @@ if employees:
         st.dataframe(employee_df[["employee_id", "employee_name", "age", "department", "contract_type", "job_title", "annual_income", "tenure_months"]], hide_index=True, use_container_width=True, height=320)
     st.subheader("Batch churn predictions")
     probabilities, bands = [], []
-    with st.spinner("Scoring employees through the prediction API..."):
-        for employee_id in employee_df["employee_id"]:
-            result = call_predict_api(employee_id)
-            probability = None if result.get("error") else float(result["churn_probability"])
-            probabilities.append(probability)
-            bands.append(None if probability is None else result.get("risk_band", calculate_risk_band(probability)))
+    prediction_errors = []
+    try:
+        with st.spinner("Scoring employees with the churn model..."):
+            for employee_id in employee_df["employee_id"]:
+                result = predict_employee_locally(int(employee_id))
+                if result.get("error"):
+                    prediction_errors.append(f"{employee_id}: {result['error']}")
+                probability = None if result.get("error") else float(result["churn_probability"])
+                probabilities.append(probability)
+                bands.append(None if probability is None else result.get("risk_band", calculate_risk_band(probability)))
+    except FileNotFoundError as error:
+        st.error(f"Cannot score employees until a trained model is available: {error}")
+        probabilities = [None] * len(employee_df)
+        bands = [None] * len(employee_df)
+    if prediction_errors:
+        st.warning(f"Some employees could not be scored: {'; '.join(prediction_errors)}")
     employee_df["churn_probability"] = probabilities
     employee_df["risk_band"] = bands
     with st.container(border=True):
