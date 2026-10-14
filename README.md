@@ -29,7 +29,7 @@ flowchart LR
 - **Predicts:** scores imported records from Streamlit or an individual employee through FastAPI.
 - **Evaluates:** records model metrics and predictions for labeled employees in SQLite.
 
-**Important:** uploading records does not automatically retrain the model. Use the explicit **Predict imported employees** button to score accepted rows with the current model. Retraining is a separate step.
+**Important:** uploading records does not automatically retrain the model. Use the explicit **Predict imported employees** button to score accepted rows with the current model. Successful app and API predictions are saved with timestamps and appear in the dashboard's date-filtered prediction history. Retraining is a separate step.
 
 ## Quick start
 
@@ -233,7 +233,7 @@ classDiagram
 
 ## How predictions work
 
-Streamlit and FastAPI share the same database feature lookup and prediction function. The saved artifact includes its fitted imputers, scaler, encoder, and classifier. Missing values are transformed using training-time statistics; a category not seen during training is ignored by the one-hot encoder rather than causing a prediction error.
+Streamlit and FastAPI share the same database feature lookup and prediction function. Successful predictions are recorded in SQLite with their prediction time, and the model dashboard filters those records by prediction date without retraining. Use **Save current batch predictions to history** to record the roster batch shown on the dashboard. The saved artifact includes its fitted imputers, scaler, encoder, and classifier. Missing values are transformed using training-time statistics; a category not seen during training is ignored by the one-hot encoder rather than causing a prediction error.
 
 The returned risk band is based on the probability: `low` below `0.4`, `medium` from `0.4` to below `0.7`, and `high` at `0.7` or above.
 

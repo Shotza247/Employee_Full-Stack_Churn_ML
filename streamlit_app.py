@@ -10,12 +10,14 @@ from churn_app.database import (
     get_all_employees,
     get_employee_features,
     get_model_runs,
+    get_prediction_history,
     get_predictions_by_run,
     get_training_data,
     import_employee_dataframe,
     init_db,
     insert_employee,
     populate_sample_data,
+    save_inference_predictions,
 )
 from churn_app.prediction import load_model, predict_employee
 
@@ -161,8 +163,19 @@ with st.sidebar:
                         for employee_id in last_import["accepted"]["employee_id"]:
                             result = predict_employee_locally(int(employee_id))
                             prediction_rows.append({"employee_id": int(employee_id), **result})
+                    save_inference_predictions(
+                        [
+                            {
+                                "employee_id": row["employee_id"],
+                                "predicted_prob": row["churn_probability"],
+                                "predicted_label": int(row["churn_probability"] >= 0.5),
+                            }
+                            for row in prediction_rows
+                            if "churn_probability" in row
+                        ]
+                    )
                 except (FileNotFoundError, ValueError) as error:
-                    st.error(f"Cannot predict with the current model artifact: {error}")
+                    st.error(f"Cannot predict or save prediction history: {error}")
                 else:
                     last_import["predictions"] = pd.DataFrame(prediction_rows)
                     st.session_state["last_import"] = last_import
@@ -207,6 +220,13 @@ with st.expander("Add a single employee"):
                         if result.get("error"):
                             st.warning(result["error"])
                         else:
+                            save_inference_predictions(
+                                [{
+                                    "employee_id": new_id,
+                                    "predicted_prob": result["churn_probability"],
+                                    "predicted_label": int(result["churn_probability"] >= 0.5),
+                                }]
+                            )
                             st.write(f"Churn probability: {float(result['churn_probability']):.1%} | Risk: **{result['risk_band']}**")
 
 employees = get_all_employees()
@@ -239,6 +259,18 @@ if employees:
     employee_df["risk_band"] = bands
     with st.container(border=True):
         st.dataframe(employee_df[["employee_id", "employee_name", "department", "job_title", "annual_income", "tenure_months", "churn_probability", "risk_band"]].sort_values("churn_probability", ascending=False, na_position="last"), hide_index=True, use_container_width=True, height=360)
+        if st.button("Save current batch predictions to history", use_container_width=True):
+            save_inference_predictions(
+                [
+                    {
+                        "employee_id": int(row.employee_id),
+                        "predicted_prob": float(row.churn_probability),
+                        "predicted_label": int(row.churn_probability >= 0.5),
+                    }
+                    for row in employee_df[["employee_id", "churn_probability"]].dropna(subset=["churn_probability"]).itertuples(index=False)
+                ]
+            )
+            st.success("Batch predictions saved to prediction history.")
     risk_counts = employee_df["risk_band"].value_counts().reindex(["high", "medium", "low"], fill_value=0)
     risk_chart = pd.DataFrame({"Employees": risk_counts})
     risk_chart.index = ["High risk", "Medium risk", "Low risk"]
@@ -267,31 +299,55 @@ with st.container(border=True):
 def compute_range(option):
     today = datetime.now().date()
     if option == "Today":
-        return datetime.combine(today, datetime.min.time()).isoformat(), datetime.combine(today, datetime.max.time()).isoformat()
+        return today, today
     if option == "Yesterday":
         day = today - timedelta(days=1)
-        return datetime.combine(day, datetime.min.time()).isoformat(), datetime.combine(day, datetime.max.time()).isoformat()
+        return day, day
     if option == "This week":
-        return datetime.combine(today - timedelta(days=today.weekday()), datetime.min.time()).isoformat(), datetime.combine(today, datetime.max.time()).isoformat()
+        return today - timedelta(days=today.weekday()), today
     if option == "Last week":
         start = today - timedelta(days=today.weekday() + 7)
         end = today - timedelta(days=today.weekday() + 1)
-        return datetime.combine(start, datetime.min.time()).isoformat(), datetime.combine(end, datetime.max.time()).isoformat()
+        return start, end
     return None, None
 
-start_ts, end_ts = compute_range(filter_option)
+start_date, end_date = compute_range(filter_option)
 if filter_option == "Custom range":
-    start_date, end_date = st.columns(2)
-    with start_date:
+    start_column, end_column = st.columns(2)
+    with start_column:
         custom_start = st.date_input("Start date", value=datetime.now().date())
-    with end_date:
+    with end_column:
         custom_end = st.date_input("End date", value=datetime.now().date())
-    start_ts = datetime.combine(custom_start, datetime.min.time()).isoformat()
-    end_ts = datetime.combine(custom_end, datetime.max.time()).isoformat()
+    start_date, end_date = custom_start, custom_end
 
-runs_df = get_model_runs(start_ts, end_ts)
+if start_date is not None and end_date is not None and start_date > end_date:
+    st.error("Start date must be on or before end date.")
+else:
+    prediction_history = get_prediction_history(
+        start_date.isoformat() if start_date is not None else None,
+        end_date.isoformat() if end_date is not None else None,
+    )
+    st.subheader("Prediction history")
+    if prediction_history.empty:
+        st.info("No saved predictions match this date range. Generate predictions in the app or through the API, then they will appear here.")
+    else:
+        history_metrics = st.columns(3)
+        history_metrics[0].metric("Predictions", f"{len(prediction_history):,}")
+        history_metrics[1].metric("Average churn probability", f"{prediction_history['predicted_prob'].mean():.1%}")
+        history_metrics[2].metric("Predicted churners", f"{int(prediction_history['predicted_label'].sum()):,}")
+        st.dataframe(
+            prediction_history[
+                ["employee_id", "employee_name", "predicted_prob", "predicted_label", "true_label", "prediction_source", "created_at"]
+            ],
+            hide_index=True,
+            use_container_width=True,
+            height=320,
+        )
+
+st.subheader("Model evaluation history")
+runs_df = get_model_runs()
 if runs_df.empty:
-    st.info("No model runs found. Run `py -m churn_app.train_and_evaluate` first.")
+    st.info("No model evaluation runs have been recorded yet. Prediction history above does not require a training run.")
 else:
     latest = runs_df.iloc[0]
     metric_columns = ["accuracy", "precision", "recall", "f1", "roc_auc"]

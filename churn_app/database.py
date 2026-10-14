@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS salaries (salary_id INTEGER PRIMARY KEY AUTOINCREMENT
 CREATE TABLE IF NOT EXISTS jobs (job_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, job_title TEXT, tenure_months INTEGER);
 CREATE TABLE IF NOT EXISTS model_runs (run_id INTEGER PRIMARY KEY AUTOINCREMENT, run_timestamp TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, accuracy REAL, precision REAL, recall REAL, f1 REAL, roc_auc REAL);
 CREATE TABLE IF NOT EXISTS predictions (prediction_id INTEGER PRIMARY KEY AUTOINCREMENT, run_id INTEGER NOT NULL, employee_id INTEGER NOT NULL, predicted_prob REAL NOT NULL, predicted_label INTEGER NOT NULL, true_label INTEGER, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS inference_predictions (prediction_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL, predicted_prob REAL NOT NULL, predicted_label INTEGER NOT NULL, true_label INTEGER, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 """
 SAMPLE_EMPLOYEES = [("Aaliyah", "Smith", 29, "Marketing", "permanent", 72000.0, "Analyst", 18, 0), ("Noah", "Johnson", 42, "Sales", "permanent", 92000.0, "Account Executive", 72, 0), ("Mia", "Williams", 34, "Engineering", "contract", 104000.0, "Software Engineer", 36, 0), ("James", "Brown", 51, "HR", "permanent", 78000.0, "HR Business Partner", 96, 0), ("Emma", "Jones", 27, "Support", "contract", 61000.0, "Support Specialist", 12, 1), ("Liam", "Garcia", 38, "Operations", "permanent", 88000.0, "Operations Manager", 60, 0), ("Olivia", "Miller", 31, "Finance", "permanent", 91000.0, "Financial Analyst", 30, 0), ("Ethan", "Davis", 45, "Sales", "permanent", 99000.0, "Regional Manager", 84, 0), ("Ava", "Rodriguez", 26, "Marketing", "contract", 64000.0, "Content Creator", 14, 1), ("Sophia", "Martinez", 41, "Engineering", "permanent", 115000.0, "Team Lead", 78, 0), ("Jackson", "Hernandez", 53, "Support", "permanent", 72000.0, "Support Manager", 108, 0), ("Isabella", "Lopez", 30, "Finance", "contract", 78000.0, "Payroll Specialist", 20, 0), ("Lucas", "Gonzalez", 36, "Engineering", "permanent", 108000.0, "DevOps Engineer", 48, 0), ("Charlotte", "Wilson", 39, "HR", "permanent", 82000.0, "Recruiter", 52, 0), ("Mason", "Anderson", 28, "Sales", "contract", 65000.0, "Sales Associate", 16, 1), ("Amelia", "Thomas", 47, "Operations", "permanent", 93000.0, "Logistics Specialist", 70, 0), ("Logan", "Taylor", 33, "Engineering", "permanent", 102000.0, "QA Engineer", 40, 0), ("Harper", "Moore", 24, "Marketing", "contract", 58000.0, "Social Media Coordinator", 10, 1), ("Elijah", "Jackson", 50, "Finance", "permanent", 98000.0, "Controller", 90, 0), ("Evelyn", "Martin", 32, "Operations", "permanent", 85000.0, "Supply Chain Analyst", 35, 0), ("William", "Lee", 44, "Engineering", "permanent", 118000.0, "Senior Engineer", 75, 0), ("Abigail", "Perez", 37, "HR", "contract", 69000.0, "HR Coordinator", 22, 1), ("Benjamin", "Thompson", 29, "Sales", "permanent", 86000.0, "Sales Engineer", 28, 0), ("Emily", "White", 40, "Marketing", "permanent", 94000.0, "Marketing Manager", 66, 0), ("Henry", "Harris", 35, "Engineering", "contract", 98000.0, "Backend Developer", 44, 0), ("Eleanor", "Sanchez", 31, "Finance", "permanent", 89000.0, "Accounting Manager", 38, 0)]
 
@@ -214,6 +215,51 @@ def save_model_run(metrics,predictions,db_path=DB_PATH):
         run_id = connection.execute("INSERT INTO model_runs (accuracy,precision,recall,f1,roc_auc) VALUES (?,?,?,?,?)", tuple(metrics[name] for name in ("accuracy","precision","recall","f1","roc_auc"))).lastrowid
         for row in predictions.itertuples(index=False): connection.execute("INSERT INTO predictions (run_id,employee_id,predicted_prob,predicted_label,true_label) VALUES (?,?,?,?,?)", (run_id,int(row.employee_id),float(row.predicted_prob),int(row.predicted_label),int(row.true_label)))
         return run_id
+
+def save_inference_predictions(predictions,db_path=DB_PATH):
+    with get_connection(db_path) as connection:
+        for prediction in predictions:
+            cursor = connection.execute(
+                """INSERT INTO inference_predictions
+                   (employee_id,predicted_prob,predicted_label,true_label)
+                   SELECT ?,?,?,churn FROM employees WHERE employee_id=?""",
+                (
+                    int(prediction["employee_id"]),
+                    float(prediction["predicted_prob"]),
+                    int(prediction["predicted_label"]),
+                    int(prediction["employee_id"]),
+                ),
+            )
+            if cursor.rowcount != 1:
+                raise ValueError(f"Employee not found while saving prediction: {prediction['employee_id']}")
+
+def get_prediction_history(start_date=None,end_date=None,db_path=DB_PATH):
+    query = """WITH prediction_history AS (
+                   SELECT 'App inference' AS prediction_source, ip.prediction_id,
+                          ip.employee_id, e.first_name || ' ' || e.last_name AS employee_name,
+                          ip.predicted_prob, ip.predicted_label, ip.true_label, ip.created_at
+                   FROM inference_predictions ip
+                   JOIN employees e ON e.employee_id = ip.employee_id
+                   UNION ALL
+                   SELECT 'Model evaluation' AS prediction_source, p.prediction_id,
+                          p.employee_id, e.first_name || ' ' || e.last_name AS employee_name,
+                          p.predicted_prob, p.predicted_label, p.true_label, p.created_at
+                   FROM predictions p
+                   JOIN employees e ON e.employee_id = p.employee_id
+               )
+               SELECT * FROM prediction_history"""
+    conditions, params = [], []
+    if start_date is not None:
+        conditions.append("date(created_at) >= date(?)")
+        params.append(start_date)
+    if end_date is not None:
+        conditions.append("date(created_at) <= date(?)")
+        params.append(end_date)
+    if conditions:
+        query += " WHERE " + " AND ".join(conditions)
+    query += " ORDER BY created_at DESC, prediction_source, prediction_id DESC"
+    with get_connection(db_path) as connection:
+        return pd.read_sql_query(query, connection, params=params)
 
 def get_model_runs(start_ts=None,end_ts=None,db_path=DB_PATH):
     query="SELECT * FROM model_runs"; params=[]
