@@ -30,9 +30,10 @@ def main():
     _, metrics, predictions, run_id = train_model(db_path=args.db_path, model_path=args.model_path)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     predictions.to_csv(args.output_dir / "batch_predictions.csv", index=False)
-    data.to_csv(args.output_dir / "training_data.csv", index=False)
+    labeled_data = data.loc[data["churn"].notna()]
+    labeled_data.to_csv(args.output_dir / "training_data.csv", index=False)
     (args.output_dir / "metrics.json").write_text(json.dumps({"run_id": run_id, **metrics}, indent=2), encoding="utf-8")
-    LOGGER.info("Training data rows: %d", len(data))
+    LOGGER.info("Labeled training rows: %d (unlabeled rows excluded)", len(labeled_data))
     LOGGER.info("Model artifact: %s", args.model_path)
     print(json.dumps({"run_id": run_id, **metrics}, indent=2))
     return 0

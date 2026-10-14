@@ -1,14 +1,16 @@
 # Databricks notebook source
 import sqlite3
+from math import isfinite
 from pathlib import Path
 from contextlib import contextmanager
+import numpy as np
 import pandas as pd
 from .config import DB_PATH
 
 SQL_SCHEMA = """
-CREATE TABLE IF NOT EXISTS employees (employee_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, age INTEGER NOT NULL, department TEXT NOT NULL, contract_type TEXT NOT NULL, churn INTEGER NOT NULL DEFAULT 0);
-CREATE TABLE IF NOT EXISTS salaries (salary_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, annual_income REAL NOT NULL);
-CREATE TABLE IF NOT EXISTS jobs (job_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, job_title TEXT NOT NULL, tenure_months INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS employees (employee_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, age INTEGER, department TEXT, contract_type TEXT, churn INTEGER);
+CREATE TABLE IF NOT EXISTS salaries (salary_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, annual_income REAL);
+CREATE TABLE IF NOT EXISTS jobs (job_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, job_title TEXT, tenure_months INTEGER);
 CREATE TABLE IF NOT EXISTS model_runs (run_id INTEGER PRIMARY KEY AUTOINCREMENT, run_timestamp TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, accuracy REAL, precision REAL, recall REAL, f1 REAL, roc_auc REAL);
 CREATE TABLE IF NOT EXISTS predictions (prediction_id INTEGER PRIMARY KEY AUTOINCREMENT, run_id INTEGER NOT NULL, employee_id INTEGER NOT NULL, predicted_prob REAL NOT NULL, predicted_label INTEGER NOT NULL, true_label INTEGER, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 """
@@ -24,6 +26,11 @@ def get_connection(db_path=DB_PATH):
     finally:
         connection.close()
 
+
+def _is_missing_value(value):
+    return pd.isna(value) or (isinstance(value, str) and not value.strip())
+
+
 def init_db(db_path=DB_PATH):
     Path(db_path).parent.mkdir(parents=True, exist_ok=True)
     with get_connection(db_path) as connection:
@@ -32,6 +39,40 @@ def init_db(db_path=DB_PATH):
         if "churn" not in columns:
             connection.execute("ALTER TABLE employees ADD COLUMN churn INTEGER NOT NULL DEFAULT 0")
         _repair_legacy_demo_labels(connection)
+        _migrate_nullable_employee_fields(connection)
+
+
+def _migrate_nullable_employee_fields(connection):
+    tables = {
+        "employees": (
+            "CREATE TABLE employees_nullable (employee_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, age INTEGER, department TEXT, contract_type TEXT, churn INTEGER)",
+            "employee_id, first_name, last_name, age, department, contract_type, churn",
+            ("age", "department", "contract_type", "churn"),
+        ),
+        "salaries": (
+            "CREATE TABLE salaries_nullable (salary_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, annual_income REAL)",
+            "salary_id, employee_id, annual_income",
+            ("annual_income",),
+        ),
+        "jobs": (
+            "CREATE TABLE jobs_nullable (job_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, job_title TEXT, tenure_months INTEGER)",
+            "job_id, employee_id, job_title, tenure_months",
+            ("job_title", "tenure_months"),
+        ),
+    }
+    for table, (create_sql, columns, nullable_columns) in tables.items():
+        constraints = {
+            row["name"]: row["notnull"]
+            for row in connection.execute(f"PRAGMA table_info({table})")
+        }
+        if not any(constraints.get(column, 0) for column in nullable_columns):
+            continue
+        replacement = f"{table}_nullable"
+        connection.execute(f"DROP TABLE IF EXISTS {replacement}")
+        connection.execute(create_sql)
+        connection.execute(f"INSERT INTO {replacement} ({columns}) SELECT {columns} FROM {table}")
+        connection.execute(f"DROP TABLE {table}")
+        connection.execute(f"ALTER TABLE {replacement} RENAME TO {table}")
 
 
 def _repair_legacy_demo_labels(connection):
@@ -57,7 +98,7 @@ def populate_sample_data(db_path=DB_PATH):
 
 def get_employee_features(employee_id, db_path=DB_PATH):
     with get_connection(db_path) as connection:
-        return connection.execute("SELECT e.age,e.churn,s.annual_income,j.tenure_months FROM employees e JOIN salaries s ON s.employee_id=e.employee_id JOIN jobs j ON j.employee_id=e.employee_id WHERE e.employee_id=?", (employee_id,)).fetchone()
+        return connection.execute("SELECT e.age,e.churn,s.annual_income,j.tenure_months,e.department,e.contract_type,j.job_title FROM employees e JOIN salaries s ON s.employee_id=e.employee_id JOIN jobs j ON j.employee_id=e.employee_id WHERE e.employee_id=?", (employee_id,)).fetchone()
 
 def get_all_employees(db_path=DB_PATH):
     with get_connection(db_path) as connection:
@@ -65,7 +106,13 @@ def get_all_employees(db_path=DB_PATH):
 
 def get_training_data(db_path=DB_PATH):
     with get_connection(db_path) as connection:
-        return pd.read_sql_query("SELECT e.employee_id,e.age,s.annual_income AS income,j.tenure_months,e.churn FROM employees e JOIN salaries s ON s.employee_id=e.employee_id JOIN jobs j ON j.employee_id=e.employee_id ORDER BY e.employee_id", connection)
+        data = pd.read_sql_query("SELECT e.employee_id,e.age,s.annual_income AS income,j.tenure_months,e.department,e.contract_type,j.job_title,e.churn FROM employees e JOIN salaries s ON s.employee_id=e.employee_id JOIN jobs j ON j.employee_id=e.employee_id ORDER BY e.employee_id", connection)
+        categorical_columns = ["department", "contract_type", "job_title"]
+        data[categorical_columns] = data[categorical_columns].astype(object).where(
+            data[categorical_columns].notna(),
+            np.nan,
+        )
+        return data
 
 def insert_employee(first_name,last_name,age,department,contract_type,annual_income,job_title,tenure_months,db_path=DB_PATH):
     return insert_employee_with_label(first_name, last_name, age, department, contract_type, annual_income, job_title, tenure_months, None, db_path)
@@ -82,9 +129,9 @@ def insert_employee_with_label(first_name,last_name,age,department,contract_type
 
 def import_employee_dataframe(data, db_path=DB_PATH):
     required = {"first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months"}
-    missing = required - set(data.columns)
-    if missing:
-        raise ValueError(f"Missing required columns: {', '.join(sorted(missing))}")
+    missing_columns = required - set(data.columns)
+    if missing_columns:
+        raise ValueError(f"Missing required columns: {', '.join(sorted(missing_columns))}")
     accepted, rejected, seen = [], [], set()
     valid_departments = {"Marketing", "Sales", "Engineering", "HR", "Support", "Operations", "Finance"}
     valid_contracts = {"permanent", "contract"}
@@ -92,40 +139,73 @@ def import_employee_dataframe(data, db_path=DB_PATH):
     for row_number, row in data.iterrows():
         reason = None
         try:
-            first_name = "" if pd.isna(row.first_name) else str(row.first_name).strip()
-            last_name = "" if pd.isna(row.last_name) else str(row.last_name).strip()
-            job_title = "" if pd.isna(row.job_title) else str(row.job_title).strip()
-            if not first_name or not last_name or not job_title:
-                reason = "missing name or job title"
+            first_name = None if _is_missing_value(row.first_name) else str(row.first_name).strip()
+            last_name = None if _is_missing_value(row.last_name) else str(row.last_name).strip()
+            department = None if _is_missing_value(row.department) else str(row.department).strip()
+            contract_type = None if _is_missing_value(row.contract_type) else str(row.contract_type).strip()
+            job_title = None if _is_missing_value(row.job_title) else str(row.job_title).strip()
+            if first_name is None or last_name is None:
+                reason = "missing first or last name"
             else:
-                key = (first_name.lower(), last_name.lower(), int(row.age), float(row.annual_income), int(row.tenure_months))
-                if not 18 <= key[2] <= 99 or key[3] < 0 or not 0 <= key[4] <= 240:
+                def numeric_value(column):
+                    return None if _is_missing_value(row[column]) else float(row[column])
+
+                age = numeric_value("age")
+                annual_income = numeric_value("annual_income")
+                tenure_months = numeric_value("tenure_months")
+                numeric_values = [value for value in (age, annual_income, tenure_months) if value is not None]
+                if not all(isfinite(value) for value in numeric_values):
+                    reason = "age, income, and tenure must be finite numbers"
+                elif (age is not None and not age.is_integer()) or (tenure_months is not None and not tenure_months.is_integer()):
+                    reason = "age and tenure must be whole numbers"
+                elif (
+                    (age is not None and not 18 <= age <= 99)
+                    or (annual_income is not None and annual_income < 0)
+                    or (tenure_months is not None and not 0 <= tenure_months <= 240)
+                ):
                     reason = "age, income, or tenure outside accepted range"
-                elif row.department not in valid_departments or row.contract_type not in valid_contracts:
+                elif (
+                    (department is not None and department not in valid_departments)
+                    or (contract_type is not None and contract_type not in valid_contracts)
+                ):
                     reason = "unknown department or contract type"
-                elif "churn" in data.columns and int(row.churn) not in {0, 1}:
-                    reason = "churn must be 0 or 1"
-                elif key in seen:
-                    reason = "duplicate record in uploaded file"
                 else:
-                    seen.add(key)
-                    with get_connection(db_path) as connection:
-                        existing = connection.execute(
-                            """SELECT COUNT(*) FROM employees e
-                               JOIN salaries s ON s.employee_id = e.employee_id
-                               JOIN jobs j ON j.employee_id = e.employee_id
-                               WHERE lower(e.first_name) = ? AND lower(e.last_name) = ?
-                               AND e.age = ? AND s.annual_income = ? AND j.tenure_months = ?""",
-                            key,
-                        ).fetchone()[0]
-                    if existing:
-                        reason = "record already exists in database"
+                    churn = None
+                    if "churn" in data.columns:
+                        if not _is_missing_value(row.churn):
+                            churn_value = float(row.churn)
+                            if not isfinite(churn_value) or not churn_value.is_integer() or int(churn_value) not in {0, 1}:
+                                reason = "churn must be 0 or 1"
+                            else:
+                                churn = int(churn_value)
+                    key = (
+                        first_name.lower(),
+                        last_name.lower(),
+                        int(age) if age is not None else None,
+                        annual_income,
+                        int(tenure_months) if tenure_months is not None else None,
+                    )
+                    if reason is None and key in seen:
+                        reason = "duplicate record in uploaded file"
+                    elif reason is None:
+                        seen.add(key)
+                        with get_connection(db_path) as connection:
+                            existing = connection.execute(
+                                """SELECT COUNT(*) FROM employees e
+                                   JOIN salaries s ON s.employee_id = e.employee_id
+                                   JOIN jobs j ON j.employee_id = e.employee_id
+                                   WHERE lower(e.first_name) = ? AND lower(e.last_name) = ?
+                                   AND e.age IS ? AND s.annual_income IS ? AND j.tenure_months IS ?""",
+                                key,
+                            ).fetchone()[0]
+                        if existing:
+                            reason = "record already exists in database"
         except (TypeError, ValueError):
             reason = "non-numeric age, income, tenure, or churn"
         if reason:
             rejected.append({"source_row": int(row_number) + 2, "reason": reason, **row.to_dict()})
             continue
-        employee_id = insert_employee_with_label(first_name, last_name, key[2], row.department, row.contract_type, key[3], job_title, key[4], int(row.churn) if "churn" in data.columns else None, db_path)
+        employee_id = insert_employee_with_label(first_name, last_name, key[2], department, contract_type, annual_income, job_title, key[4], churn, db_path)
         accepted.append({"source_row": int(row_number) + 2, "employee_id": employee_id})
     return pd.DataFrame(accepted), pd.DataFrame(rejected)
 

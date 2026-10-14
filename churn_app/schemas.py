@@ -7,6 +7,6 @@ class PredictionRequest(BaseModel):
 class PredictionResponse(BaseModel):
     churn_probability: float
     risk_band: str
-    age: int
-    income: float
-    tenure_months: int
+    age: int | None
+    income: float | None
+    tenure_months: int | None

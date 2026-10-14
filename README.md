@@ -42,6 +42,8 @@ After training, this notebook creates:
 - `batch_predictions.csv`
 - `training_data_from_db.csv`
 
+After changing the feature set or preprocessing pipeline, retrain the model and deploy the newly generated `churn_model.pkl`. The model uses numeric features (`age`, `income`, and `tenure_months`) and categorical features (`department`, `contract_type`, and `job_title`). Its fitted pipeline mean-imputes numeric values, most-frequent-imputes categorical values, scales numeric values, and one-hot encodes categories. Unknown categories at prediction time are safely ignored by the encoder.
+
 ## Run the FastAPI service
 
 ```powershell
@@ -69,7 +71,7 @@ The Streamlit app allows you to insert new employees into the database and score
 
 Upload `noisy_churn_experiment.csv` from the Streamlit **Import noisy experiment dataset** section. The file contains shifted age, income, and tenure distributions, extreme but valid values, contract and department shifts, explicit scenario labels, and one duplicate row.
 
-The importer previews feature means against the baseline, rejects invalid or duplicate rows, preserves supplied churn labels for comparison, and adds accepted employees to the SQLite database. Streamlit predictions run locally and do not require the API service:
+The importer previews feature means against the baseline, rejects invalid or duplicate rows, preserves missing feature values as `NULL`, and adds accepted employees to SQLite. First and last names remain required to identify employee records. The training pipeline fits numeric mean imputation and categorical most-frequent imputation using labeled training rows, then scales numeric features and one-hot encodes categorical features. Missing `churn` outcomes remain `NULL` and are excluded from supervised training; they are not fabricated. The fitted pipeline applies the same imputation and encoding to prediction inputs. Streamlit predictions run locally and do not require the API service:
 
 ```powershell
 py -m streamlit run streamlit_app.py
