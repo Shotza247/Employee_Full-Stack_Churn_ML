@@ -12,7 +12,21 @@ def risk_band(probability):
 def load_model(model_path=MODEL_PATH):
     path = Path(model_path)
     if not path.exists(): raise FileNotFoundError(f"Model artifact not found: {path}. Run train_and_evaluate.py first.")
-    return joblib.load(path)
+    model = joblib.load(path)
+    model_features = getattr(model, "feature_names_in_", None)
+    if model_features is None or list(model_features) != FEATURE_COLUMNS:
+        raise ValueError(
+            "The model artifact was trained with an incompatible feature set. "
+            "Retrain it with `python -m churn_app.train_and_evaluate`."
+        )
+    try:
+        model.predict_proba(pd.DataFrame([[np.nan] * len(FEATURE_COLUMNS)], columns=FEATURE_COLUMNS))
+    except ValueError as error:
+        raise ValueError(
+            "The model artifact cannot handle missing feature values. "
+            "Retrain it with `python -m churn_app.train_and_evaluate`."
+        ) from error
+    return model
 
 def predict_employee(model, row):
     features = pd.DataFrame(

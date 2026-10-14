@@ -5,6 +5,7 @@ import streamlit as st
 from datetime import datetime, timedelta
 from sklearn.metrics import auc, confusion_matrix, roc_curve
 
+from churn_app.config import MODEL_PATH
 from churn_app.database import (
     get_all_employees,
     get_employee_features,
@@ -27,8 +28,17 @@ populate_sample_data()
 
 
 @st.cache_resource
+def _load_cached_prediction_model(model_path: str, modified_ns: int, size: int):
+    return load_model(model_path)
+
+
 def get_prediction_model():
-    return load_model()
+    artifact = MODEL_PATH.stat()
+    return _load_cached_prediction_model(
+        str(MODEL_PATH),
+        artifact.st_mtime_ns,
+        artifact.st_size,
+    )
 
 
 def predict_employee_locally(employee_id: int):
@@ -151,8 +161,8 @@ with st.sidebar:
                         for employee_id in last_import["accepted"]["employee_id"]:
                             result = predict_employee_locally(int(employee_id))
                             prediction_rows.append({"employee_id": int(employee_id), **result})
-                except FileNotFoundError as error:
-                    st.error(f"Cannot predict until a trained model is available: {error}")
+                except (FileNotFoundError, ValueError) as error:
+                    st.error(f"Cannot predict with the current model artifact: {error}")
                 else:
                     last_import["predictions"] = pd.DataFrame(prediction_rows)
                     st.session_state["last_import"] = last_import

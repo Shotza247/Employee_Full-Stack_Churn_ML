@@ -364,7 +364,7 @@ Newly uploaded rows are available in SQLite, but the already-fitted model does n
 
 Rows without churn labels remain stored and can be predicted, but are left out of model fitting. If a numeric feature or categorical feature has no observed training values, training stops with an explanatory error because the imputer cannot learn a replacement value.
 
-When deploying, package the code, dependencies, trained model artifact, and a database containing the employee data you expect to query. SQLite is a local file: separate deployments or instances will not automatically share its contents. On hosting platforms with ephemeral filesystems, database changes may not survive restarts, so use persistent storage or a shared database if that is required. After replacing the model artifact, restart/redeploy the app so Streamlit’s cached model is loaded again; FastAPI loads its model when the service starts.
+When deploying, package the code, dependencies, trained model artifact, and a database containing the employee data you expect to query. SQLite is a local file: separate deployments or instances will not automatically share its contents. On hosting platforms with ephemeral filesystems, database changes may not survive restarts, so use persistent storage or a shared database if that is required. Streamlit reloads its cached model when the artifact file changes; FastAPI loads its model when the service starts, so restart the API after replacing the artifact.
 
 ## Explore the code
 
