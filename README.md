@@ -8,17 +8,37 @@ An interactive employee-churn project that stores employee records in SQLite, tr
 
 ```mermaid
 flowchart LR
-    CSV["Employee CSV"] --> UI["Streamlit app"]
-    UI -->|validate and import| DB[("SQLite database")]
-    DB -->|labeled examples| TRAIN["Training pipeline"]
-    TRAIN -->|save fitted pipeline| MODEL["churn_model.pkl"]
-    UI -->|predict button| PREDICT["Local prediction"]
-    API["FastAPI client"] -->|employee_id| SERVICE["FastAPI"]
+    CSV["📄 Employee CSV"] --> UI["💻 Streamlit App"]
+    UI -->|"validate & import"| DB[("🗄️ SQLite Database")]
+    DB -->|"labeled examples"| TRAIN["🧠 Training Pipeline"]
+    TRAIN -->|"save fitted pipeline"| MODEL["📦 churn_model.pkl"]
+    UI -->|"predict button"| PREDICT["⚡ Local Prediction"]
+    API["🌐 FastAPI Client"] -->|"employee_id"| SERVICE["🚀 FastAPI Service"]
     SERVICE --> DB
-    DB -->|employee features| PREDICT
+    DB -->|"employee features"| PREDICT
     MODEL --> PREDICT
-    PREDICT --> RESULT["Churn probability and risk band"]
+    PREDICT --> RESULT["🎯 Churn Probability & Risk"]
     SERVICE --> RESULT
+
+    classDef csvNode fill:#1E293B,stroke:#38BDF8,stroke-width:2px,color:#ffffff;
+    classDef uiNode fill:#2563EB,stroke:#93C5FD,stroke-width:2px,color:#ffffff;
+    classDef dbNode fill:#0F766E,stroke:#2DD4BF,stroke-width:2px,color:#ffffff;
+    classDef trainNode fill:#4F46E5,stroke:#A5B4FC,stroke-width:2px,color:#ffffff;
+    classDef modelNode fill:#D97706,stroke:#FCD34D,stroke-width:2px,color:#ffffff;
+    classDef predictNode fill:#0284C7,stroke:#7DD3FC,stroke-width:2px,color:#ffffff;
+    classDef apiNode fill:#1E293B,stroke:#818CF8,stroke-width:2px,color:#ffffff;
+    classDef serviceNode fill:#4338CA,stroke:#C7D2FE,stroke-width:2px,color:#ffffff;
+    classDef resultNode fill:#059669,stroke:#6EE7B7,stroke-width:2px,color:#ffffff;
+
+    class CSV csvNode;
+    class UI uiNode;
+    class DB dbNode;
+    class TRAIN trainNode;
+    class MODEL modelNode;
+    class PREDICT predictNode;
+    class API apiNode;
+    class SERVICE serviceNode;
+    class RESULT resultNode;
 ```
 
 ### What the app does
@@ -140,6 +160,9 @@ flowchart TD
     K --> L
 ```
 
+<details>
+<summary><strong>📊 Click to toggle Data Pipeline UML Activity Diagram</strong></summary>
+
 ### Data pipeline UML activity diagram
 
 ```mermaid
@@ -159,6 +182,8 @@ flowchart TB
     summary --> finish((Done))
     error --> finish
 ```
+
+</details>
 
 ## How the model learns
 
@@ -188,6 +213,9 @@ flowchart TD
     EVAL --> SAVE["Save full fitted pipeline as churn_model.pkl"]
     SAVE --> EXPORT["Write metrics and batch prediction reports"]
 ```
+
+<details>
+<summary><strong>📐 Click to toggle Model Pipeline UML Component Diagram</strong></summary>
 
 ### Model pipeline UML component diagram
 
@@ -231,11 +259,70 @@ classDiagram
     FittedPipeline *-- LogisticRegression
 ```
 
+</details>
+
+### Architecture comparison: Local vs. Cloud deployment
+
+Below is the side-by-side data flow and runtime comparison between **Local Development** (single machine) and **Production Cloud Deployment** (Streamlit Cloud + Vercel Serverless):
+
+```mermaid
+flowchart LR
+    subgraph Local_Stack ["💻 Local Development (Single Machine)"]
+        direction TB
+        L_USER["User Browser<br/>(localhost:8501)"] --> L_ST["Local Streamlit App<br/>(Python Process)"]
+        L_ST -->|"Direct In-Process Call / HTTP"| L_API["Local Predictor / FastAPI<br/>(localhost:8000)"]
+        L_API -->|"Direct File Read"| L_MODEL["Local Model File<br/>(./churn_model.pkl)"]
+        L_API -->|"Direct SQL Query/Write"| L_DB[("Local SQLite File<br/>(./employees.db)")]
+        L_MODEL --> L_API
+        L_API -->|"In-Process Return"| L_ST
+        L_ST -->|"Render Dashboard"| L_USER
+    end
+
+    subgraph Cloud_Stack ["☁️ Cloud Deployment (Streamlit Cloud + Vercel)"]
+        direction TB
+        C_USER["End User Browser<br/>(Web / Mobile)"] --> C_ST["Streamlit Cloud<br/>(share.streamlit.io)"]
+        C_ST -->|"HTTPS REST Request<br/>POST /predict"| C_VERCEL["FastAPI on Vercel<br/>(Serverless /api/index.py)"]
+        C_VERCEL -->|"In-Memory Pipeline"| C_MODEL["Bundled Artifact<br/>(churn_model.pkl)"]
+        C_VERCEL -->|"Ephemeral SQLite Read/Write"| C_DB[("Serverless SQLite<br/>(/tmp/employees.db)")]
+        C_MODEL --> C_VERCEL
+        C_VERCEL -->|"HTTPS JSON Response<br/>(probability, risk, latency)"| C_ST
+        C_ST -->|"Render Live Cloud UI"| C_USER
+    end
+
+    classDef userNode fill:#1E293B,stroke:#64748B,stroke-width:2px,color:#ffffff;
+    classDef stNode fill:#1D4ED8,stroke:#60A5FA,stroke-width:2px,color:#ffffff;
+    classDef apiNode fill:#4338CA,stroke:#818CF8,stroke-width:2px,color:#ffffff;
+    classDef modelNode fill:#B45309,stroke:#FBBF24,stroke-width:2px,color:#ffffff;
+    classDef dbNode fill:#0F766E,stroke:#2DD4BF,stroke-width:2px,color:#ffffff;
+
+    class L_USER,C_USER userNode;
+    class L_ST,C_ST stNode;
+    class L_API,C_VERCEL apiNode;
+    class L_MODEL,C_MODEL modelNode;
+    class L_DB,C_DB dbNode;
+```
+
+| Dimension | Local Development | Streamlit Cloud + Vercel Deployment |
+| :--- | :--- | :--- |
+| **Frontend UI** | Streamlit running locally on `http://localhost:8501` | Hosted globally on **Streamlit Community Cloud** |
+| **Backend & API** | Local FastAPI process on `http://127.0.0.1:8000` | Serverless Python function on **Vercel** (`https://your-app.vercel.app`) |
+| **Communication** | Direct in-memory Python function call or local loopback | Public **HTTPS REST API** (`POST /predict`) with CORS enabled |
+| **Database** | Persistent SQLite read/write to root `./employees.db` | Read-only bundle copied to ephemeral `/tmp/employees.db` on cold start |
+| **Model Artifact** | Local file access from root `./churn_model.pkl` | Bundled in serverless package and loaded into memory on cold start |
+| **Scalability** | Single machine CPU process | **Auto-scaling serverless instances** on-demand |
+
+---
+
 ## How predictions work
 
 Streamlit and FastAPI share the same database feature lookup and prediction function. Successful predictions are recorded in SQLite with their prediction time, and the model dashboard filters those records by prediction date without retraining. Use **Save current batch predictions to history** to record the roster batch shown on the dashboard. The saved artifact includes its fitted imputers, scaler, encoder, and classifier. Missing values are transformed using training-time statistics; a category not seen during training is ignored by the one-hot encoder rather than causing a prediction error.
 
 The returned risk band is based on the probability: `low` below `0.4`, `medium` from `0.4` to below `0.7`, and `high` at `0.7` or above.
+
+<details>
+<summary><strong>🔮 Click to toggle Prediction Sequence Diagrams & UML Architecture</strong></summary>
+
+### Single prediction sequence diagram
 
 ```mermaid
 sequenceDiagram
@@ -257,7 +344,7 @@ sequenceDiagram
     UI-->>User: Display prediction
 ```
 
-### Prediction flow UML sequence diagram
+### Batch prediction sequence diagram
 
 ```mermaid
 sequenceDiagram
@@ -352,6 +439,8 @@ classDiagram
     PredictionModule --> Employees : reads feature row
     PredictionModule --> Predictions : shared model logic
 ```
+
+</details>
 
 ## Retrain after changing the data or model
 
