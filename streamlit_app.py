@@ -1,9 +1,13 @@
 # Databricks notebook source
-import matplotlib.pyplot as plt
-import pandas as pd
-import streamlit as st
 from datetime import datetime, timedelta
+import os
+import time
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import requests
 from sklearn.metrics import auc, confusion_matrix, roc_curve
+import streamlit as st
 
 from churn_app.config import MODEL_PATH
 from churn_app.database import (
@@ -19,7 +23,14 @@ from churn_app.database import (
     populate_sample_data,
     save_inference_predictions,
 )
+from churn_app.faker_producer import FakerProducer
+from churn_app.feature_engineering import impute_and_engineer_features
 from churn_app.prediction import load_model, predict_employee
+from churn_app.training import (
+    compute_feature_correlations,
+    get_feature_importances,
+    train_model,
+)
 
 REQUIRED_COLUMNS = {"first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months"}
 VALID_DEPARTMENTS = {"Marketing", "Sales", "Engineering", "HR", "Support", "Operations", "Finance"}
@@ -48,6 +59,17 @@ def predict_employee_locally(employee_id: int):
     if row is None:
         return {"error": f"Employee not found: {employee_id}"}
     return predict_employee(get_prediction_model(), row)
+
+
+def predict_employee_via_api(employee_id: int, api_url: str):
+    url = f"{api_url.rstrip('/')}/predict"
+    try:
+        response = requests.post(url, json={"employee_id": int(employee_id)}, timeout=8)
+        if response.status_code == 200:
+            return response.json()
+        return {"error": f"API Error ({response.status_code}): {response.text}"}
+    except Exception as exc:
+        return {"error": f"Failed to connect to API ({url}): {exc}"}
 
 
 def calculate_risk_band(probability: float) -> str:
@@ -120,13 +142,57 @@ def show_confusion_matrix(y_true: pd.Series, y_pred: pd.Series, title: str):
     return matrix
 
 
+def plot_correlation_heatmap(corr_matrix: pd.DataFrame, title: str = "Feature Correlation Heatmap"):
+    if corr_matrix.empty:
+        st.info("No correlation data available.")
+        return
+    fig, ax = plt.subplots(figsize=(max(6.5, len(corr_matrix.columns) * 0.72), max(4.8, len(corr_matrix.index) * 0.58)))
+    cax = ax.imshow(corr_matrix.values, cmap="coolwarm", vmin=-1.0, vmax=1.0)
+    ax.set_xticks(range(len(corr_matrix.columns)))
+    ax.set_yticks(range(len(corr_matrix.index)))
+    ax.set_xticklabels(corr_matrix.columns, rotation=45, ha="right", fontsize=9)
+    ax.set_yticklabels(corr_matrix.index, fontsize=9)
+    ax.set_title(title, fontsize=12, pad=12, fontweight="bold")
+
+    for i in range(len(corr_matrix.index)):
+        for j in range(len(corr_matrix.columns)):
+            val = corr_matrix.iloc[i, j]
+            if pd.notna(val):
+                text_color = "white" if abs(val) > 0.45 else "#1e293b"
+                ax.text(j, i, f"{val:.2f}", ha="center", va="center", color=text_color, fontsize=8, fontweight="bold")
+
+    fig.colorbar(cax, ax=ax, fraction=0.046, pad=0.04)
+    fig.tight_layout()
+    st.pyplot(fig, use_container_width=True)
+    plt.close(fig)
+
+
 st.set_page_config(page_title="Employee Churn Intelligence", layout="wide")
 st.title("Employee Churn Intelligence")
-st.caption("Onboard employees, inspect data quality, and monitor churn model behavior.")
+st.caption("Onboard employees, inspect data quality, tune models, and monitor churn behavior.")
 
 with st.sidebar:
+    st.header("Settings & API")
+    with st.expander("🌐 Cloud API (Vercel Backend)", expanded=False):
+        api_backend_url = st.text_input(
+            "FastAPI URL",
+            value=os.getenv("CHURN_API_URL", ""),
+            placeholder="e.g. https://your-app.vercel.app",
+            help="If set, predictions route through your deployed Vercel FastAPI backend.",
+        )
+        use_remote_api = st.checkbox("Use Remote API for Predictions", value=bool(api_backend_url))
+        if api_backend_url and st.button("Test API Connection", use_container_width=True):
+            try:
+                res = requests.get(f"{api_backend_url.rstrip('/')}/health", timeout=5)
+                if res.status_code == 200:
+                    st.success("API connection active & healthy!")
+                else:
+                    st.warning(f"API returned status {res.status_code}")
+            except Exception as e:
+                st.error(f"Cannot reach API: {e}")
+
     st.header("Batch import")
-    st.caption("Upload the noisy experiment CSV to simulate drift and anomalies.")
+    st.caption("Upload CSV dataset to import, inspect, and score employee records.")
     uploaded_file = st.file_uploader("Choose a CSV dataset", type="csv")
     if uploaded_file is not None:
         try:
@@ -152,17 +218,25 @@ with st.sidebar:
     else:
         st.subheader("Database quality")
         show_quality_cards(quality_report(get_training_data()), st.sidebar)
+
     last_import = st.session_state.get("last_import")
     if last_import:
         st.success(f"Imported {len(last_import['accepted'])} rows")
         if not last_import["accepted"].empty:
             if st.button("Predict imported employees", use_container_width=True):
                 prediction_rows = []
+                start_pred_time = time.perf_counter()
                 try:
-                    with st.spinner("Predicting churn for imported employees..."):
+                    with st.spinner("Scoring imported employees with the churn model..."):
                         for employee_id in last_import["accepted"]["employee_id"]:
-                            result = predict_employee_locally(int(employee_id))
+                            if use_remote_api and api_backend_url:
+                                result = predict_employee_via_api(int(employee_id), api_backend_url)
+                                if result.get("error"):
+                                    result = predict_employee_locally(int(employee_id))
+                            else:
+                                result = predict_employee_locally(int(employee_id))
                             prediction_rows.append({"employee_id": int(employee_id), **result})
+                    elapsed_pred_time = time.perf_counter() - start_pred_time
                     save_inference_predictions(
                         [
                             {
@@ -179,12 +253,56 @@ with st.sidebar:
                 else:
                     last_import["predictions"] = pd.DataFrame(prediction_rows)
                     st.session_state["last_import"] = last_import
+                    st.success(
+                        f"⏱️ Scored {len(last_import['accepted'])} imported employees in {elapsed_pred_time:.3f}s "
+                        f"({elapsed_pred_time / max(1, len(last_import['accepted'])) * 1000:.1f}ms/employee)."
+                    )
+
         if not last_import["rejected"].empty:
             st.warning(f"Rejected {len(last_import['rejected'])} rows")
-            with st.expander("Rejected rows"):
+            with st.expander("Rejected rows summary", expanded=True):
                 st.dataframe(last_import["rejected"], hide_index=True, use_container_width=True)
 
+            # Python Faker Producer Section to repair unapproved / rejected records
+            with st.container(border=True):
+                st.markdown("#### 🪄 Faker Data Producer & Repair")
+                st.caption(
+                    "Trigger the Python Faker producer to synthesize missing first/last names "
+                    "and resolve identity rejections so unapproved rows can be tested."
+                )
+                if st.button("⚡ Generate Fake Names & Repair Rejected Rows", use_container_width=True):
+                    producer = FakerProducer()
+                    repaired_df = producer.repair_rejected_rows(last_import["rejected"])
+                    if not repaired_df.empty:
+                        # Clean columns for insertion
+                        cols_to_import = [c for c in repaired_df.columns if c not in ["source_row", "reason", "faker_repairs"]]
+                        import_payload = repaired_df[cols_to_import].copy()
+                        new_accepted, new_rejected = import_employee_dataframe(import_payload)
+
+                        # Update last_import state
+                        combined_accepted = pd.concat([last_import["accepted"], new_accepted], ignore_index=True)
+                        st.session_state["last_import"]["accepted"] = combined_accepted
+                        st.session_state["last_import"]["rejected"] = new_rejected
+                        st.session_state["repaired_preview"] = repaired_df[["first_name", "last_name", "department", "job_title", "faker_repairs"]]
+                        st.success(f"Faker repaired and imported {len(new_accepted)} additional rows into the database!")
+                        st.rerun()
+
+    # Synthetic Producer Utility
+    with st.expander("🧪 Synthetic Training Batch Producer (Faker)"):
+        st.caption("Produce a fresh synthetic batch of labeled employee records with Python Faker.")
+        synth_count = st.slider("Records to generate", min_value=5, max_value=50, value=10, step=5)
+        if st.button("Generate & Import Synthetic Batch", use_container_width=True):
+            synth_producer = FakerProducer()
+            synth_batch = synth_producer.generate_synthetic_batch(count=synth_count)
+            synth_accepted, synth_rejected = import_employee_dataframe(synth_batch)
+            st.success(f"Generated and imported {len(synth_accepted)} synthetic employee records.")
+            st.rerun()
+
 last_import = st.session_state.get("last_import")
+if st.session_state.get("repaired_preview") is not None:
+    with st.expander("Recently Faker-repaired employee records", expanded=True):
+        st.dataframe(st.session_state["repaired_preview"], hide_index=True, use_container_width=True)
+
 if last_import and last_import.get("predictions") is not None:
     st.subheader("Predictions for imported employees")
     imported_predictions = last_import["predictions"]
@@ -231,32 +349,57 @@ with st.expander("Add a single employee"):
 
 employees = get_all_employees()
 if employees:
-    employee_df = pd.DataFrame(employees, columns=["employee_id", "first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months"])
-    employee_df["employee_name"] = employee_df["first_name"] + " " + employee_df["last_name"]
+    raw_employee_df = pd.DataFrame(employees, columns=["employee_id", "first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months"])
+    raw_employee_df["employee_name"] = raw_employee_df["first_name"] + " " + raw_employee_df["last_name"]
+
+    # Apply feature engineering and imputation to guarantee zero null/None values
+    employee_df = impute_and_engineer_features(raw_employee_df)
+
     st.header("Employee monitoring")
     with st.container(border=True):
         st.subheader("Employee roster")
         st.dataframe(employee_df[["employee_id", "employee_name", "age", "department", "contract_type", "job_title", "annual_income", "tenure_months"]], hide_index=True, use_container_width=True, height=320)
+
     st.subheader("Batch churn predictions")
     probabilities, bands = [], []
     prediction_errors = []
+    elapsed_scoring_time = 0.0
+
     try:
+        start_score_time = time.perf_counter()
         with st.spinner("Scoring employees with the churn model..."):
             for employee_id in employee_df["employee_id"]:
-                result = predict_employee_locally(int(employee_id))
+                if use_remote_api and api_backend_url:
+                    result = predict_employee_via_api(int(employee_id), api_backend_url)
+                    if result.get("error"):
+                        result = predict_employee_locally(int(employee_id))
+                else:
+                    result = predict_employee_locally(int(employee_id))
+
                 if result.get("error"):
                     prediction_errors.append(f"{employee_id}: {result['error']}")
                 probability = None if result.get("error") else float(result["churn_probability"])
                 probabilities.append(probability)
                 bands.append(None if probability is None else result.get("risk_band", calculate_risk_band(probability)))
+        elapsed_scoring_time = time.perf_counter() - start_score_time
     except FileNotFoundError as error:
         st.error(f"Cannot score employees until a trained model is available: {error}")
         probabilities = [None] * len(employee_df)
         bands = [None] * len(employee_df)
+
+    if elapsed_scoring_time > 0:
+        st.caption(
+            f"⏱️ **Scoring completed in {elapsed_scoring_time:.3f}s** "
+            f"({elapsed_scoring_time / max(1, len(employee_df)) * 1000:.1f}ms per employee across {len(employee_df)} records). "
+            f"Feature imputation applied — 0 null values."
+        )
+
     if prediction_errors:
         st.warning(f"Some employees could not be scored: {'; '.join(prediction_errors)}")
+
     employee_df["churn_probability"] = probabilities
     employee_df["risk_band"] = bands
+
     with st.container(border=True):
         st.dataframe(employee_df[["employee_id", "employee_name", "department", "job_title", "annual_income", "tenure_months", "churn_probability", "risk_band"]].sort_values("churn_probability", ascending=False, na_position="last"), hide_index=True, use_container_width=True, height=360)
         if st.button("Save current batch predictions to history", use_container_width=True):
@@ -290,6 +433,154 @@ if employees:
         live_predictions["predicted_label"] = (live_predictions["churn_probability"] >= 0.5).astype(int)
         show_confusion_matrix(live_predictions["true_label"], live_predictions["predicted_label"], "Live batch confusion matrix")
         st.caption(f"Based on {len(live_predictions)} live predictions with known outcomes.")
+
+# ---------------------------------------------------------
+# Feature Selection & Engineering Heatmaps & Influence
+# ---------------------------------------------------------
+st.divider()
+st.header("Feature Selection & Engineering Heatmap")
+st.caption("Analyze feature correlations with churn risk and inspect model feature weights to guide feature engineering.")
+
+feat_tab1, feat_tab2 = st.tabs(["🔥 Correlation Heatmap", "📊 Model Feature Influence & Importance"])
+
+with feat_tab1:
+    training_data = get_training_data()
+    corr_matrix = compute_feature_correlations(training_data)
+    if not corr_matrix.empty and "Churn (Target)" in corr_matrix.columns:
+        corr_subset_mode = st.radio(
+            "Heatmap view:",
+            ["Top Correlated with Churn", "Numeric Features", "Full Correlation Matrix"],
+            horizontal=True,
+        )
+
+        churn_corrs = corr_matrix["Churn (Target)"].drop("Churn (Target)", errors="ignore").dropna()
+        top_correlated_cols = churn_corrs.abs().sort_values(ascending=False).head(10).index.tolist()
+
+        if corr_subset_mode == "Top Correlated with Churn":
+            selected_cols = top_correlated_cols + ["Churn (Target)"]
+            display_corr = corr_matrix.loc[selected_cols, selected_cols]
+            plot_correlation_heatmap(display_corr, "Top 10 Feature Correlations with Churn")
+        elif corr_subset_mode == "Numeric Features":
+            num_cols = ["Age", "Income", "Tenure Months", "Churn (Target)"]
+            avail_num_cols = [c for c in num_cols if c in corr_matrix.columns]
+            display_corr = corr_matrix.loc[avail_num_cols, avail_num_cols]
+            plot_correlation_heatmap(display_corr, "Numeric Features & Churn Correlation Matrix")
+        else:
+            plot_correlation_heatmap(corr_matrix, "Full Feature Correlation Matrix")
+
+        st.subheader("Key correlation signals with Churn")
+        corr_summary = pd.DataFrame({
+            "Feature": churn_corrs.index,
+            "Correlation with Churn": churn_corrs.values,
+            "Impact": [
+                "Increases Churn Risk (Positive Corr)" if v > 0 else "Protects Against Churn (Negative Corr)"
+                for v in churn_corrs.values
+            ],
+            "Absolute Strength": churn_corrs.abs().values,
+        }).sort_values("Absolute Strength", ascending=False)
+        st.dataframe(corr_summary[["Feature", "Correlation with Churn", "Impact"]].head(12), hide_index=True, use_container_width=True)
+    else:
+        st.info("No labeled training data available to compute feature correlations.")
+
+with feat_tab2:
+    try:
+        active_model = get_prediction_model()
+        importances_df = get_feature_importances(active_model)
+        if not importances_df.empty:
+            st.subheader("Model Learned Weights / Feature Influence")
+            st.caption("Features with higher absolute impact influence the prediction probability most significantly.")
+
+            st.dataframe(
+                importances_df[["Feature", "Absolute Impact", "Direction"]].head(15),
+                hide_index=True,
+                use_container_width=True,
+            )
+
+            # Impact chart
+            top_feats = importances_df.head(10).sort_values("Absolute Impact", ascending=True)
+            fig_imp, ax_imp = plt.subplots(figsize=(6.5, 3.8))
+            colors = ["#d95f02" if "Increases" in str(d) else "#2f6fed" for d in top_feats["Direction"]]
+            ax_imp.barh(top_feats["Feature"], top_feats["Absolute Impact"], color=colors)
+            ax_imp.set_xlabel("Relative Feature Importance / Weight")
+            ax_imp.set_title("Top 10 Most Influential Features on Churn Model")
+            fig_imp.tight_layout()
+            st.pyplot(fig_imp, use_container_width=True)
+            plt.close(fig_imp)
+        else:
+            st.info("Feature importance data is not available for this model type.")
+    except Exception as e:
+        st.warning(f"Could not load feature importance: {e}")
+
+# ---------------------------------------------------------
+# Hyperparameter Tuning & Model Retraining
+# ---------------------------------------------------------
+st.divider()
+st.header("Hyperparameter Tuning & Retraining")
+st.caption("Tune hyperparameters and train new models (Logistic Regression, Random Forest, Gradient Boosting) to improve predictions.")
+
+with st.container(border=True):
+    col_alg, col_params = st.columns([1, 2], gap="large")
+
+    with col_alg:
+        st.subheader("1. Choose Algorithm")
+        algo_choice = st.selectbox(
+            "Model Architecture",
+            ["Logistic Regression", "Random Forest", "Gradient Boosting"],
+        )
+
+    with col_params:
+        st.subheader("2. Tune Parameters")
+        if algo_choice == "Logistic Regression":
+            p_c = st.slider("Regularization Strength (C)", min_value=0.01, max_value=10.0, value=1.0, step=0.05)
+            p_class_weight = st.selectbox("Class Weight", ["None", "balanced"], help="Balanced assigns higher penalty to minority churn class")
+            p_solver = st.selectbox("Solver", ["lbfgs", "saga", "liblinear"])
+            p_max_iter = st.slider("Max Iterations", min_value=100, max_value=1000, value=300, step=50)
+            train_kwargs = {
+                "model_type": "logistic_regression",
+                "C": p_c,
+                "class_weight": None if p_class_weight == "None" else "balanced",
+                "solver": p_solver,
+                "max_iter": p_max_iter,
+            }
+        elif algo_choice == "Random Forest":
+            p_trees = st.slider("Number of Trees (n_estimators)", min_value=20, max_value=300, value=100, step=20)
+            p_depth = st.slider("Max Tree Depth (max_depth)", min_value=2, max_value=15, value=5)
+            p_split = st.selectbox("Min Samples Split", [2, 5, 10])
+            p_class_weight = st.selectbox("Class Weight", ["None", "balanced"])
+            train_kwargs = {
+                "model_type": "random_forest",
+                "n_estimators": p_trees,
+                "max_depth": p_depth,
+                "min_samples_split": p_split,
+                "class_weight": None if p_class_weight == "None" else "balanced",
+            }
+        else:  # Gradient Boosting
+            p_lr = st.slider("Learning Rate", min_value=0.01, max_value=0.3, value=0.1, step=0.01)
+            p_trees = st.slider("Number of Estimators", min_value=20, max_value=200, value=100, step=20)
+            p_depth = st.slider("Max Depth", min_value=2, max_value=8, value=3)
+            train_kwargs = {
+                "model_type": "gradient_boosting",
+                "learning_rate": p_lr,
+                "n_estimators": p_trees,
+                "max_depth": p_depth,
+            }
+
+    if st.button("🚀 Train & Evaluate Model with Tuned Parameters", type="primary", use_container_width=True):
+        try:
+            with st.spinner(f"Fitting and evaluating {algo_choice} pipeline..."):
+                trained_model, metrics, preds, run_id = train_model(**train_kwargs)
+            st.cache_resource.clear()
+            st.success(f"Trained {algo_choice} successfully! (Saved as Run #{run_id})")
+
+            res_cols = st.columns(5)
+            res_cols[0].metric("Accuracy", f"{metrics['accuracy']:.1%}")
+            res_cols[1].metric("Precision", f"{metrics['precision']:.1%}")
+            res_cols[2].metric("Recall", f"{metrics['recall']:.1%}")
+            res_cols[3].metric("F1 Score", f"{metrics['f1']:.1%}")
+            res_cols[4].metric("ROC AUC", f"{metrics['roc_auc']:.1%}")
+            st.rerun()
+        except Exception as err:
+            st.error(f"Training failed: {err}")
 
 st.divider()
 st.header("Model dashboard")

@@ -9,3 +9,4 @@ streamlit
 requests
 httpx2
 matplotlib
+faker
