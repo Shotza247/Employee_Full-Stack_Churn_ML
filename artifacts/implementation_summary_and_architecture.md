@@ -26,11 +26,11 @@ flowchart TB
         TAB4["⚙️ Tab 4: Model Studio & Evaluation History<br/>• Interactive Hyperparameter Tuning (Logistic Regression, Random Forest, Gradient Boosting)<br/>• Multi-Model Evaluation Runs History (Tracking Model Architecture, Accuracy, Precision, Recall, F1, ROC-AUC)<br/>• Run Deep-Dive (Confusion Matrix TP/TN/FP/FN, ROC AUC Curve, Probability Histograms)<br/>• Audited Historical Prediction Log with Date Filtering"]
     end
 
-    classDef sideNode fill:#1E293B,stroke:#38BDF8,stroke-width:2px,color:#ffffff;
-    classDef t1Node fill:#0F766E,stroke:#2DD4BF,stroke-width:2px,color:#ffffff;
-    classDef t2Node fill:#1D4ED8,stroke:#60A5FA,stroke-width:2px,color:#ffffff;
-    classDef t3Node fill:#4338CA,stroke:#818CF8,stroke-width:2px,color:#ffffff;
-    classDef t4Node fill:#B45309,stroke:#FBBF24,stroke-width:2px,color:#ffffff;
+    classDef sideNode fill:#0F172A,stroke:#38BDF8,stroke-width:2px,color:#ffffff;
+    classDef t1Node fill:#042F2E,stroke:#2DD4BF,stroke-width:2px,color:#ffffff;
+    classDef t2Node fill:#1E3A8A,stroke:#60A5FA,stroke-width:2px,color:#ffffff;
+    classDef t3Node fill:#312E81,stroke:#A5B4FC,stroke-width:2px,color:#ffffff;
+    classDef t4Node fill:#78350F,stroke:#FBBF24,stroke-width:2px,color:#ffffff;
 
     class SIDEBAR sideNode;
     class TAB1 t1Node;
