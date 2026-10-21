@@ -11,6 +11,8 @@ import streamlit as st
 
 from churn_app.config import MODEL_PATH
 from churn_app.database import (
+    diagnose_dataframe_quality,
+    diagnose_row_quality,
     get_all_employees,
     get_employee_features,
     get_model_runs,
@@ -111,7 +113,7 @@ def quality_report(data: pd.DataFrame) -> dict[str, int | float]:
     }
 
 
-def show_quality_cards(report: dict[str, int | float], location=st):
+def show_quality_cards(report: dict[str, int | float], location=st, diagnosed_df: pd.DataFrame | None = None):
     cards = location.columns(3)
     cards[0].metric("Rows", f"{report['rows']:,}")
     cards[1].metric("Duplicates", f"{report['duplicates']:,}")
@@ -120,6 +122,11 @@ def show_quality_cards(report: dict[str, int | float], location=st):
     cards2[0].metric("Invalid", f"{report['invalid']:,}")
     cards2[1].metric("Columns", f"{report['columns']:,}")
     cards2[2].metric("Num Mean", f"{report['numeric_mean']:,.0f}")
+    if diagnosed_df is not None and not diagnosed_df.empty and "data_quality_category" in diagnosed_df.columns:
+        cat_counts = diagnosed_df["data_quality_category"].value_counts().reset_index()
+        cat_counts.columns = ["Data Quality Category", "Count"]
+        location.caption("Quality Category Breakdown:")
+        location.dataframe(cat_counts, hide_index=True, use_container_width=True)
 
 
 def show_confusion_matrix(y_true: pd.Series, y_pred: pd.Series, title: str):
@@ -222,14 +229,19 @@ with st.sidebar:
     if uploaded_file is not None:
         try:
             uploaded_df = pd.read_csv(uploaded_file)
+            if "income" in uploaded_df.columns and "annual_income" not in uploaded_df.columns:
+                uploaded_df["annual_income"] = uploaded_df["income"]
             missing_columns = REQUIRED_COLUMNS - set(uploaded_df.columns)
             if missing_columns:
                 st.error(f"Missing columns: {', '.join(sorted(missing_columns))}")
             else:
+                diagnosed_df = diagnose_dataframe_quality(uploaded_df)
                 with st.expander("Uploaded Data Quality", expanded=False):
-                    show_quality_cards(quality_report(uploaded_df), st)
-                st.caption("Preview first 3 rows:")
-                st.dataframe(uploaded_df.head(3), hide_index=True, use_container_width=True)
+                    show_quality_cards(quality_report(uploaded_df), st, diagnosed_df=diagnosed_df)
+                st.caption("Preview first 5 rows (with Data Quality Categories):")
+                core_cols = ["first_name", "last_name", "department", "data_quality_issue", "data_quality_category", "age", "contract_type", "annual_income", "job_title", "tenure_months"]
+                display_cols = [c for c in core_cols if c in diagnosed_df.columns] + [c for c in diagnosed_df.columns if c not in core_cols]
+                st.dataframe(diagnosed_df[display_cols].head(5), hide_index=True, use_container_width=True)
                 if st.button("Import valid rows", type="primary", use_container_width=True):
                     accepted, rejected = import_employee_dataframe(uploaded_df)
                     st.session_state["last_import"] = {
@@ -245,9 +257,14 @@ with st.sidebar:
     if last_import:
         st.success(f"Imported {len(last_import['accepted'])} rows")
         if not last_import["rejected"].empty:
-            st.warning(f"Rejected {len(last_import['rejected'])} rows")
-            with st.expander("Rejected rows summary", expanded=False):
-                st.dataframe(last_import["rejected"], hide_index=True, use_container_width=True)
+            st.warning(f"Rejected {len(last_import['rejected'])} rows due to data quality issues")
+            with st.expander("Rejected rows summary & categories", expanded=False):
+                rej_df = last_import["rejected"]
+                if "data_quality_category" in rej_df.columns:
+                    cat_summary = rej_df["data_quality_category"].value_counts().reset_index()
+                    cat_summary.columns = ["Data Quality Category", "Count"]
+                    st.dataframe(cat_summary, hide_index=True, use_container_width=True)
+                st.dataframe(rej_df, hide_index=True, use_container_width=True)
 
             # Python Faker Producer Section to repair unapproved / rejected records
             with st.container(border=True):
@@ -257,14 +274,14 @@ with st.sidebar:
                     producer = FakerProducer()
                     repaired_df = producer.repair_rejected_rows(last_import["rejected"])
                     if not repaired_df.empty:
-                        cols_to_import = [c for c in repaired_df.columns if c not in ["source_row", "reason", "faker_repairs"]]
+                        cols_to_import = [c for c in repaired_df.columns if c not in ["source_row", "reason", "faker_repairs", "data_quality_category", "data_quality_issue"]]
                         import_payload = repaired_df[cols_to_import].copy()
                         new_accepted, new_rejected = import_employee_dataframe(import_payload)
 
                         combined_accepted = pd.concat([last_import["accepted"], new_accepted], ignore_index=True)
                         st.session_state["last_import"]["accepted"] = combined_accepted
                         st.session_state["last_import"]["rejected"] = new_rejected
-                        st.session_state["repaired_preview"] = repaired_df[["first_name", "last_name", "department", "job_title", "faker_repairs"]]
+                        st.session_state["repaired_preview"] = repaired_df[["first_name", "last_name", "department", "job_title", "data_quality_issue", "faker_repairs"]]
                         st.success(f"Repaired and imported {len(new_accepted)} rows!")
                         st.rerun()
 
@@ -325,7 +342,9 @@ with st.sidebar:
                         st.rerun()
 
     with st.expander("📊 SQLite Database Health", expanded=False):
-        show_quality_cards(quality_report(get_training_data()), st)
+        current_data = get_training_data()
+        current_diagnosed = diagnose_dataframe_quality(current_data) if not current_data.empty else None
+        show_quality_cards(quality_report(current_data), st, diagnosed_df=current_diagnosed)
 
 
 # =========================================================
