@@ -1,6 +1,7 @@
 # Databricks notebook source
 from datetime import datetime, timedelta
 import os
+from pathlib import Path
 import time
 import matplotlib.pyplot as plt
 import numpy as np
@@ -225,6 +226,29 @@ with st.sidebar:
 
     # CSV Batch Import
     st.markdown("### 📥 Batch CSV Import")
+    st.caption("Upload your workforce CSV or download pre-packaged test datasets from the repository:")
+
+    with st.expander("📂 Download Sample Bulk CSV Datasets", expanded=False):
+        st.markdown("Pre-built test files located in `data/Bulk_import_Data/`:")
+        bulk_data_dir = Path("data/Bulk_import_Data")
+        sample_files = [
+            ("noisy_churn_experiment_900.csv", "🧪 900-Row Noisy Dataset (Outliers & Missing)"),
+            ("synthetic_churn_data_updated.csv", "✅ Benchmark Dataset (Clean Records)"),
+            ("synthetical_churn_data_updated_raw.csv", "⚠️ Raw Stress-Test Dataset (Missing Fields)"),
+        ]
+        for fname, flabel in sample_files:
+            fpath = bulk_data_dir / fname
+            if fpath.exists():
+                with open(fpath, "rb") as f_in:
+                    st.download_button(
+                        label=flabel,
+                        data=f_in.read(),
+                        file_name=fname,
+                        mime="text/csv",
+                        use_container_width=True,
+                        key=f"dl_btn_{fname}",
+                    )
+
     uploaded_file = st.file_uploader("Upload employee dataset", type="csv")
     if uploaded_file is not None:
         try:

@@ -156,7 +156,7 @@ Interactive OpenAPI documentation is available at `http://127.0.0.1:8000/docs`.
 
 ### 📥 Persistent Sidebar: Ingestion & Simulation Studio
 - **Cloud API Switch:** Route predictions locally or to a deployed Vercel FastAPI backend.
-- **Batch CSV Import:** Previews uploaded rosters, verifies 8 required column schemas, and displays data quality scorecards.
+- **Batch CSV Import:** Previews uploaded rosters, verifies 8 required column schemas, provides direct download buttons for repository test datasets (`data/Bulk_import_Data/`), and displays data quality scorecards.
 - **🪄 Faker Auto-Repair:** One-click synthetic identity fix for unapproved/rejected rows.
 - **🧪 Synthetic Batch Generator:** Generates 5–50 realistic employee rows for testing.
 - **➕ Add Single Employee:** Instant employee creation with automated real-time scoring.
