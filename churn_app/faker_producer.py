@@ -104,11 +104,12 @@ class FakerProducer:
                 record["job_title"] = str(np.random.choice(dept_jobs))
                 repaired_actions.append(f"Assigned job_title: {record['job_title']}")
 
+            record["data_quality_category"] = "Clean Record"
+            record["data_quality_issue"] = "Clean Record (Repaired by Faker)"
             record["faker_repairs"] = "; ".join(repaired_actions) if repaired_actions else "No repair needed"
             repaired_records.append(record)
 
         repaired_df = pd.DataFrame(repaired_records)
-        # Drop metadata columns before preparing for import
         return repaired_df
 
     def generate_synthetic_batch(self, count: int = 10, churn_prob: float = 0.25) -> pd.DataFrame:
@@ -137,5 +138,7 @@ class FakerProducer:
                 "job_title": job,
                 "tenure_months": tenure,
                 "churn": churn,
+                "data_quality_category": "Clean Record",
+                "data_quality_issue": "Clean Record (No Issues)",
             })
         return pd.DataFrame(records)

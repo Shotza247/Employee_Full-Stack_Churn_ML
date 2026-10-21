@@ -131,86 +131,200 @@ def insert_employee_with_label(first_name,last_name,age,department,contract_type
         connection.execute("INSERT INTO jobs VALUES (NULL,?,?,?)", (employee_id,job_title,tenure_months))
         return employee_id
 
+VALID_DEPARTMENTS = {"Marketing", "Sales", "Engineering", "HR", "Support", "Operations", "Finance"}
+VALID_CONTRACTS = {"permanent", "contract"}
+
+LEGACY_ISSUE_MAP = {
+    "missing_income": ("Missing Values", "Missing annual income"),
+    "missing_financial_feature": ("Missing Values", "Missing financial feature (income)"),
+    "missing_contract_type": ("Missing Values", "Missing contract type"),
+    "missing_employment_feature": ("Missing Values", "Missing employment feature"),
+    "missing_department": ("Missing Values", "Missing department"),
+    "missing_name": ("Missing Values", "Missing employee name"),
+    "missing_first_name": ("Missing Values", "Missing first name"),
+    "missing_last_name": ("Missing Values", "Missing last name"),
+    "duplicate_record": ("Duplicate Record", "Duplicate record identity"),
+    "duplicate_name_and_features": ("Duplicate Record", "Duplicate name and features"),
+    "age_outlier": ("Invalid Range", "Age outlier outside accepted range"),
+    "invalid_age_range": ("Invalid Range", "Age outside valid 18–99 range"),
+    "tenure_outlier": ("Invalid Range", "Tenure outlier outside accepted range"),
+    "invalid_tenure_range": ("Invalid Range", "Tenure outside valid 0–240 months"),
+}
+
+
+def diagnose_row_quality(row, seen_keys=None, check_db=False, db_path=DB_PATH) -> tuple[str, str]:
+    """
+    Diagnoses the data quality category and detailed issue for a single record.
+    Returns:
+        tuple[category, detail]
+        Categories: "Clean Record", "Missing Values", "Duplicate Record", "Invalid Range", "Invalid Category", "Format Issue"
+    """
+    record = row if isinstance(row, dict) else row.to_dict()
+
+    # 1. Check for legacy issue codes in raw CSV if provided
+    raw_issue = record.get("data_quality_issue")
+    if raw_issue is not None and not _is_missing_value(raw_issue):
+        raw_str = str(raw_issue).strip().lower()
+        if raw_str in LEGACY_ISSUE_MAP:
+            return LEGACY_ISSUE_MAP[raw_str]
+
+    # 2. Check for missing values in required fields
+    missing_fields = []
+    first_name = None if _is_missing_value(record.get("first_name")) else str(record.get("first_name")).strip()
+    last_name = None if _is_missing_value(record.get("last_name")) else str(record.get("last_name")).strip()
+    department = None if _is_missing_value(record.get("department")) else str(record.get("department")).strip()
+    contract_type = None if _is_missing_value(record.get("contract_type")) else str(record.get("contract_type")).strip()
+    job_title = None if _is_missing_value(record.get("job_title")) else str(record.get("job_title")).strip()
+
+    income_val = record.get("annual_income") if "annual_income" in record else record.get("income")
+    age_val = record.get("age")
+    tenure_val = record.get("tenure_months")
+
+    if first_name is None: missing_fields.append("first_name")
+    if last_name is None: missing_fields.append("last_name")
+    if department is None: missing_fields.append("department")
+    if contract_type is None: missing_fields.append("contract_type")
+    if job_title is None: missing_fields.append("job_title")
+    if _is_missing_value(income_val): missing_fields.append("annual_income")
+    if _is_missing_value(age_val): missing_fields.append("age")
+    if _is_missing_value(tenure_val): missing_fields.append("tenure_months")
+
+    if missing_fields:
+        return "Missing Values", f"Missing: {', '.join(missing_fields)}"
+
+    # 3. Check format / numeric validity
+    try:
+        age_num = float(age_val)
+        income_num = float(income_val)
+        tenure_num = float(tenure_val)
+    except (ValueError, TypeError):
+        return "Format Issue", "Non-numeric values in age, income, or tenure"
+
+    if not (isfinite(age_num) and isfinite(income_num) and isfinite(tenure_num)):
+        return "Format Issue", "Non-finite numeric values in age, income, or tenure"
+
+    if not age_num.is_integer() or not tenure_num.is_integer():
+        return "Format Issue", "Age and tenure must be whole integer numbers"
+
+    age_int = int(age_num)
+    tenure_int = int(tenure_num)
+
+    # 4. Check domain range boundaries
+    if not (18 <= age_int <= 99):
+        return "Invalid Range", f"Age {age_int} is outside accepted 18–99 range"
+    if income_num < 0:
+        return "Invalid Range", f"Negative income: R {income_num:,.0f}"
+    if not (0 <= tenure_int <= 240):
+        return "Invalid Range", f"Tenure {tenure_int}m is outside 0–240 months"
+
+    # 5. Check categorical validity
+    if department not in VALID_DEPARTMENTS:
+        return "Invalid Category", f"Unknown department '{department}'"
+    if contract_type not in VALID_CONTRACTS:
+        return "Invalid Category", f"Unknown contract type '{contract_type}'"
+
+    # 6. Check churn format if present
+    churn_val = record.get("churn")
+    if churn_val is not None and not _is_missing_value(churn_val):
+        try:
+            churn_num = float(churn_val)
+            if not isfinite(churn_num) or churn_num not in (0.0, 1.0):
+                return "Format Issue", f"Churn must be 0 or 1 (got {churn_val})"
+        except (ValueError, TypeError):
+            return "Format Issue", f"Churn must be 0 or 1 (got {churn_val})"
+
+    # 7. Check duplicates
+    key = (first_name.lower(), last_name.lower(), age_int, income_num, tenure_int)
+    if seen_keys is not None:
+        if key in seen_keys:
+            return "Duplicate Record", "Duplicate record in uploaded file"
+        seen_keys.add(key)
+
+    if check_db:
+        try:
+            with get_connection(db_path) as connection:
+                existing = connection.execute(
+                    """SELECT COUNT(*) FROM employees e
+                       JOIN salaries s ON s.employee_id = e.employee_id
+                       JOIN jobs j ON j.employee_id = e.employee_id
+                       WHERE lower(e.first_name) = ? AND lower(e.last_name) = ?
+                       AND e.age IS ? AND s.annual_income IS ? AND j.tenure_months IS ?""",
+                    key,
+                ).fetchone()[0]
+                if existing:
+                    return "Duplicate Record", "Record already exists in SQLite database"
+        except Exception:
+            pass
+
+    return "Clean Record", "No issues detected (Valid)"
+
+
+def diagnose_dataframe_quality(df: pd.DataFrame, db_path=DB_PATH, check_db=False) -> pd.DataFrame:
+    """
+    Inspects all rows in a DataFrame and adds or populates 'data_quality_category'
+    and 'data_quality_issue' columns with explicit descriptive categories.
+    """
+    if df.empty:
+        return df.copy()
+
+    diagnosed = df.copy()
+    if "income" in diagnosed.columns and "annual_income" not in diagnosed.columns:
+        diagnosed["annual_income"] = diagnosed["income"]
+
+    seen_keys = set()
+    categories, issues = [], []
+    for _, row in diagnosed.iterrows():
+        cat, detail = diagnose_row_quality(row, seen_keys=seen_keys, check_db=check_db, db_path=db_path)
+        categories.append(cat)
+        if cat == "Clean Record":
+            issues.append("Clean Record (No Issues)")
+        else:
+            issues.append(f"{cat}: {detail}")
+
+    diagnosed["data_quality_category"] = categories
+    diagnosed["data_quality_issue"] = issues
+    return diagnosed
+
+
 def import_employee_dataframe(data, db_path=DB_PATH):
+    input_data = data.copy()
+    if "income" in input_data.columns and "annual_income" not in input_data.columns:
+        input_data["annual_income"] = input_data["income"]
+
     required = {"first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months"}
-    missing_columns = required - set(data.columns)
+    missing_columns = required - set(input_data.columns)
     if missing_columns:
         raise ValueError(f"Missing required columns: {', '.join(sorted(missing_columns))}")
-    accepted, rejected, seen = [], [], set()
-    valid_departments = {"Marketing", "Sales", "Engineering", "HR", "Support", "Operations", "Finance"}
-    valid_contracts = {"permanent", "contract"}
-    init_db(db_path)
-    for row_number, row in data.iterrows():
-        reason = None
-        try:
-            first_name = None if _is_missing_value(row.first_name) else str(row.first_name).strip()
-            last_name = None if _is_missing_value(row.last_name) else str(row.last_name).strip()
-            department = None if _is_missing_value(row.department) else str(row.department).strip()
-            contract_type = None if _is_missing_value(row.contract_type) else str(row.contract_type).strip()
-            job_title = None if _is_missing_value(row.job_title) else str(row.job_title).strip()
-            if first_name is None or last_name is None:
-                reason = "missing first or last name"
-            else:
-                def numeric_value(column):
-                    return None if _is_missing_value(row[column]) else float(row[column])
 
-                age = numeric_value("age")
-                annual_income = numeric_value("annual_income")
-                tenure_months = numeric_value("tenure_months")
-                numeric_values = [value for value in (age, annual_income, tenure_months) if value is not None]
-                if not all(isfinite(value) for value in numeric_values):
-                    reason = "age, income, and tenure must be finite numbers"
-                elif (age is not None and not age.is_integer()) or (tenure_months is not None and not tenure_months.is_integer()):
-                    reason = "age and tenure must be whole numbers"
-                elif (
-                    (age is not None and not 18 <= age <= 99)
-                    or (annual_income is not None and annual_income < 0)
-                    or (tenure_months is not None and not 0 <= tenure_months <= 240)
-                ):
-                    reason = "age, income, or tenure outside accepted range"
-                elif (
-                    (department is not None and department not in valid_departments)
-                    or (contract_type is not None and contract_type not in valid_contracts)
-                ):
-                    reason = "unknown department or contract type"
-                else:
-                    churn = None
-                    if "churn" in data.columns:
-                        if not _is_missing_value(row.churn):
-                            churn_value = float(row.churn)
-                            if not isfinite(churn_value) or not churn_value.is_integer() or int(churn_value) not in {0, 1}:
-                                reason = "churn must be 0 or 1"
-                            else:
-                                churn = int(churn_value)
-                    key = (
-                        first_name.lower(),
-                        last_name.lower(),
-                        int(age) if age is not None else None,
-                        annual_income,
-                        int(tenure_months) if tenure_months is not None else None,
-                    )
-                    if reason is None and key in seen:
-                        reason = "duplicate record in uploaded file"
-                    elif reason is None:
-                        seen.add(key)
-                        with get_connection(db_path) as connection:
-                            existing = connection.execute(
-                                """SELECT COUNT(*) FROM employees e
-                                   JOIN salaries s ON s.employee_id = e.employee_id
-                                   JOIN jobs j ON j.employee_id = e.employee_id
-                                   WHERE lower(e.first_name) = ? AND lower(e.last_name) = ?
-                                   AND e.age IS ? AND s.annual_income IS ? AND j.tenure_months IS ?""",
-                                key,
-                            ).fetchone()[0]
-                        if existing:
-                            reason = "record already exists in database"
-        except (TypeError, ValueError):
-            reason = "non-numeric age, income, tenure, or churn"
-        if reason:
-            rejected.append({"source_row": int(row_number) + 2, "reason": reason, **row.to_dict()})
+    accepted, rejected, seen = [], [], set()
+    init_db(db_path)
+
+    for row_number, row in input_data.iterrows():
+        cat, detail = diagnose_row_quality(row, seen_keys=seen, check_db=True, db_path=db_path)
+        if cat != "Clean Record":
+            row_dict = row.to_dict()
+            row_dict["data_quality_category"] = cat
+            row_dict["data_quality_issue"] = f"{cat}: {detail}"
+            rejected.append({"source_row": int(row_number) + 2, "reason": detail, **row_dict})
             continue
-        employee_id = insert_employee_with_label(first_name, last_name, key[2], department, contract_type, annual_income, job_title, key[4], churn, db_path)
+
+        first_name = str(row["first_name"]).strip()
+        last_name = str(row["last_name"]).strip()
+        age = int(float(row["age"]))
+        department = str(row["department"]).strip()
+        contract_type = str(row["contract_type"]).strip()
+        annual_income = float(row["annual_income"])
+        job_title = str(row["job_title"]).strip()
+        tenure_months = int(float(row["tenure_months"]))
+        churn = None
+        if "churn" in input_data.columns and not _is_missing_value(row.get("churn")):
+            churn = int(float(row["churn"]))
+
+        employee_id = insert_employee_with_label(
+            first_name, last_name, age, department, contract_type, annual_income, job_title, tenure_months, churn, db_path
+        )
         accepted.append({"source_row": int(row_number) + 2, "employee_id": employee_id})
+
     return pd.DataFrame(accepted), pd.DataFrame(rejected)
 
 def save_model_run(metrics,predictions,db_path=DB_PATH,model_type="logistic_regression"):
@@ -218,7 +332,7 @@ def save_model_run(metrics,predictions,db_path=DB_PATH,model_type="logistic_regr
         columns_mr = {row[1] for row in connection.execute("PRAGMA table_info(model_runs)")}
         if "model_type" not in columns_mr:
             connection.execute("ALTER TABLE model_runs ADD COLUMN model_type TEXT DEFAULT 'logistic_regression'")
-        run_id = connection.execute("INSERT INTO model_runs (accuracy,precision,recall,f1,roc_auc,model_type) VALUES (?,?,?,?,?,?,?)", tuple(metrics[name] for name in ("accuracy","precision","recall","f1","roc_auc")) + (model_type,)).lastrowid
+        run_id = connection.execute("INSERT INTO model_runs (accuracy,precision,recall,f1,roc_auc,model_type) VALUES (?,?,?,?,?,?)", tuple(metrics[name] for name in ("accuracy","precision","recall","f1","roc_auc")) + (model_type,)).lastrowid
         for row in predictions.itertuples(index=False): connection.execute("INSERT INTO predictions (run_id,employee_id,predicted_prob,predicted_label,true_label) VALUES (?,?,?,?,?)", (run_id,int(row.employee_id),float(row.predicted_prob),int(row.predicted_label),int(row.true_label)))
         return run_id
 
