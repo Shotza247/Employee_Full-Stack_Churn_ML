@@ -25,73 +25,74 @@ employee_id,age,income,tenure_months,department,contract_type,job_title,churn
 24,40,94000.0,66,Marketing,permanent,Marketing Manager,0
 25,35,98000.0,44,Engineering,contract,Backend Developer,0
 26,31,89000.0,38,Finance,permanent,Accounting Manager,0
-27,28,111090.0,6,Finance,permanent,Accountant,0
-28,37,66620.0,119,Engineering,permanent,QA Engineer,0
-29,34,113701.0,62,HR,permanent,Talent Specialist,0
-30,49,113732.0,76,Engineering,permanent,Software Engineer,0
-31,38,97290.0,134,HR,contract,Recruiter,0
-32,37,78718.0,98,Engineering,permanent,DevOps Engineer,0
-33,22,117962.0,106,Marketing,permanent,Marketing Manager,0
-34,45,81736.0,18,Marketing,contract,Social Media Specialist,1
-35,35,119305.0,103,Finance,contract,Accountant,0
-36,58,81990.0,124,Finance,permanent,Financial Analyst,0
-37,40,79774.0,109,Operations,permanent,Logistics Specialist,0
-38,43,107781.0,69,Operations,contract,Supply Chain Analyst,0
-39,50,50775.0,37,Operations,permanent,Logistics Specialist,1
-40,29,74782.0,20,Sales,permanent,Sales Manager,0
-41,38,83523.0,72,Finance,permanent,Controller,0
-42,51,116215.0,45,Engineering,permanent,DevOps Engineer,0
-43,23,118055.0,72,Finance,permanent,Payroll Specialist,0
-44,56,91666.0,26,Sales,contract,Sales Engineer,1
-45,28,122383.0,137,HR,permanent,HR Coordinator,0
-46,41,51877.0,115,Sales,contract,Account Executive,0
-47,35,79580.0,32,Operations,permanent,Logistics Specialist,0
-48,36,56698.0,55,Marketing,permanent,Marketing Analyst,0
-49,61,63833.0,73,Engineering,contract,QA Engineer,0
-50,26,99376.0,126,Support,contract,Support Manager,0
-51,24,113697.0,68,Marketing,contract,Marketing Analyst,1
-52,45,62367.0,99,Finance,permanent,Financial Analyst,0
-53,44,98096.0,80,Support,permanent,Customer Success Lead,0
-54,61,102425.0,85,Marketing,permanent,Marketing Manager,0
-55,24,89437.0,54,Operations,permanent,Logistics Specialist,0
-56,32,54990.0,88,Sales,contract,Sales Engineer,0
-57,56,81019.0,109,Finance,permanent,Controller,0
-58,22,54038.0,72,Finance,permanent,Payroll Specialist,0
-59,36,122859.0,100,Finance,contract,Payroll Specialist,0
-60,30,78724.0,38,HR,permanent,Talent Specialist,0
-61,29,99400.0,78,Operations,permanent,Logistics Specialist,0
-62,24,93163.0,44,HR,permanent,Recruiter,0
-63,54,72573.0,50,Sales,permanent,Sales Manager,0
-64,36,117807.0,129,Finance,permanent,Accountant,0
-65,40,72149.0,33,Operations,permanent,Logistics Specialist,0
-66,53,128977.0,72,Support,permanent,Support Specialist,0
-67,49,72457.0,108,Sales,contract,Sales Engineer,0
-68,26,53098.0,87,Operations,permanent,Logistics Specialist,0
-69,48,77900.0,133,HR,contract,HR Business Partner,0
-70,61,74906.0,87,Marketing,contract,Content Creator,0
-71,54,128456.0,81,HR,permanent,HR Business Partner,0
-72,60,93710.0,37,Engineering,permanent,Frontend Developer,0
-73,61,119401.0,3,Support,permanent,Support Specialist,0
-74,24,74612.0,50,Finance,contract,Financial Analyst,0
-75,22,53156.0,109,Engineering,permanent,Frontend Developer,0
-76,38,86897.0,21,Marketing,permanent,Social Media Specialist,0
-77,40,63002.0,51,Operations,permanent,Logistics Specialist,0
-78,50,129032.0,67,HR,permanent,Recruiter,0
-79,58,90557.0,72,Operations,contract,Supply Chain Analyst,0
-80,27,63901.0,31,Support,permanent,Support Specialist,0
-81,48,63856.0,73,HR,permanent,HR Business Partner,0
-82,52,93948.0,95,Operations,permanent,Supply Chain Analyst,0
-83,48,109283.0,91,Marketing,permanent,Marketing Manager,0
-84,57,78922.0,35,Support,contract,Support Manager,0
-85,32,69647.0,75,Finance,permanent,Payroll Specialist,0
-86,27,121386.0,92,Finance,contract,Financial Analyst,0
-87,25,80022.0,68,HR,permanent,HR Business Partner,0
-88,59,71996.0,139,HR,permanent,HR Coordinator,0
-89,37,88748.0,5,Operations,permanent,Logistics Specialist,0
-90,34,109453.0,57,Support,permanent,Support Specialist,0
-91,44,116310.0,60,Marketing,permanent,Content Creator,0
-92,26,113648.0,102,Support,permanent,Support Manager,0
-93,42,122512.0,133,Engineering,contract,Backend Engineer,0
-94,52,114333.0,75,Sales,permanent,Sales Engineer,0
-95,32,106598.0,13,HR,permanent,Recruiter,0
-96,31,104505.0,138,Engineering,permanent,Software Engineer,0
+27,30,20000.0,19,Engineering,contract,Junior DevOps Engineer,0
+28,34,45000.0,25,Engineering,permanent,DevOps Engineer,0
+29,27,240000.0,24,Engineering,contract,Graduate AI Engineer,0
+30,30,12000.0,53,Marketing,permanent,Junior TeleMarketer,0
+31,22,28000.0,3,Support,contract,Support Associate,1
+32,58,185000.0,144,Operations,permanent,Operations Director,0
+33,31,42000.0,7,Engineering,contract,Platform Engineer,1
+34,47,53000.0,18,Sales,permanent,Account Manager,1
+35,29,39000.0,5,Marketing,contract,Campaign Analyst,1
+36,39,132000.0,84,Finance,permanent,Finance Manager,0
+37,26,61000.0,11,Support,contract,Support Specialist,1
+38,34,97000.0,28,Engineering,permanent,Data Engineer,0
+39,44,71000.0,16,HR,permanent,HR Advisor,1
+40,52,46000.0,9,Finance,contract,Payroll Analyst,1
+41,36,88000.0,52,Operations,permanent,Process Analyst,0
+42,24,32000.0,2,Sales,contract,Sales Associate,1
+43,41,156000.0,96,Engineering,contract,Principal Engineer,0
+44,67,25000.0,180,Support,permanent,Support Advisor,1
+45,30,118000.0,13,Marketing,permanent,Marketing Strategist,0
+46,33,76000.0,39,Sales,permanent,Sales Executive,0
+47,27,29500.0,4,HR,contract,HR Coordinator,1
+48,49,101000.0,22,Operations,permanent,Operations Lead,0
+49,38,54000.0,6,Support,contract,Technical Support,1
+50,45,110000.0,110,Engineering,permanent,Software Architect,0
+51,23,18000.0,1,Marketing,contract,Content Assistant,1
+52,55,145000.0,132,Sales,permanent,Regional Director,0
+53,32,68000.0,8,Finance,contract,Financial Analyst,1
+54,40,83000.0,60,Operations,permanent,Logistics Manager,0
+55,28,47000.0,10,Support,contract,Support Specialist,1
+56,37,92000.0,44,Engineering,permanent,QA Engineer,0
+57,61,59000.0,126,HR,permanent,HR Business Partner,0
+58,35,73000.0,15,Marketing,contract,Brand Specialist,1
+59,43,69000.0,20,Sales,permanent,Account Executive,1
+60,25,51000.0,3,Finance,contract,Accounting Assistant,1
+61,50,128000.0,118,Operations,permanent,Senior Planner,0
+62,29,64000.0,14,Support,permanent,Service Coordinator,0
+63,25,500000.0,30,Engineering,permanent,Forward Deployed AI Engineer,0
+64,32,240000.0,17,Engineering,contract,Platform Engineering Intern,0
+65,32,24000.0,18,Engineering,contract,AI Engineering Intern,0
+66,23,100000.0,18,Finance,contract,Junior Financial Analyst,0
+67,24,35000.0,12,Operations,permanent,DevOps Graduate,0
+68,24,35000.0,12,Operations,permanent,DevOps Graduate,0
+69,27,25000.0,20,Engineering,contract,AI Platform Engineer Graduate,0
+70,32,100000.0,49,Engineering,contract,AI Platform Engineer Associate,0
+71,32,75000.0,60,Engineering,contract,Platform Engineer Senior Associate,0
+72,32,50000.0,60,Engineering,permanent,Platform Engineer Senior Associate,0
+2340,52,94302.0,103,Finance,contract,Controller,0
+2341,60,96873.0,44,Engineering,permanent,Frontend Developer,0
+2342,41,107216.0,116,Sales,contract,Sales Manager,1
+2343,35,59969.0,126,HR,contract,Recruiter,0
+2344,35,69382.0,84,HR,permanent,HR Business Partner,0
+2345,23,109918.0,137,Support,permanent,Customer Success Lead,0
+2346,37,60623.0,106,Engineering,permanent,DevOps Engineer,0
+2347,30,58983.0,49,Marketing,permanent,Content Creator,1
+2348,38,109939.0,14,Sales,permanent,Sales Manager,0
+2349,54,87809.0,55,Finance,contract,Financial Analyst,0
+2350,53,54832.0,88,Operations,permanent,Operations Manager,0
+2351,36,122913.0,134,Sales,permanent,Sales Representative,0
+2352,49,97286.0,39,HR,permanent,HR Business Partner,0
+2353,56,90778.0,41,Finance,permanent,Financial Analyst,0
+2354,34,89695.0,33,Operations,contract,Supply Chain Analyst,0
+2355,56,54708.0,54,Operations,permanent,Supply Chain Analyst,0
+2356,27,64673.0,129,Finance,permanent,Financial Analyst,0
+2357,44,56992.0,135,Marketing,permanent,Content Creator,1
+2358,24,67049.0,76,Finance,contract,Financial Analyst,0
+2359,27,84448.0,58,Sales,permanent,Sales Engineer,0
+2360,34,54951.0,119,Engineering,permanent,Frontend Developer,0
+2361,53,125663.0,78,Operations,permanent,Logistics Specialist,0
+2362,38,117070.0,32,Engineering,contract,Frontend Developer,0
+2363,55,92153.0,82,Marketing,permanent,Content Creator,0
+2364,31,121581.0,132,Marketing,permanent,Marketing Analyst,0
