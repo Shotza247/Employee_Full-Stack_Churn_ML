@@ -11,7 +11,7 @@ SQL_SCHEMA = """
 CREATE TABLE IF NOT EXISTS employees (employee_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, age INTEGER, department TEXT, contract_type TEXT, churn INTEGER);
 CREATE TABLE IF NOT EXISTS salaries (salary_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, annual_income REAL);
 CREATE TABLE IF NOT EXISTS jobs (job_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, job_title TEXT, tenure_months INTEGER);
-CREATE TABLE IF NOT EXISTS model_runs (run_id INTEGER PRIMARY KEY AUTOINCREMENT, run_timestamp TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, accuracy REAL, precision REAL, recall REAL, f1 REAL, roc_auc REAL);
+CREATE TABLE IF NOT EXISTS model_runs (run_id INTEGER PRIMARY KEY AUTOINCREMENT, run_timestamp TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, accuracy REAL, precision REAL, recall REAL, f1 REAL, roc_auc REAL, model_type TEXT DEFAULT 'logistic_regression');
 CREATE TABLE IF NOT EXISTS predictions (prediction_id INTEGER PRIMARY KEY AUTOINCREMENT, run_id INTEGER NOT NULL, employee_id INTEGER NOT NULL, predicted_prob REAL NOT NULL, predicted_label INTEGER NOT NULL, true_label INTEGER, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS inference_predictions (prediction_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL, predicted_prob REAL NOT NULL, predicted_label INTEGER NOT NULL, true_label INTEGER, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 """
@@ -39,6 +39,9 @@ def init_db(db_path=DB_PATH):
         columns = {row[1] for row in connection.execute("PRAGMA table_info(employees)")}
         if "churn" not in columns:
             connection.execute("ALTER TABLE employees ADD COLUMN churn INTEGER NOT NULL DEFAULT 0")
+        columns_mr = {row[1] for row in connection.execute("PRAGMA table_info(model_runs)")}
+        if "model_type" not in columns_mr:
+            connection.execute("ALTER TABLE model_runs ADD COLUMN model_type TEXT DEFAULT 'logistic_regression'")
         _repair_legacy_demo_labels(connection)
         _migrate_nullable_employee_fields(connection)
 
@@ -210,9 +213,12 @@ def import_employee_dataframe(data, db_path=DB_PATH):
         accepted.append({"source_row": int(row_number) + 2, "employee_id": employee_id})
     return pd.DataFrame(accepted), pd.DataFrame(rejected)
 
-def save_model_run(metrics,predictions,db_path=DB_PATH):
+def save_model_run(metrics,predictions,db_path=DB_PATH,model_type="logistic_regression"):
     with get_connection(db_path) as connection:
-        run_id = connection.execute("INSERT INTO model_runs (accuracy,precision,recall,f1,roc_auc) VALUES (?,?,?,?,?)", tuple(metrics[name] for name in ("accuracy","precision","recall","f1","roc_auc"))).lastrowid
+        columns_mr = {row[1] for row in connection.execute("PRAGMA table_info(model_runs)")}
+        if "model_type" not in columns_mr:
+            connection.execute("ALTER TABLE model_runs ADD COLUMN model_type TEXT DEFAULT 'logistic_regression'")
+        run_id = connection.execute("INSERT INTO model_runs (accuracy,precision,recall,f1,roc_auc,model_type) VALUES (?,?,?,?,?,?,?)", tuple(metrics[name] for name in ("accuracy","precision","recall","f1","roc_auc")) + (model_type,)).lastrowid
         for row in predictions.itertuples(index=False): connection.execute("INSERT INTO predictions (run_id,employee_id,predicted_prob,predicted_label,true_label) VALUES (?,?,?,?,?)", (run_id,int(row.employee_id),float(row.predicted_prob),int(row.predicted_label),int(row.true_label)))
         return run_id
 

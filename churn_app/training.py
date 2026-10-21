@@ -125,7 +125,7 @@ def train_model(
         "true_label": y,
     })
 
-    run_id = save_model_run(metrics, predictions, db_path) if db_path else save_model_run(metrics, predictions)
+    run_id = save_model_run(metrics, predictions, db_path, model_type=model_type) if db_path else save_model_run(metrics, predictions, model_type=model_type)
     logging.info("Saved model to %s as run %s (%s)", artifact_path, run_id, model_type)
     return model, metrics, predictions, run_id
 

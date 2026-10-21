@@ -287,7 +287,7 @@ with st.sidebar:
             age = st.number_input("Age", min_value=18, max_value=99, value=30)
             department = st.selectbox("Department", sorted(VALID_DEPARTMENTS))
             contract_type = st.selectbox("Contract type", sorted(VALID_CONTRACTS))
-            annual_income = st.number_input("Annual income", min_value=0.0, value=52000.0, step=1000.0, format="%.2f")
+            annual_income = st.number_input("Annual income (R / ZAR)", min_value=0.0, value=52000.0, step=1000.0, format="%.2f")
             job_title = st.text_input("Job title", value="Specialist")
             tenure_months = st.number_input("Tenure months", min_value=0, max_value=240, value=12)
             submit_button = st.form_submit_button("Insert & Score Employee")
@@ -393,7 +393,7 @@ with tab_insights:
             kpi_cols[0].metric("👥 Headcount", f"{total_headcount:,}")
             kpi_cols[1].metric("🛡️ Retention Rate", f"{retention_rate:.1%}")
             kpi_cols[2].metric("⚠️ Churn Rate", f"{churn_rate:.1%}")
-            kpi_cols[3].metric("💵 Avg Salary", f"${avg_salary:,.0f}")
+            kpi_cols[3].metric("💵 Avg Salary", f"R {avg_salary:,.0f}")
             kpi_cols[4].metric("⏱️ Avg Tenure", f"{avg_tenure:.1f} mos")
 
             st.divider()
@@ -446,8 +446,8 @@ with tab_insights:
                         "Department": dept,
                         "Headcount": dept_total,
                         "Churn %": f"{dept_churn_pct:.1f}%",
-                        "Avg Sal (Retained)": f"${avg_sal_ret:,.0f}",
-                        "Avg Sal (Churned)": f"${avg_sal_chu:,.0f}",
+                        "Avg Sal (Retained)": f"R {avg_sal_ret:,.0f}",
+                        "Avg Sal (Churned)": f"R {avg_sal_chu:,.0f}",
                         "Avg Ten (Ret)": f"{avg_ten_ret:.1f}m",
                         "Avg Ten (Chu)": f"{avg_ten_chu:.1f}m",
                     })
@@ -493,7 +493,7 @@ with tab_insights:
                     Headcount="count",
                     Churners="sum",
                     Churn_Rate=lambda x: f"{x.mean():.1%}" if len(x) else "0.0%",
-                    Avg_Salary=lambda x: f"${filtered_df.loc[x.index, 'income'].mean():,.0f}",
+                    Avg_Salary=lambda x: f"R {filtered_df.loc[x.index, 'income'].mean():,.0f}",
                 ).reset_index()
 
                 st.markdown("##### Retention by Contract Type")
@@ -508,7 +508,7 @@ with tab_insights:
                     ax_sal.hist(ret_sal, bins=15, alpha=0.6, color="#0f766e", label="Retained", edgecolor="white")
                 if not chu_sal.empty:
                     ax_sal.hist(chu_sal, bins=15, alpha=0.6, color="#dc2626", label="Churned", edgecolor="white")
-                ax_sal.set_xlabel("Annual Salary ($)")
+                ax_sal.set_xlabel("Annual Salary (R)")
                 ax_sal.set_ylabel("Employees")
                 ax_sal.legend(loc="upper right")
                 fig_sal.tight_layout()
@@ -780,17 +780,30 @@ with tab_model:
     if runs_df.empty:
         st.info("No training runs recorded yet. Retrain the model above to generate run benchmarks.")
     else:
+        if "model_type" in runs_df.columns:
+            runs_df["model_architecture"] = runs_df["model_type"].str.replace("_", " ").str.title()
+        else:
+            runs_df["model_architecture"] = "Logistic Regression"
+
         latest = runs_df.iloc[0]
         metric_columns = ["accuracy", "precision", "recall", "f1", "roc_auc"]
         with st.container(border=True):
-            st.markdown("##### Latest Model Evaluation Metrics")
+            latest_arch = str(latest.get("model_architecture", latest.get("model_type", "Logistic Regression"))).replace("_", " ").title()
+            st.markdown(f"##### Latest Model Run #{latest['run_id']} — Architecture: `{latest_arch}`")
             metric_cards = st.columns(len(metric_columns), gap="medium")
             for card, metric in zip(metric_cards, metric_columns):
                 card.metric(metric.upper(), f"{float(latest[metric]):.1%}")
 
-        st.dataframe(runs_df, hide_index=True, use_container_width=True, height=220)
+        display_runs_cols = [c for c in ["run_id", "model_architecture", "accuracy", "precision", "recall", "f1", "roc_auc", "run_timestamp"] if c in runs_df.columns]
+        st.dataframe(runs_df[display_runs_cols], hide_index=True, use_container_width=True, height=220)
 
-        selected_run = st.selectbox("Inspect specific evaluation run:", runs_df["run_id"].astype(str).tolist())
+        run_labels = [
+            f"Run #{row.run_id} ({getattr(row, 'model_architecture', getattr(row, 'model_type', 'Model')).replace('_', ' ').title()}) — AUC: {float(row.roc_auc):.1%}"
+            for row in runs_df.itertuples()
+        ]
+        run_map = {label: row.run_id for label, row in zip(run_labels, runs_df.itertuples())}
+        selected_label = st.selectbox("Inspect specific evaluation run:", run_labels)
+        selected_run = run_map[selected_label]
         predictions = get_predictions_by_run(int(selected_run))
 
         if not predictions.empty:
