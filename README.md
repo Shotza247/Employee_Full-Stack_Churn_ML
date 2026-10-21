@@ -444,10 +444,50 @@ classDiagram
 
 ## Retrain after changing the data or model
 
+### Why Evaluation Metrics (Precision & Recall) Don't Change Automatically
+
+In this architecture, **Inference (Prediction)** and **Model Evaluation (Training)** are deliberately decoupled:
+
+```mermaid
+flowchart LR
+    subgraph INFER ["⚡ Inference Path (Predicting)"]
+        direction TB
+        I1["1. Faker Data Generated / Repaired"] --> I2["2. Saved to SQLite"]
+        I2 --> I3["3. Click 'Predict Imported Employees'"]
+        I3 --> I4["4. Scored with EXISTING churn_model.pkl"]
+        I4 --> I5["5. Logged to 'Prediction History' Table"]
+    end
+
+    subgraph TRAIN ["🧠 Evaluation Path (Retraining)"]
+        direction TB
+        T1["1. Labeled Dataset (churn = 0 / 1)"] --> T2["2. Stratified 80/20 Holdout Split"]
+        T2 --> T3["3. Trigger Retrain / Hyperparameter Tuning"]
+        T3 --> T4["4. Compute Precision, Recall, F1, ROC-AUC"]
+        T4 --> T5["5. Log Run ID to 'Model Evaluation History'"]
+    end
+
+    I2 -.->|"Supplies New Ground Truth"| T1
+
+    classDef inferNode fill:#0284C7,stroke:#38BDF8,stroke-width:2px,color:#ffffff;
+    classDef trainNode fill:#047857,stroke:#34D399,stroke-width:2px,color:#ffffff;
+
+    class I1,I2,I3,I4,I5 inferNode;
+    class T1,T2,T3,T4,T5 trainNode;
+```
+
+#### Production Best Practice
+
+> **Decoupling prediction from retraining** prevents silent model drift and accidental model poisoning from untested data.
+> It guarantees sub-millisecond prediction latency and ensures every set of evaluation metrics is cleanly tied to a versioned **Run ID** in the database.
+
+---
+
+### Step-by-step Retraining Workflow
+
 Newly uploaded rows are available in SQLite, but the already-fitted model does not learn from them automatically. To include new observed labels in training:
 
-1. Import the updated dataset, including `churn` values where known.
-2. Run `python -m churn_app.train_and_evaluate`.
+1. Import the updated dataset, including `churn` values where known (or repair rejected rows with the **Python Faker Producer**).
+2. Run `python -m churn_app.train_and_evaluate` or click **"🚀 Train & Evaluate Model with Tuned Parameters"** in Streamlit.
 3. Review `artifacts/metrics.json` and the generated batch predictions.
 4. Use the newly generated `churn_model.pkl` with the app.
 
