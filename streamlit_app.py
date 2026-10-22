@@ -15,6 +15,7 @@ from churn_app.database import (
     diagnose_dataframe_quality,
     diagnose_row_quality,
     get_all_employees,
+    get_data_lineage_records,
     get_employee_features,
     get_model_runs,
     get_prediction_history,
@@ -204,7 +205,8 @@ st.caption("Interactive workforce analytics, scenario modeling, zero-null featur
 # Persistent Sidebar: Ingestion & Simulation Studio
 # =========================================================
 with st.sidebar:
-    st.header("⚙️ Settings & Ingestion")
+    st.markdown("### 🏢 System Operations")
+    st.caption("Active operational controls, inference routing, and serverless backends.")
 
     with st.expander("🌐 Cloud API / Vercel Backend", expanded=False):
         api_backend_url = st.text_input(
@@ -224,157 +226,36 @@ with st.sidebar:
             except Exception as e:
                 st.error(f"Cannot reach API: {e}")
 
-    # CSV Batch Import
-    st.markdown("### 📥 Batch CSV Import")
-    st.caption("Upload your workforce CSV or download pre-packaged test datasets from the repository:")
+    st.markdown("---")
+    st.markdown("#### ⚡ Active Model Status")
+    runs_history = get_model_runs()
+    latest_run = runs_history[0] if runs_history else None
+    if latest_run:
+        st.markdown(f"**Architecture:** `{latest_run.get('model_type', 'logistic_regression')}`")
+        st.markdown(f"**Holdout ROC-AUC:** `{latest_run['roc_auc']:.1%}`")
+        st.markdown(f"**Holdout F1:** `{latest_run['f1']:.2f}`")
+        st.caption(f"Run #{latest_run['run_id']} • {latest_run['run_timestamp']}")
+    else:
+        st.info("No trained model runs logged yet.")
 
-    with st.expander("📂 Download Sample Bulk CSV Datasets", expanded=False):
-        st.markdown("Pre-built test files located in `data/Bulk_import_Data/`:")
-        bulk_data_dir = Path("data/Bulk_import_Data")
-        sample_files = [
-            ("noisy_churn_experiment_900.csv", "🧪 900-Row Noisy Dataset (Outliers & Missing)"),
-            ("synthetic_churn_data_updated.csv", "✅ Benchmark Dataset (Clean Records)"),
-            ("synthetical_churn_data_updated_raw.csv", "⚠️ Raw Stress-Test Dataset (Missing Fields)"),
-        ]
-        for fname, flabel in sample_files:
-            fpath = bulk_data_dir / fname
-            if fpath.exists():
-                with open(fpath, "rb") as f_in:
-                    st.download_button(
-                        label=flabel,
-                        data=f_in.read(),
-                        file_name=fname,
-                        mime="text/csv",
-                        use_container_width=True,
-                        key=f"dl_btn_{fname}",
-                    )
-
-    uploaded_file = st.file_uploader("Upload employee dataset", type="csv")
-    if uploaded_file is not None:
-        try:
-            uploaded_df = pd.read_csv(uploaded_file)
-            if "income" in uploaded_df.columns and "annual_income" not in uploaded_df.columns:
-                uploaded_df["annual_income"] = uploaded_df["income"]
-            missing_columns = REQUIRED_COLUMNS - set(uploaded_df.columns)
-            if missing_columns:
-                st.error(f"Missing columns: {', '.join(sorted(missing_columns))}")
-            else:
-                diagnosed_df = diagnose_dataframe_quality(uploaded_df)
-                with st.expander("Uploaded Data Quality", expanded=False):
-                    show_quality_cards(quality_report(uploaded_df), st, diagnosed_df=diagnosed_df)
-                st.caption("Preview first 5 rows (with Data Quality Categories):")
-                core_cols = ["first_name", "last_name", "department", "data_quality_issue", "data_quality_category", "age", "contract_type", "annual_income", "job_title", "tenure_months"]
-                display_cols = [c for c in core_cols if c in diagnosed_df.columns] + [c for c in diagnosed_df.columns if c not in core_cols]
-                st.dataframe(diagnosed_df[display_cols].head(5), hide_index=True, use_container_width=True)
-                if st.button("Import valid rows", type="primary", use_container_width=True):
-                    accepted, rejected = import_employee_dataframe(uploaded_df)
-                    st.session_state["last_import"] = {
-                        "accepted": accepted,
-                        "rejected": rejected,
-                        "predictions": None,
-                    }
-                    st.rerun()
-        except (pd.errors.ParserError, UnicodeDecodeError) as error:
-            st.error(f"Could not read CSV: {error}")
-
-    last_import = st.session_state.get("last_import")
-    if last_import:
-        st.success(f"Imported {len(last_import['accepted'])} rows")
-        if not last_import["rejected"].empty:
-            st.warning(f"Rejected {len(last_import['rejected'])} rows due to data quality issues")
-            with st.expander("Rejected rows summary & categories", expanded=False):
-                rej_df = last_import["rejected"]
-                if "data_quality_category" in rej_df.columns:
-                    cat_summary = rej_df["data_quality_category"].value_counts().reset_index()
-                    cat_summary.columns = ["Data Quality Category", "Count"]
-                    st.dataframe(cat_summary, hide_index=True, use_container_width=True)
-                st.dataframe(rej_df, hide_index=True, use_container_width=True)
-
-            # Python Faker Producer Section to repair unapproved / rejected records
-            with st.container(border=True):
-                st.markdown("#### 🪄 Faker Auto-Repair")
-                st.caption("Synthesize valid identities for rejected rows.")
-                if st.button("⚡ Repair Rejected Rows", use_container_width=True):
-                    producer = FakerProducer()
-                    repaired_df = producer.repair_rejected_rows(last_import["rejected"])
-                    if not repaired_df.empty:
-                        cols_to_import = [c for c in repaired_df.columns if c not in ["source_row", "reason", "faker_repairs", "data_quality_category", "data_quality_issue"]]
-                        import_payload = repaired_df[cols_to_import].copy()
-                        new_accepted, new_rejected = import_employee_dataframe(import_payload)
-
-                        combined_accepted = pd.concat([last_import["accepted"], new_accepted], ignore_index=True)
-                        st.session_state["last_import"]["accepted"] = combined_accepted
-                        st.session_state["last_import"]["rejected"] = new_rejected
-                        st.session_state["repaired_preview"] = repaired_df[["first_name", "last_name", "department", "job_title", "data_quality_issue", "faker_repairs"]]
-                        st.success(f"Repaired and imported {len(new_accepted)} rows!")
-                        st.rerun()
-
-    # Synthetic Training Batch Producer
-    with st.expander("🧪 Synthetic Batch Producer (Faker)"):
-        st.caption("Generate synthetic employee records for stress-testing:")
-        synth_count = st.slider("Records to generate", min_value=5, max_value=50, value=10, step=5)
-        if st.button("Generate & Import Synthetic Batch", use_container_width=True):
-            synth_producer = FakerProducer()
-            synth_batch = synth_producer.generate_synthetic_batch(count=synth_count)
-            synth_accepted, synth_rejected = import_employee_dataframe(synth_batch)
-            st.success(f"Generated and imported {len(synth_accepted)} synthetic records.")
-            st.rerun()
-
-    # Add Single Employee Form
-    with st.expander("➕ Add Single Employee"):
-        with st.form("sidebar_employee_form"):
-            first_name = st.text_input("First name")
-            last_name = st.text_input("Last name")
-            age = st.number_input("Age", min_value=18, max_value=99, value=30)
-            department = st.selectbox("Department", sorted(VALID_DEPARTMENTS))
-            contract_type = st.selectbox("Contract type", sorted(VALID_CONTRACTS))
-            annual_income = st.number_input("Annual income (R / ZAR)", min_value=0.0, value=52000.0, step=1000.0, format="%.2f")
-            job_title = st.text_input("Job title", value="Specialist")
-            tenure_months = st.number_input("Tenure months", min_value=0, max_value=240, value=12)
-            submit_button = st.form_submit_button("Insert & Score Employee")
-            if submit_button:
-                if not first_name.strip() or not last_name.strip() or not job_title.strip():
-                    st.error("First name, last name, and job title are required.")
-                else:
-                    new_id = insert_employee(
-                        first_name.strip(),
-                        last_name.strip(),
-                        int(age),
-                        department,
-                        contract_type,
-                        float(annual_income),
-                        job_title.strip(),
-                        int(tenure_months),
-                    )
-                    if new_id is None:
-                        st.error("Employee was inserted, but ID was not returned.")
-                    else:
-                        st.success(f"Inserted employee ID #{new_id}")
-                        try:
-                            result = predict_employee_locally(new_id)
-                            if not result.get("error"):
-                                save_inference_predictions(
-                                    [{
-                                        "employee_id": new_id,
-                                        "predicted_prob": result["churn_probability"],
-                                        "predicted_label": int(result["churn_probability"] >= 0.5),
-                                    }]
-                                )
-                                st.info(f"Churn Risk: **{result['risk_band'].upper()}** ({result['churn_probability']:.1%})")
-                        except Exception as ex:
-                            st.warning(f"Prediction note: {ex}")
-                        st.rerun()
-
-    with st.expander("📊 SQLite Database Health", expanded=False):
-        current_data = get_training_data()
-        current_diagnosed = diagnose_dataframe_quality(current_data) if not current_data.empty else None
-        show_quality_cards(quality_report(current_data), st, diagnosed_df=current_diagnosed)
+    st.markdown("---")
+    st.markdown("#### 🧭 5-Tab Architecture")
+    st.markdown(
+        """
+        1. **📥 Ingestion & Lineage Studio**
+        2. **📊 Executive HR Insights**
+        3. **👥 Workforce Roster & Scoring**
+        4. **🔍 Feature Signals & Drivers**
+        5. **⚙️ Model Studio & Evaluation**
+        """
+    )
 
 
 # =========================================================
-# Main Panel: 4-Tab Stakeholder Architecture
+# Main Panel: 5-Tab Stakeholder Architecture
 # =========================================================
-tab_insights, tab_roster, tab_signals, tab_model = st.tabs([
+tab_ingest, tab_insights, tab_roster, tab_signals, tab_model = st.tabs([
+    "📥 Data Ingestion, Synthesis & Lineage Studio",
     "📊 Executive HR Insights & Demographics",
     "👥 Workforce Roster & Predictions",
     "🔍 Feature Signals & Retention Drivers",
@@ -385,7 +266,210 @@ tab_insights, tab_roster, tab_signals, tab_model = st.tabs([
 full_training_data = get_training_data()
 
 # =========================================================
-# TAB 1: Executive HR Insights & Demographics
+# TAB 1: Data Ingestion, Synthesis & Lineage Studio
+# =========================================================
+with tab_ingest:
+    st.header("Data Ingestion, Synthesis & Lineage Studio")
+    st.caption("Enterprise ingestion channels, Faker identity auto-repair, data quality validation, and end-to-end data provenance.")
+
+    # 3 Ingestion Channels
+    ingest_col1, ingest_col2 = st.columns([1, 1], gap="medium")
+
+    with ingest_col1:
+        with st.container(border=True):
+            st.subheader("📥 Channel 1: Batch CSV Ingestion")
+            st.caption("Upload workforce rosters or download packaged sample datasets:")
+
+            with st.expander("📂 Download Sample Bulk CSV Datasets", expanded=False):
+                st.markdown("Pre-packaged test files from `data/Bulk_import_Data/`:")
+                bulk_data_dir = Path("data/Bulk_import_Data")
+                sample_files = [
+                    ("noisy_churn_experiment_900.csv", "🧪 900-Row Noisy Dataset (Outliers & Missing)"),
+                    ("synthetic_churn_data_updated.csv", "✅ Benchmark Dataset (Clean Records)"),
+                    ("synthetical_churn_data_updated_raw.csv", "⚠️ Raw Stress-Test Dataset (Missing Fields)"),
+                ]
+                for fname, flabel in sample_files:
+                    fpath = bulk_data_dir / fname
+                    if fpath.exists():
+                        with open(fpath, "rb") as f_in:
+                            st.download_button(
+                                label=flabel,
+                                data=f_in.read(),
+                                file_name=fname,
+                                mime="text/csv",
+                                use_container_width=True,
+                                key=f"tab1_dl_{fname}",
+                            )
+
+            uploaded_file = st.file_uploader("Upload workforce CSV file", type="csv", key="tab1_uploader")
+            if uploaded_file is not None:
+                try:
+                    uploaded_df = pd.read_csv(uploaded_file)
+                    if "income" in uploaded_df.columns and "annual_income" not in uploaded_df.columns:
+                        uploaded_df["annual_income"] = uploaded_df["income"]
+                    missing_columns = REQUIRED_COLUMNS - set(uploaded_df.columns)
+                    if missing_columns:
+                        st.error(f"Missing required columns: {', '.join(sorted(missing_columns))}")
+                    else:
+                        diagnosed_df = diagnose_dataframe_quality(uploaded_df)
+                        with st.expander("Uploaded Data Quality Assessment", expanded=True):
+                            show_quality_cards(quality_report(uploaded_df), st, diagnosed_df=diagnosed_df)
+                        st.caption("Preview first 5 rows (with Data Quality Categories):")
+                        core_cols = ["first_name", "last_name", "department", "data_quality_issue", "data_quality_category", "age", "contract_type", "annual_income", "job_title", "tenure_months"]
+                        display_cols = [c for c in core_cols if c in diagnosed_df.columns] + [c for c in diagnosed_df.columns if c not in core_cols]
+                        st.dataframe(diagnosed_df[display_cols].head(5), hide_index=True, use_container_width=True)
+                        if st.button("🚀 Import Valid Rows to Database", type="primary", use_container_width=True, key="tab1_import_btn"):
+                            accepted, rejected = import_employee_dataframe(uploaded_df, source_system="csv_import")
+                            st.session_state["last_import"] = {
+                                "accepted": accepted,
+                                "rejected": rejected,
+                                "predictions": None,
+                            }
+                            st.rerun()
+                except (pd.errors.ParserError, UnicodeDecodeError) as error:
+                    st.error(f"Could not parse CSV: {error}")
+
+            last_import = st.session_state.get("last_import")
+            if last_import:
+                st.success(f"Successfully imported {len(last_import['accepted'])} records.")
+                if not last_import["rejected"].empty:
+                    st.warning(f"Rejected {len(last_import['rejected'])} invalid rows.")
+                    with st.expander("Rejected Rows Quality Breakdown", expanded=False):
+                        rej_df = last_import["rejected"]
+                        if "data_quality_category" in rej_df.columns:
+                            cat_summary = rej_df["data_quality_category"].value_counts().reset_index()
+                            cat_summary.columns = ["Data Quality Category", "Count"]
+                            st.dataframe(cat_summary, hide_index=True, use_container_width=True)
+                        st.dataframe(rej_df, hide_index=True, use_container_width=True)
+
+                    # Faker auto-repair for rejected rows
+                    st.markdown("#### 🪄 Faker Auto-Repair")
+                    st.caption("Synthesize valid identities and resolve duplicate collisions for rejected rows.")
+                    if st.button("⚡ Auto-Repair & Ingest Rejected Rows", use_container_width=True, key="tab1_repair_btn"):
+                        producer = FakerProducer()
+                        repaired_df = producer.repair_rejected_rows(last_import["rejected"])
+                        if not repaired_df.empty:
+                            cols_to_import = [c for c in repaired_df.columns if c not in ["source_row", "reason", "faker_repairs", "data_quality_category", "data_quality_issue"]]
+                            import_payload = repaired_df[cols_to_import].copy()
+                            new_accepted, new_rejected = import_employee_dataframe(import_payload, source_system="faker_repaired")
+
+                            combined_accepted = pd.concat([last_import["accepted"], new_accepted], ignore_index=True)
+                            st.session_state["last_import"]["accepted"] = combined_accepted
+                            st.session_state["last_import"]["rejected"] = new_rejected
+                            st.session_state["repaired_preview"] = repaired_df[["first_name", "last_name", "department", "job_title", "data_quality_issue", "faker_repairs"]]
+                            st.success(f"Repaired and imported {len(new_accepted)} rows via Faker Producer!")
+                            st.rerun()
+
+    with ingest_col2:
+        with st.container(border=True):
+            st.subheader("🧪 Channel 2: Synthetic Batch Producer (Faker)")
+            st.caption("Generate realistic employee identities with controllable churn signals:")
+            synth_count = st.slider("Record batch size", min_value=5, max_value=100, value=15, step=5, key="tab1_synth_slider")
+            synth_churn_bias = st.slider("Baseline Churn Bias", min_value=0.05, max_value=0.80, value=0.25, step=0.05, format="%.0f%%", key="tab1_bias_slider")
+            if st.button("🎲 Generate & Ingest Synthetic Batch", use_container_width=True, key="tab1_synth_btn"):
+                synth_producer = FakerProducer()
+                synth_batch = synth_producer.generate_synthetic_batch(count=synth_count, churn_prob=synth_churn_bias)
+                synth_accepted, synth_rejected = import_employee_dataframe(synth_batch, source_system="faker_synthetic")
+                st.success(f"Generated and ingested {len(synth_accepted)} synthetic employee records (Provenance: `faker_synthetic`).")
+                st.rerun()
+
+        with st.container(border=True):
+            st.subheader("➕ Channel 3: Single Employee Ingestion")
+            with st.form("tab1_employee_form"):
+                f_col1, f_col2 = st.columns(2)
+                with f_col1:
+                    first_name = st.text_input("First Name")
+                    age = st.number_input("Age", min_value=18, max_value=99, value=30)
+                    department = st.selectbox("Department", sorted(VALID_DEPARTMENTS), key="tab1_form_dept")
+                    annual_income = st.number_input("Annual Income (R / ZAR)", min_value=0.0, value=65000.0, step=1000.0, format="%.2f")
+                with f_col2:
+                    last_name = st.text_input("Last Name")
+                    contract_type = st.selectbox("Contract Type", sorted(VALID_CONTRACTS), key="tab1_form_contract")
+                    job_title = st.text_input("Job Title", value="Specialist")
+                    tenure_months = st.number_input("Tenure (Months)", min_value=0, max_value=240, value=12)
+
+                submit_btn = st.form_submit_button("Insert & Score Employee", use_container_width=True)
+                if submit_btn:
+                    if not first_name.strip() or not last_name.strip() or not job_title.strip():
+                        st.error("First name, last name, and job title are required.")
+                    else:
+                        new_id = insert_employee(
+                            first_name.strip(),
+                            last_name.strip(),
+                            int(age),
+                            department,
+                            contract_type,
+                            float(annual_income),
+                            job_title.strip(),
+                            int(tenure_months),
+                            source_system="manual_entry",
+                        )
+                        if new_id is None:
+                            st.error("Employee was inserted, but ID was not returned.")
+                        else:
+                            st.success(f"Inserted employee ID #{new_id} (Provenance: `manual_entry`)")
+                            try:
+                                result = predict_employee_locally(new_id)
+                                if not result.get("error"):
+                                    save_inference_predictions(
+                                        [{
+                                            "employee_id": new_id,
+                                            "predicted_prob": result["churn_probability"],
+                                            "predicted_label": int(result["churn_probability"] >= 0.5),
+                                        }]
+                                    )
+                                    st.info(f"Instant Churn Risk: **{result['risk_band'].upper()}** ({result['churn_probability']:.1%})")
+                            except Exception as ex:
+                                st.warning(f"Scoring note: {ex}")
+                            st.rerun()
+
+    # Data Lineage & Provenance Explorer
+    st.markdown("---")
+    st.subheader("🔍 Data Lineage & Provenance Explorer")
+    st.caption("Trace every employee record from creation source to database storage, feature engineering, and model inference.")
+
+    lineage_records = get_data_lineage_records()
+    if not lineage_records.empty:
+        available_sources = ["All Sources"] + sorted(list(lineage_records["source_system"].dropna().unique()))
+        l_col1, l_col2, l_col3 = st.columns([2, 2, 2])
+        with l_col1:
+            source_filter = st.selectbox("Filter by Source Lineage System:", available_sources)
+
+        filtered_lineage = lineage_records.copy()
+        if source_filter != "All Sources":
+            filtered_lineage = filtered_lineage[filtered_lineage["source_system"] == source_filter]
+
+        with l_col2:
+            st.metric("Total Lineage Records", f"{len(lineage_records):,}")
+        with l_col3:
+            st.metric(f"Filtered Records ({source_filter})", f"{len(filtered_lineage):,}")
+
+        # Provenance source breakdown
+        st.markdown("##### Provenance Source Distribution:")
+        src_counts = lineage_records["source_system"].value_counts().reset_index()
+        src_counts.columns = ["Source System", "Record Count"]
+        src_counts["Proportion (%)"] = (src_counts["Record Count"] / len(lineage_records) * 100).round(1)
+        st.dataframe(src_counts, hide_index=True, use_container_width=True)
+
+        st.markdown("##### Audited Lineage Records:")
+        display_lineage_cols = ["employee_id", "employee_name", "department", "contract_type", "annual_income", "tenure_months", "churn", "source_system", "created_at"]
+        st.dataframe(filtered_lineage[display_lineage_cols], hide_index=True, use_container_width=True, height=280)
+    else:
+        st.info("No lineage records found in SQLite database.")
+
+    # SQLite Database Health
+    st.markdown("---")
+    st.subheader("📊 SQLite Database Health & Schema Inspector")
+    with st.expander("Database Health Scorecard & Active Schemas", expanded=False):
+        current_data = get_training_data()
+        current_diagnosed = diagnose_dataframe_quality(current_data) if not current_data.empty else None
+        show_quality_cards(quality_report(current_data), st, diagnosed_df=current_diagnosed)
+
+# Load base workforce dataset
+full_training_data = get_training_data()
+
+# =========================================================
+# TAB 2: Executive HR Insights & Demographics
 # =========================================================
 with tab_insights:
     st.header("Executive HR Insights & Workforce Demographics")
@@ -560,7 +644,7 @@ with tab_insights:
 
 
 # =========================================================
-# TAB 2: Workforce Roster & Predictions
+# TAB 3: Workforce Roster & Predictions
 # =========================================================
 with tab_roster:
     st.header("Workforce Roster & Batch Predictions")
@@ -664,7 +748,7 @@ with tab_roster:
 
 
 # =========================================================
-# TAB 3: Feature Signals & Retention Drivers
+# TAB 4: Feature Signals & Retention Drivers
 # =========================================================
 with tab_signals:
     st.header("Feature Signals & Retention Drivers")
@@ -743,7 +827,7 @@ with tab_signals:
 
 
 # =========================================================
-# TAB 4: Model Studio & Evaluation History
+# TAB 5: Model Studio & Evaluation History
 # =========================================================
 with tab_model:
     st.header("Model Studio & Governance History")
