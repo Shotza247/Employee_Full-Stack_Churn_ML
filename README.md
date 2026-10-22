@@ -150,19 +150,23 @@ Interactive OpenAPI documentation is available at `http://127.0.0.1:8000/docs`.
 
 ---
 
-## 📑 4-Tab Dashboard Architecture
+## 📑 5-Tab Enterprise Dashboard Architecture
 
 ![Spacious Dashboard Layout Architecture](artifacts/images/Spacious%20Dashboard%20Layout%20Architecture.png)
 
-### 📥 Persistent Sidebar: Ingestion & Simulation Studio
+### ⚙️ Operations Sidebar
 - **Cloud API Switch:** Route predictions locally or to a deployed Vercel FastAPI backend.
-- **Batch CSV Import:** Previews uploaded rosters, verifies 8 required column schemas, provides direct download buttons for repository test datasets (`data/Bulk_import_Data/`), and displays data quality scorecards.
-- **🪄 Faker Auto-Repair:** One-click synthetic identity fix for unapproved/rejected rows.
-- **🧪 Synthetic Batch Generator:** Generates 5–50 realistic employee rows for testing.
-- **➕ Add Single Employee:** Instant employee creation with automated real-time scoring.
-- **📊 SQLite Database Health:** Real-time scorecard tracking duplicate, missing, and invalid records.
+- **Active Model Status Badge:** Real-time model architecture, holdout ROC-AUC, and F1 score indicator.
+- **5-Tab Navigation Guide:** Quick reference for all platform analytics and governance tabs.
 
-### 📊 Tab 1: Executive HR Insights & Demographics
+### 📥 Tab 1: Data Ingestion, Synthesis & Lineage Studio
+- **Channel 1 (Batch CSV Ingestion):** Upload rosters, download repository test datasets (`data/Bulk_import_Data/`), view quality issue diagnosis (Missing Values, Duplicates, Outliers), and trigger 1-click **🪄 Faker Auto-Repair** for rejected rows.
+- **Channel 2 (Synthetic Batch Producer):** Generate 5–100 realistic employee rows with controllable baseline churn bias.
+- **Channel 3 (Single Employee Entry):** Instant manual creation with automated real-time local model scoring.
+- **🔍 Data Lineage & Provenance Explorer:** Interactive dropdown filter (`csv_import`, `faker_synthetic`, `faker_repaired`, `manual_entry`, `seed_baseline`) with provenance source distribution and timestamped audit logs.
+- **📊 SQLite Database Health:** Real-time scorecard tracking duplicate, missing, and invalid records alongside database schema inspection.
+
+### 📊 Tab 2: Executive HR Insights & Demographics
 - **Dynamic Filter Bar:** Interactive multi-select filters for Departments, Contract Types, and Age Range.
 - **Macro KPI Ribbon:** Filter-aware Headcount, Retention Rate (%), Churn Rate (%), Average Salary (R), and Average Tenure (months).
 - **Department Turnover Distribution:** Stacked bar chart comparing Retained vs. Churned employees by department.
@@ -170,17 +174,17 @@ Interactive OpenAPI documentation is available at `http://127.0.0.1:8000/docs`.
 - **Age Cohort Vulnerability Analysis:** Cohort segmentation (`< 25`, `25–34`, `35–44`, `45–54`, `55+`) with retention vs. churn bars.
 - **Compensation & Contract Dynamics:** Comparative salary distribution histograms (R) and contract type retention summaries.
 
-### 👥 Tab 2: Workforce Roster & Predictions
+### 👥 Tab 3: Workforce Roster & Predictions
 - **Active Workforce Roster:** Searchable and sortable roster table with zero-null feature imputation.
 - **1-Click Batch Scoring:** Score all roster employees with millisecond-per-employee latency benchmarking.
 - **Risk Categorization Breakdown:** Categorization into **High Risk** ($\ge 70\%$), **Medium Risk** ($45-69\%$), and **Low Risk** ($< 45\%$) with interactive distribution chart and proportion table.
 
-### 🔍 Tab 3: Feature Signals & Retention Drivers
+### 🔍 Tab 4: Feature Signals & Retention Drivers
 - **Correlation Heatmap Matrix:** Visual correlation matrix between features and turnover risk.
 - **Ranked Key Signals Table:** Features ranked by absolute influence with directional risk tags.
 - **Model Learned Feature Influence:** Directional horizontal bar chart indicating features promoting retention vs. increasing turnover risk.
 
-### ⚙️ Tab 4: Model Studio & Evaluation History
+### ⚙️ Tab 5: Model Studio & Evaluation History
 - **Interactive Hyperparameter Tuning:** Tune and train **Logistic Regression**, **Random Forest**, or **Gradient Boosting** models in real time.
 - **Model Evaluation Runs History:** Audit table logging `run_id`, `model_architecture`, `accuracy`, `precision`, `recall`, `f1`, and `roc_auc`.
 - **Run Deep-Dive Analytics:** Confusion Matrix (TP, TN, FP, FN), Stored ROC Curve with holdout AUC, and Prediction Distribution Histogram.
