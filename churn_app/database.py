@@ -8,7 +8,7 @@ import pandas as pd
 from .config import DB_PATH
 
 SQL_SCHEMA = """
-CREATE TABLE IF NOT EXISTS employees (employee_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, age INTEGER, department TEXT, contract_type TEXT, churn INTEGER);
+CREATE TABLE IF NOT EXISTS employees (employee_id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, age INTEGER, department TEXT, contract_type TEXT, churn INTEGER, source_system TEXT DEFAULT 'seed_baseline', created_at TEXT DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS salaries (salary_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, annual_income REAL);
 CREATE TABLE IF NOT EXISTS jobs (job_id INTEGER PRIMARY KEY AUTOINCREMENT, employee_id INTEGER NOT NULL UNIQUE, job_title TEXT, tenure_months INTEGER);
 CREATE TABLE IF NOT EXISTS model_runs (run_id INTEGER PRIMARY KEY AUTOINCREMENT, run_timestamp TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, accuracy REAL, precision REAL, recall REAL, f1 REAL, roc_auc REAL, model_type TEXT DEFAULT 'logistic_regression');
@@ -39,6 +39,11 @@ def init_db(db_path=DB_PATH):
         columns = {row[1] for row in connection.execute("PRAGMA table_info(employees)")}
         if "churn" not in columns:
             connection.execute("ALTER TABLE employees ADD COLUMN churn INTEGER NOT NULL DEFAULT 0")
+        if "source_system" not in columns:
+            connection.execute("ALTER TABLE employees ADD COLUMN source_system TEXT DEFAULT 'seed_baseline'")
+        if "created_at" not in columns:
+            connection.execute("ALTER TABLE employees ADD COLUMN created_at TEXT")
+            connection.execute("UPDATE employees SET created_at = datetime('now') WHERE created_at IS NULL")
         columns_mr = {row[1] for row in connection.execute("PRAGMA table_info(model_runs)")}
         if "model_type" not in columns_mr:
             connection.execute("ALTER TABLE model_runs ADD COLUMN model_type TEXT DEFAULT 'logistic_regression'")
@@ -110,7 +115,12 @@ def get_all_employees(db_path=DB_PATH):
 
 def get_training_data(db_path=DB_PATH):
     with get_connection(db_path) as connection:
-        data = pd.read_sql_query("SELECT e.employee_id,e.age,s.annual_income AS income,j.tenure_months,e.department,e.contract_type,j.job_title,e.churn FROM employees e JOIN salaries s ON s.employee_id=e.employee_id JOIN jobs j ON j.employee_id=e.employee_id ORDER BY e.employee_id", connection)
+        columns = {row[1] for row in connection.execute("PRAGMA table_info(employees)")}
+        source_col = ", e.source_system, e.created_at" if "source_system" in columns else ""
+        data = pd.read_sql_query(
+            f"SELECT e.employee_id, e.first_name, e.last_name, e.age, s.annual_income AS income, j.tenure_months, e.department, e.contract_type, j.job_title, e.churn{source_col} FROM employees e JOIN salaries s ON s.employee_id=e.employee_id JOIN jobs j ON j.employee_id=e.employee_id ORDER BY e.employee_id",
+            connection
+        )
         categorical_columns = ["department", "contract_type", "job_title"]
         data[categorical_columns] = data[categorical_columns].astype(object).where(
             data[categorical_columns].notna(),
@@ -118,15 +128,42 @@ def get_training_data(db_path=DB_PATH):
         )
         return data
 
-def insert_employee(first_name,last_name,age,department,contract_type,annual_income,job_title,tenure_months,db_path=DB_PATH):
-    return insert_employee_with_label(first_name, last_name, age, department, contract_type, annual_income, job_title, tenure_months, None, db_path)
-
-def insert_employee_with_label(first_name,last_name,age,department,contract_type,annual_income,job_title,tenure_months,churn=None,db_path=DB_PATH):
+def get_data_lineage_records(db_path=DB_PATH) -> pd.DataFrame:
+    """Retrieve full data lineage and provenance for all records in the database."""
+    init_db(db_path)
     with get_connection(db_path) as connection:
+        columns = {row[1] for row in connection.execute("PRAGMA table_info(employees)")}
+        source_col = "COALESCE(e.source_system, 'seed_baseline') AS source_system, COALESCE(e.created_at, datetime('now')) AS created_at" if "source_system" in columns else "'seed_baseline' AS source_system, datetime('now') AS created_at"
+        return pd.read_sql_query(
+            f"""SELECT e.employee_id, e.first_name || ' ' || e.last_name AS employee_name,
+                      e.first_name, e.last_name, e.age, e.department, e.contract_type,
+                      s.annual_income, j.job_title, j.tenure_months, e.churn,
+                      {source_col}
+               FROM employees e
+               LEFT JOIN salaries s ON s.employee_id = e.employee_id
+               LEFT JOIN jobs j ON j.employee_id = e.employee_id
+               ORDER BY e.employee_id DESC""",
+            connection
+        )
+
+def insert_employee(first_name,last_name,age,department,contract_type,annual_income,job_title,tenure_months,source_system="manual_entry",db_path=DB_PATH):
+    return insert_employee_with_label(first_name, last_name, age, department, contract_type, annual_income, job_title, tenure_months, None, source_system, db_path)
+
+def insert_employee_with_label(first_name,last_name,age,department,contract_type,annual_income,job_title,tenure_months,churn=None,source_system="manual_entry",db_path=DB_PATH):
+    init_db(db_path)
+    with get_connection(db_path) as connection:
+        columns = {row[1] for row in connection.execute("PRAGMA table_info(employees)")}
+        has_source = "source_system" in columns
         if churn is None:
-            employee_id = connection.execute("INSERT INTO employees (first_name,last_name,age,department,contract_type) VALUES (?,?,?,?,?)", (first_name,last_name,age,department,contract_type)).lastrowid
+            if has_source:
+                employee_id = connection.execute("INSERT INTO employees (first_name,last_name,age,department,contract_type,source_system) VALUES (?,?,?,?,?,?)", (first_name,last_name,age,department,contract_type,source_system)).lastrowid
+            else:
+                employee_id = connection.execute("INSERT INTO employees (first_name,last_name,age,department,contract_type) VALUES (?,?,?,?,?)", (first_name,last_name,age,department,contract_type)).lastrowid
         else:
-            employee_id = connection.execute("INSERT INTO employees (first_name,last_name,age,department,contract_type,churn) VALUES (?,?,?,?,?,?)", (first_name,last_name,age,department,contract_type,churn)).lastrowid
+            if has_source:
+                employee_id = connection.execute("INSERT INTO employees (first_name,last_name,age,department,contract_type,churn,source_system) VALUES (?,?,?,?,?,?,?)", (first_name,last_name,age,department,contract_type,churn,source_system)).lastrowid
+            else:
+                employee_id = connection.execute("INSERT INTO employees (first_name,last_name,age,department,contract_type,churn) VALUES (?,?,?,?,?,?)", (first_name,last_name,age,department,contract_type,churn)).lastrowid
         connection.execute("INSERT INTO salaries VALUES (NULL,?,?)", (employee_id,annual_income))
         connection.execute("INSERT INTO jobs VALUES (NULL,?,?,?)", (employee_id,job_title,tenure_months))
         return employee_id
@@ -286,7 +323,7 @@ def diagnose_dataframe_quality(df: pd.DataFrame, db_path=DB_PATH, check_db=False
     return diagnosed
 
 
-def import_employee_dataframe(data, db_path=DB_PATH):
+def import_employee_dataframe(data, source_system="csv_import", db_path=DB_PATH):
     input_data = data.copy()
     if "income" in input_data.columns and "annual_income" not in input_data.columns:
         input_data["annual_income"] = input_data["income"]
@@ -321,7 +358,7 @@ def import_employee_dataframe(data, db_path=DB_PATH):
             churn = int(float(row["churn"]))
 
         employee_id = insert_employee_with_label(
-            first_name, last_name, age, department, contract_type, annual_income, job_title, tenure_months, churn, db_path
+            first_name, last_name, age, department, contract_type, annual_income, job_title, tenure_months, churn, source_system, db_path
         )
         accepted.append({"source_row": int(row_number) + 2, "employee_id": employee_id})
 
