@@ -7,6 +7,7 @@ pandas
 numpy
 streamlit
 requests
-httpx2
+httpx
 matplotlib
 faker
+anyio
