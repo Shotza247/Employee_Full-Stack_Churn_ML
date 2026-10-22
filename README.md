@@ -1,6 +1,6 @@
 # 🏢 Employee Churn Intelligence & Full-Stack ML Serving Platform
 
-An enterprise-ready machine learning and workforce analytics platform that predicts employee turnover risk, explores demographic drivers, and serves predictions through an interactive 4-tab Streamlit dashboard and a serverless FastAPI backend.
+An enterprise-ready machine learning and workforce analytics platform that predicts employee turnover risk, explores demographic drivers, and serves predictions through an interactive 5-tab Streamlit dashboard and a serverless FastAPI backend.
 
 All financial metrics, salary benchmarks, and compensation modeling are standardized in **South African Rands (R / ZAR)**.
 
@@ -10,15 +10,16 @@ All financial metrics, salary benchmarks, and compensation modeling are standard
 
 ```mermaid
 flowchart TB
-    subgraph INGEST ["📥 Ingestion & Data Hub (Sidebar)"]
+    subgraph INGEST ["📥 Ingestion & Lineage (Tab 1)"]
         direction LR
         CSV["📄 Batch CSV Upload"]
         FAKER["🪄 Python Faker Auto-Repair"]
+        SYNTH["🧪 Synthetic Batch Generator"]
         MANUAL["➕ Single Employee Entry"]
     end
 
     subgraph STORAGE ["🗄️ Persistence Layer (SQLite)"]
-        DB[("employees.db<br/>• Employee Demographics & Salaries (ZAR / R)<br/>• Model Runs & Evaluation History<br/>• Audited Prediction Logs")]
+        DB[("employees.db<br/>• Employee Demographics & Salaries (ZAR / R)<br/>• Provenance Lineage (source_system, created_at)<br/>• Model Runs & Evaluation History<br/>• Audited Prediction Logs")]
     end
 
     subgraph ML_CORE ["🧠 Machine Learning Engine"]
@@ -35,16 +36,18 @@ flowchart TB
         RESULT["🎯 Risk Probability & Latency<br/>(High ≥70% / Med 45-69% / Low <45%)"]
     end
 
-    subgraph DASHBOARD ["📊 Modular 4-Tab Analytics Platform"]
+    subgraph DASHBOARD ["📊 Modular 5-Tab Analytics Platform"]
         direction TB
-        T1["📊 Tab 1: Executive HR Insights & Demographics (R / ZAR)"]
-        T2["👥 Tab 2: Workforce Roster & Batch Scoring (ms/emp)"]
-        T3["🔍 Tab 3: Feature Signals & Retention Drivers"]
-        T4["⚙️ Tab 4: Model Studio & Evaluation History"]
+        T1["📥 Tab 1: Data Ingestion, Synthesis & Lineage Studio"]
+        T2["📊 Tab 2: Executive HR Insights & Demographics (R / ZAR)"]
+        T3["👥 Tab 3: Workforce Roster & Batch Scoring (ms/emp)"]
+        T4["🔍 Tab 4: Feature Signals & Retention Drivers"]
+        T5["⚙️ Tab 5: Model Studio & Governance History"]
     end
 
     CSV -->|"Schema Validate & Import"| DB
-    FAKER -->|"Stress Test / Auto-Fix"| DB
+    FAKER -->|"Auto-Fix & Ingest"| DB
+    SYNTH -->|"Inject Synthetic Batch"| DB
     MANUAL -->|"Direct Ingestion"| DB
 
     DB -->|"Labeled Historical Records"| TRAIN
@@ -71,20 +74,22 @@ flowchart TB
     classDef resultNode fill:#064E3B,stroke:#34D399,stroke-width:2px,color:#ffffff;
     classDef tabNode fill:#1E293B,stroke:#94A3B8,stroke-width:2px,color:#ffffff;
 
-    class CSV,FAKER,MANUAL ingestNode;
+    class CSV,FAKER,SYNTH,MANUAL ingestNode;
     class DB dbNode;
     class IMPUTE,TRAIN mlNode;
     class MODEL modelNode;
     class ST_PREDICT,FAST_API serveNode;
     class RESULT resultNode;
-    class T1,T2,T3,T4 tabNode;
+    class T1,T2,T3,T4,T5 tabNode;
 ```
 
 ---
 
 ## ✨ Core Features & Platform Capabilities
 
-- **📊 Modular 4-Tab HR Analytics Dashboard:** Cleanly organized into Executive HR Insights, Workforce Roster Scoring, Feature Signals, and Model Governance.
+- **📊 Modular 5-Tab Enterprise Dashboard:** Cleanly organized into Data Ingestion & Lineage Studio, Executive HR Insights, Workforce Roster Scoring, Feature Signals, and Model Governance.
+- **🔍 End-to-End Data Lineage & Provenance Explorer:** Filter and audit every employee record by creation origin (`csv_import`, `faker_synthetic`, `faker_repaired`, `manual_entry`, `seed_baseline`) with provenance source distributions.
+- **🛠️ Automated Row-Level Data Quality Diagnosis:** Categorizes dataset issues in real time into **Missing Values**, **Duplicate Records**, **Invalid Range Outliers**, **Invalid Categories**, and **Clean Records**.
 - **🎯 Dynamic Cohort Drill-Down Filters:** Filter demographic charts and KPI cards by Department, Contract Type, Age, and Tenure in real time.
 - **🏢 Department Turnover & Salary Disparity Analytics:** Side-by-side benchmark tables and distribution charts comparing retained vs. churned employees across departments.
 - **👥 Age Cohort Vulnerability Analysis:** Cohort analysis across 5 age brackets (`< 25`, `25–34`, `35–44`, `45–54`, `55+`) identifying turnover patterns.
@@ -437,18 +442,25 @@ flowchart LR
 
 | File / Folder | Purpose |
 | :--- | :--- |
-| `streamlit_app.py` | 4-tab interactive HR dashboard and persistent sidebar simulation studio |
+| `streamlit_app.py` | 5-tab interactive HR dashboard and streamlined operations sidebar |
+| `churn_app/__init__.py` | Package initialization and top-level module exports |
 | `churn_app/api.py` | FastAPI application and `POST /predict` inference endpoint |
-| `churn_app/database.py` | SQLite schema, import validation, feature lookups, and run audit persistence |
+| `churn_app/database.py` | SQLite schema, data quality diagnosis, lineage tracking, and audit persistence |
 | `churn_app/faker_producer.py` | Python Faker Producer for synthetic batch generation and 1-click row repair |
 | `churn_app/feature_engineering.py` | Central tendency baseline calculations and zero-null feature imputation layer |
 | `churn_app/training.py` | Pipeline architectures (LogReg, Random Forest, GradBoost), tuning, and metrics |
 | `churn_app/prediction.py` | Model loader, single-employee scoring, and risk band classifier |
 | `churn_app/train_and_evaluate.py` | CLI training runner and evaluation artifact generator |
+| `churn_app/schemas.py` | Pydantic validation schemas for API inputs and responses |
+| `churn_app/config.py` | Project path configuration and database file references |
 | `api/index.py` | Serverless entrypoint for Vercel cloud deployment |
 | `vercel.json` | Vercel deployment routing and python serverless configuration |
-| `artifacts/` | Holdout evaluation metrics, specifications, and architecture diagrams |
-| `data/` | Historical datasets, bulk import files, and drift experiment records |
+| `requirements.txt` | Python package dependencies (FastAPI, Streamlit, Scikit-learn, Anyio, etc.) |
+| `employees.db` | Local SQLite database storing employees, salaries, jobs, runs, and predictions |
+| `churn_model.pkl` | Serialized active machine learning model pipeline artifact |
+| `artifacts/` | Holdout evaluation metrics (`metrics.json`), snapshots, and architecture documentation |
+| `data/` | Historical datasets, stress-test files, and bulk import test rosters |
+| `data/Bulk_import_Data/` | Ready-to-download bulk CSV rosters (900-row noisy, clean benchmark, raw stress-test) |
 | `notebooks/` | Jupyter notebooks for exploratory data analysis and model experimentation |
 
 ---
