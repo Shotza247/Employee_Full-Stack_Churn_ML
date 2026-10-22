@@ -241,30 +241,6 @@ with st.sidebar:
             except Exception as e:
                 st.error(f"Cannot reach API: {e}")
 
-    st.markdown("---")
-    st.markdown("#### ⚡ Active Model Status")
-    runs_history = get_model_runs()
-    if not runs_history.empty:
-        latest_run = runs_history.iloc[0].to_dict()
-        model_arch = latest_run.get("model_type", "logistic_regression")
-        st.markdown(f"**Architecture:** `{model_arch}`")
-        st.markdown(f"**Holdout ROC-AUC:** `{latest_run['roc_auc']:.1%}`")
-        st.markdown(f"**Holdout F1:** `{latest_run['f1']:.2f}`")
-        st.caption(f"Run #{int(latest_run['run_id'])} • {latest_run['run_timestamp']}")
-    else:
-        st.info("No trained model runs logged yet.")
-
-    st.markdown("---")
-    st.markdown("#### 🧭 5-Tab Architecture")
-    st.markdown(
-        """
-        1. **📥 Ingestion & Lineage Studio**
-        2. **📊 Executive HR Insights**
-        3. **👥 Workforce Roster & Scoring**
-        4. **🔍 Feature Signals & Drivers**
-        5. **⚙️ Model Studio & Evaluation**
-        """
-    )
 
 
 # =========================================================
@@ -377,8 +353,7 @@ with tab_ingest:
                             st.rerun()
 
     with ingest_col2:
-        with st.container(border=True):
-            st.subheader("🧪 Channel 2: Synthetic Batch Producer (Faker)")
+        with st.expander("🧪 Channel 2: Synthetic Batch Producer (Faker)", expanded=True):
             st.caption("Generate realistic employee identities with controllable churn signals:")
             synth_count = st.slider("Record batch size", min_value=5, max_value=100, value=15, step=5, key="tab1_synth_slider")
             synth_churn_bias = st.slider("Baseline Churn Bias", min_value=0.05, max_value=0.80, value=0.25, step=0.05, format="%.0f%%", key="tab1_bias_slider")
@@ -389,8 +364,7 @@ with tab_ingest:
                 st.success(f"Generated and ingested {len(synth_accepted)} synthetic employee records (Provenance: `faker_synthetic`).")
                 st.rerun()
 
-        with st.container(border=True):
-            st.subheader("➕ Channel 3: Single Employee Ingestion")
+        with st.expander("➕ Channel 3: Single Employee Ingestion", expanded=False):
             with st.form("tab1_employee_form"):
                 f_col1, f_col2 = st.columns(2)
                 with f_col1:
