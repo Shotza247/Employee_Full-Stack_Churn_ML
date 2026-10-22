@@ -1,5 +1,6 @@
 # Databricks notebook source
 from datetime import datetime, timedelta
+import importlib
 import os
 from pathlib import Path
 import time
@@ -9,6 +10,20 @@ import pandas as pd
 import requests
 from sklearn.metrics import auc, confusion_matrix, roc_curve
 import streamlit as st
+
+import churn_app.config
+import churn_app.database
+import churn_app.faker_producer
+import churn_app.feature_engineering
+import churn_app.prediction
+import churn_app.training
+
+# Ensure clean hot-reloading across Streamlit reruns
+importlib.reload(churn_app.database)
+importlib.reload(churn_app.faker_producer)
+importlib.reload(churn_app.feature_engineering)
+importlib.reload(churn_app.prediction)
+importlib.reload(churn_app.training)
 
 from churn_app.config import MODEL_PATH
 from churn_app.database import (
@@ -229,12 +244,13 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("#### ⚡ Active Model Status")
     runs_history = get_model_runs()
-    latest_run = runs_history[0] if runs_history else None
-    if latest_run:
-        st.markdown(f"**Architecture:** `{latest_run.get('model_type', 'logistic_regression')}`")
+    if not runs_history.empty:
+        latest_run = runs_history.iloc[0].to_dict()
+        model_arch = latest_run.get("model_type", "logistic_regression")
+        st.markdown(f"**Architecture:** `{model_arch}`")
         st.markdown(f"**Holdout ROC-AUC:** `{latest_run['roc_auc']:.1%}`")
         st.markdown(f"**Holdout F1:** `{latest_run['f1']:.2f}`")
-        st.caption(f"Run #{latest_run['run_id']} • {latest_run['run_timestamp']}")
+        st.caption(f"Run #{int(latest_run['run_id'])} • {latest_run['run_timestamp']}")
     else:
         st.info("No trained model runs logged yet.")
 
