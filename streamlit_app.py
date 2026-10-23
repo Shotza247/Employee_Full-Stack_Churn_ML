@@ -39,6 +39,7 @@ from churn_app.database import (
     import_employee_dataframe,
     init_db,
     insert_employee,
+    is_source_imported,
     populate_sample_data,
     save_inference_predictions,
 )
@@ -296,6 +297,7 @@ with tab_ingest:
             uploaded_file = st.file_uploader("Upload workforce CSV file", type="csv", key="tab1_uploader")
             if uploaded_file is not None:
                 try:
+                    csv_filename = uploaded_file.name
                     uploaded_df = pd.read_csv(uploaded_file)
                     if "income" in uploaded_df.columns and "annual_income" not in uploaded_df.columns:
                         uploaded_df["annual_income"] = uploaded_df["income"]
@@ -306,24 +308,35 @@ with tab_ingest:
                         diagnosed_df = diagnose_dataframe_quality(uploaded_df)
                         with st.expander("Uploaded Data Quality Assessment", expanded=True):
                             show_quality_cards(quality_report(uploaded_df), st, diagnosed_df=diagnosed_df)
-                        st.caption("Preview first 5 rows (with Data Quality Categories):")
+                        st.caption(f"Preview first 5 rows of `{csv_filename}` (with Data Quality Categories):")
                         core_cols = ["first_name", "last_name", "department", "data_quality_issue", "data_quality_category", "age", "contract_type", "annual_income", "job_title", "tenure_months"]
                         display_cols = [c for c in core_cols if c in diagnosed_df.columns] + [c for c in diagnosed_df.columns if c not in core_cols]
                         st.dataframe(diagnosed_df[display_cols].head(5), hide_index=True, use_container_width=True)
-                        if st.button("🚀 Import Valid Rows to Database", type="primary", use_container_width=True, key="tab1_import_btn"):
-                            accepted, rejected = import_employee_dataframe(uploaded_df, source_system="csv_import")
-                            st.session_state["last_import"] = {
-                                "accepted": accepted,
-                                "rejected": rejected,
-                                "predictions": None,
-                            }
-                            st.rerun()
+
+                        already_imported, existing_count = is_source_imported(csv_filename)
+                        if already_imported:
+                            st.warning(
+                                f"⚠️ **File Already Ingested**: `{csv_filename}` has already been imported into the database "
+                                f"({existing_count:,} records currently logged with source `{csv_filename}`). "
+                                "Re-importing the same CSV is disabled to protect data integrity and prevent duplicate records."
+                            )
+                            st.button(f"🚫 '{csv_filename}' Already Ingested (Re-import Blocked)", disabled=True, use_container_width=True, key="tab1_import_btn_blocked")
+                        else:
+                            if st.button(f"🚀 Import Valid Rows from '{csv_filename}' to Database", type="primary", use_container_width=True, key="tab1_import_btn"):
+                                accepted, rejected = import_employee_dataframe(uploaded_df, source_system=csv_filename, prevent_duplicate_source=True)
+                                st.session_state["last_import"] = {
+                                    "file_name": csv_filename,
+                                    "accepted": accepted,
+                                    "rejected": rejected,
+                                    "predictions": None,
+                                }
+                                st.rerun()
                 except (pd.errors.ParserError, UnicodeDecodeError) as error:
                     st.error(f"Could not parse CSV: {error}")
 
             last_import = st.session_state.get("last_import")
             if last_import:
-                st.success(f"Successfully imported {len(last_import['accepted'])} records.")
+                st.success(f"Successfully imported {len(last_import['accepted'])} records from `{last_import.get('file_name', 'CSV')}`.")
                 if not last_import["rejected"].empty:
                     st.warning(f"Rejected {len(last_import['rejected'])} invalid rows.")
                     with st.expander("Rejected Rows Quality Breakdown", expanded=False):
@@ -343,13 +356,15 @@ with tab_ingest:
                         if not repaired_df.empty:
                             cols_to_import = [c for c in repaired_df.columns if c not in ["source_row", "reason", "faker_repairs", "data_quality_category", "data_quality_issue"]]
                             import_payload = repaired_df[cols_to_import].copy()
-                            new_accepted, new_rejected = import_employee_dataframe(import_payload, source_system="faker_repaired")
+                            origin_file = last_import.get("file_name", "csv_import")
+                            repaired_source = f"faker_repaired ({origin_file})"
+                            new_accepted, new_rejected = import_employee_dataframe(import_payload, source_system=repaired_source)
 
                             combined_accepted = pd.concat([last_import["accepted"], new_accepted], ignore_index=True)
                             st.session_state["last_import"]["accepted"] = combined_accepted
                             st.session_state["last_import"]["rejected"] = new_rejected
                             st.session_state["repaired_preview"] = repaired_df[["first_name", "last_name", "department", "job_title", "data_quality_issue", "faker_repairs"]]
-                            st.success(f"Repaired and imported {len(new_accepted)} rows via Faker Producer!")
+                            st.success(f"Repaired and imported {len(new_accepted)} rows via Faker Producer (source: `{repaired_source}`)!")
                             st.rerun()
 
     with ingest_col2:

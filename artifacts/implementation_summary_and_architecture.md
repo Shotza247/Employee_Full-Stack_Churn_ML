@@ -90,7 +90,7 @@ flowchart LR
 
 | Pipeline Stage | Storage Location | Lineage & Audit Identifiers | How to Audit Later |
 | :--- | :--- | :--- | :--- |
-| **Ingestion** | SQLite `employees`, `salaries`, `jobs` | `employee_id`, `source_system` (`csv_import`, `faker_synthetic`, `faker_repaired`, `manual_entry`, `seed_baseline`), `created_at` | Filter records in **Tab 1: Lineage Explorer** by source system dropdown or run SQL queries on `employees.db`. |
+| **Ingestion** | SQLite `employees`, `salaries`, `jobs` | `employee_id`, `source_system` (e.g., `<file_name>.csv`, `faker_repaired (<file_name>.csv)`, `faker_synthetic`, `manual_entry`, `seed_baseline`), `created_at` | Filter records in **Tab 1: Lineage Explorer** by specific source file or run SQL queries on `employees.db`. Enforces duplicate file re-import guards. |
 | **Feature Engineering** | In-Memory `impute_and_engineer_features` & `artifacts/training_data.csv` | Feature schema versions, baseline median/mode values computed from database | Inspect `artifacts/training_data.csv` or compare features across historical runs. |
 | **Model Evaluation** | SQLite `model_runs`, `predictions` & `artifacts/metrics.json` | `run_id`, `model_type`, `run_timestamp`, holdout precision/recall/F1/ROC-AUC | Query `model_runs` table in **Tab 5: Model Studio** or read `artifacts/metrics.json`. |
 | **Model Artifact** | Root `./churn_model.pkl` | Serialized fitted pipeline with preprocessing + classifier steps | Loaded dynamically in `churn_app/prediction.py` with file timestamp check. |
@@ -144,3 +144,7 @@ All financial computations, data quality rules, salary analytics, and prediction
    - Single-employee and batch annual income accepts South African Rand figures (e.g. `R 52,000.00` to `R 1,500,000.00+`).
 3. **Visual Analytics**:
    - Histogram distribution charts calibrated to Rand salary ranges.
+
+---
+
+*Documentation and architecture diagrams created via IBM Bob.*

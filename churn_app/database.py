@@ -146,6 +146,22 @@ def get_data_lineage_records(db_path=DB_PATH) -> pd.DataFrame:
             connection
         )
 
+def is_source_imported(source_system: str, db_path=DB_PATH) -> tuple[bool, int]:
+    """
+    Checks if records from the specified source system (e.g. specific CSV filename)
+    already exist in the database. Returns (exists_bool, row_count).
+    """
+    init_db(db_path)
+    with get_connection(db_path) as connection:
+        columns = {row[1] for row in connection.execute("PRAGMA table_info(employees)")}
+        if "source_system" not in columns:
+            return False, 0
+        count = connection.execute(
+            "SELECT COUNT(*) FROM employees WHERE source_system = ?", (source_system,)
+        ).fetchone()[0]
+        return (count > 0, count)
+
+
 def insert_employee(first_name,last_name,age,department,contract_type,annual_income,job_title,tenure_months,source_system="manual_entry",db_path=DB_PATH):
     return insert_employee_with_label(first_name, last_name, age, department, contract_type, annual_income, job_title, tenure_months, None, source_system, db_path)
 
@@ -169,7 +185,7 @@ def insert_employee_with_label(first_name,last_name,age,department,contract_type
         return employee_id
 
 VALID_DEPARTMENTS = {"Marketing", "Sales", "Engineering", "HR", "Support", "Operations", "Finance"}
-VALID_CONTRACTS = {"permanent", "contract"}
+VALID_CONTRACTS = {"permanent", "contract", "Permanent", "Contract"}
 
 LEGACY_ISSUE_MAP = {
     "missing_income": ("Missing Values", "Missing annual income"),
@@ -323,10 +339,15 @@ def diagnose_dataframe_quality(df: pd.DataFrame, db_path=DB_PATH, check_db=False
     return diagnosed
 
 
-def import_employee_dataframe(data, source_system="csv_import", db_path=DB_PATH):
+def import_employee_dataframe(data, source_system="csv_import", db_path=DB_PATH, prevent_duplicate_source=False):
     input_data = data.copy()
     if "income" in input_data.columns and "annual_income" not in input_data.columns:
         input_data["annual_income"] = input_data["income"]
+
+    if prevent_duplicate_source:
+        already_imported, existing_count = is_source_imported(source_system, db_path=db_path)
+        if already_imported:
+            raise ValueError(f"Source '{source_system}' has already been imported ({existing_count} records exist in database).")
 
     required = {"first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months"}
     missing_columns = required - set(input_data.columns)
