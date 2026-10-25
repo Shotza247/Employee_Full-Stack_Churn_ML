@@ -265,34 +265,49 @@ with tab_ingest:
     st.header("Data Ingestion, Synthesis & Lineage Studio")
     st.caption("Enterprise ingestion channels, Faker identity auto-repair, data quality validation, and end-to-end data provenance.")
 
-    # 3 Ingestion Channels
-    ingest_col1, ingest_col2 = st.columns([1, 1], gap="medium")
+    # Segmented Ingestion Mode Selector
+    ingest_mode = st.radio(
+        "Select Ingestion Channel:",
+        [
+            "📥 Batch CSV Import & Auto-Repair",
+            "🎲 Synthetic Batch Generator (Faker)",
+            "👤 Single Employee Manual Entry",
+        ],
+        horizontal=True,
+        label_visibility="collapsed",
+        key="tab1_ingest_mode",
+    )
 
-    with ingest_col1:
+    # -------------------------------------------------------------
+    # MODE 1: Batch CSV Ingestion & 1-Click Auto-Repair
+    # -------------------------------------------------------------
+    if ingest_mode == "📥 Batch CSV Import & Auto-Repair":
         with st.container(border=True):
-            st.subheader("📥 Channel 1: Batch CSV Ingestion")
-            st.caption("Upload workforce rosters or download packaged sample datasets:")
+            st.subheader("📥 Batch CSV Ingestion & Quality Studio")
+            st.caption("Upload workforce CSV files, inspect row-level quality diagnostics, and resolve duplicate or malformed records.")
 
-            with st.expander("📂 Download Sample Bulk CSV Datasets", expanded=False):
-                st.markdown("Pre-packaged test files from `data/Bulk_import_Data/`:")
+            with st.expander("📂 Download Packaged Test Datasets (`data/Bulk_import_Data/`)", expanded=False):
+                st.markdown("Ready-to-use sample CSV rosters with varied data quality characteristics:")
                 bulk_data_dir = Path("data/Bulk_import_Data")
                 sample_files = [
-                    ("noisy_churn_experiment_900.csv", "🧪 900-Row Noisy Dataset (Outliers & Missing)"),
-                    ("synthetic_churn_data_updated.csv", "✅ Benchmark Dataset (Clean Records)"),
+                    ("noisy_churn_experiment_900.csv", "🧪 900-Row Noisy Dataset (Outliers & Missing Values)"),
+                    ("synthetic_churn_data_updated.csv", "✅ Clean Benchmark Dataset (100% Valid Records)"),
                     ("synthetical_churn_data_updated_raw.csv", "⚠️ Raw Stress-Test Dataset (Missing Fields)"),
                 ]
-                for fname, flabel in sample_files:
+                dl_cols = st.columns(len(sample_files))
+                for idx, (fname, flabel) in enumerate(sample_files):
                     fpath = bulk_data_dir / fname
                     if fpath.exists():
                         with open(fpath, "rb") as f_in:
-                            st.download_button(
-                                label=flabel,
-                                data=f_in.read(),
-                                file_name=fname,
-                                mime="text/csv",
-                                use_container_width=True,
-                                key=f"tab1_dl_{fname}",
-                            )
+                            with dl_cols[idx]:
+                                st.download_button(
+                                    label=flabel,
+                                    data=f_in.read(),
+                                    file_name=fname,
+                                    mime="text/csv",
+                                    use_container_width=True,
+                                    key=f"tab1_dl_{fname}",
+                                )
 
             uploaded_file = st.file_uploader("Upload workforce CSV file", type="csv", key="tab1_uploader")
             if uploaded_file is not None:
@@ -306,13 +321,16 @@ with tab_ingest:
                         st.error(f"Missing required columns: {', '.join(sorted(missing_columns))}")
                     else:
                         diagnosed_df = diagnose_dataframe_quality(uploaded_df)
-                        with st.expander("Uploaded Data Quality Assessment", expanded=True):
-                            show_quality_cards(quality_report(uploaded_df), st, diagnosed_df=diagnosed_df)
-                        st.caption(f"Preview first 5 rows of `{csv_filename}` (with Data Quality Categories):")
-                        core_cols = ["first_name", "last_name", "department", "data_quality_issue", "data_quality_category", "age", "contract_type", "annual_income", "job_title", "tenure_months"]
-                        display_cols = [c for c in core_cols if c in diagnosed_df.columns] + [c for c in diagnosed_df.columns if c not in core_cols]
-                        st.dataframe(diagnosed_df[display_cols].head(5), hide_index=True, use_container_width=True)
+                        
+                        # Full-width quality assessment cards
+                        show_quality_cards(quality_report(uploaded_df), st, diagnosed_df=diagnosed_df)
 
+                        with st.expander(f"📋 Preview First 10 Rows of `{csv_filename}` (with Quality Diagnostic Badges)", expanded=True):
+                            core_cols = ["first_name", "last_name", "department", "data_quality_issue", "data_quality_category", "age", "contract_type", "annual_income", "job_title", "tenure_months"]
+                            display_cols = [c for c in core_cols if c in diagnosed_df.columns] + [c for c in diagnosed_df.columns if c not in core_cols]
+                            st.dataframe(diagnosed_df[display_cols].head(10), hide_index=True, use_container_width=True)
+
+                        # Duplicate Source Check
                         already_imported, existing_count = is_source_imported(csv_filename)
                         if already_imported:
                             st.warning(
@@ -334,12 +352,22 @@ with tab_ingest:
                 except (pd.errors.ParserError, UnicodeDecodeError) as error:
                     st.error(f"Could not parse CSV: {error}")
 
+            # Post-import results & Faker auto-repair container
             last_import = st.session_state.get("last_import")
             if last_import:
-                st.success(f"Successfully imported {len(last_import['accepted'])} records from `{last_import.get('file_name', 'CSV')}`.")
+                st.markdown("---")
+                st.markdown("#### 📊 Latest Ingestion Summary")
+                res_col1, res_col2 = st.columns(2)
+                with res_col1:
+                    st.success(f"✅ **Accepted Records**: {len(last_import['accepted'])} records ingested from `{last_import.get('file_name', 'CSV')}`.")
+                with res_col2:
+                    if not last_import["rejected"].empty:
+                        st.warning(f"⚠️ **Rejected Records**: {len(last_import['rejected'])} invalid rows filtered out.")
+                    else:
+                        st.info("🎉 100% of rows passed all validation and uniqueness gates.")
+
                 if not last_import["rejected"].empty:
-                    st.warning(f"Rejected {len(last_import['rejected'])} invalid rows.")
-                    with st.expander("Rejected Rows Quality Breakdown", expanded=False):
+                    with st.expander("🔍 View Rejected Rows Quality Breakdown", expanded=False):
                         rej_df = last_import["rejected"]
                         if "data_quality_category" in rej_df.columns:
                             cat_summary = rej_df["data_quality_category"].value_counts().reset_index()
@@ -347,53 +375,79 @@ with tab_ingest:
                             st.dataframe(cat_summary, hide_index=True, use_container_width=True)
                         st.dataframe(rej_df, hide_index=True, use_container_width=True)
 
-                    # Faker auto-repair for rejected rows
-                    st.markdown("#### 🪄 Faker Auto-Repair")
-                    st.caption("Synthesize valid identities and resolve duplicate collisions for rejected rows.")
-                    if st.button("⚡ Auto-Repair & Ingest Rejected Rows", use_container_width=True, key="tab1_repair_btn"):
-                        producer = FakerProducer()
-                        repaired_df = producer.repair_rejected_rows(last_import["rejected"])
-                        if not repaired_df.empty:
-                            cols_to_import = [c for c in repaired_df.columns if c not in ["source_row", "reason", "faker_repairs", "data_quality_category", "data_quality_issue"]]
-                            import_payload = repaired_df[cols_to_import].copy()
-                            origin_file = last_import.get("file_name", "csv_import")
-                            repaired_source = f"faker_repaired ({origin_file})"
-                            new_accepted, new_rejected = import_employee_dataframe(import_payload, source_system=repaired_source)
+                    # 1-Click Faker Auto-Repair Section
+                    with st.container(border=True):
+                        r_col1, r_col2 = st.columns([3, 1])
+                        with r_col1:
+                            st.markdown("##### 🪄 1-Click Faker Auto-Repair")
+                            st.caption("Synthesize valid identities, resolve duplicate collisions, and repair missing features for rejected rows.")
+                        with r_col2:
+                            if st.button("⚡ Auto-Repair & Ingest", type="primary", use_container_width=True, key="tab1_repair_btn"):
+                                producer = FakerProducer()
+                                repaired_df = producer.repair_rejected_rows(last_import["rejected"])
+                                if not repaired_df.empty:
+                                    cols_to_import = [c for c in repaired_df.columns if c not in ["source_row", "reason", "faker_repairs", "data_quality_category", "data_quality_issue"]]
+                                    import_payload = repaired_df[cols_to_import].copy()
+                                    origin_file = last_import.get("file_name", "csv_import")
+                                    repaired_source = f"faker_repaired ({origin_file})"
+                                    new_accepted, new_rejected = import_employee_dataframe(import_payload, source_system=repaired_source)
 
-                            combined_accepted = pd.concat([last_import["accepted"], new_accepted], ignore_index=True)
-                            st.session_state["last_import"]["accepted"] = combined_accepted
-                            st.session_state["last_import"]["rejected"] = new_rejected
-                            st.session_state["repaired_preview"] = repaired_df[["first_name", "last_name", "department", "job_title", "data_quality_issue", "faker_repairs"]]
-                            st.success(f"Repaired and imported {len(new_accepted)} rows via Faker Producer (source: `{repaired_source}`)!")
-                            st.rerun()
+                                    combined_accepted = pd.concat([last_import["accepted"], new_accepted], ignore_index=True)
+                                    st.session_state["last_import"]["accepted"] = combined_accepted
+                                    st.session_state["last_import"]["rejected"] = new_rejected
+                                    st.session_state["repaired_preview"] = repaired_df[["first_name", "last_name", "department", "job_title", "data_quality_issue", "faker_repairs"]]
+                                    st.success(f"Repaired and imported {len(new_accepted)} rows via Faker Producer (source: `{repaired_source}`)!")
+                                    st.rerun()
 
-    with ingest_col2:
-        with st.expander("🧪 Channel 2: Synthetic Batch Producer (Faker)", expanded=True):
-            st.caption("Generate realistic employee identities with controllable churn signals:")
-            synth_count = st.slider("Record batch size", min_value=5, max_value=100, value=15, step=5, key="tab1_synth_slider")
-            synth_churn_bias = st.slider("Baseline Churn Bias", min_value=0.05, max_value=0.80, value=0.25, step=0.05, format="%.0f%%", key="tab1_bias_slider")
-            if st.button("🎲 Generate & Ingest Synthetic Batch", use_container_width=True, key="tab1_synth_btn"):
+                    if "repaired_preview" in st.session_state:
+                        with st.expander("✨ Recently Repaired Rows Audit", expanded=False):
+                            st.dataframe(st.session_state["repaired_preview"], hide_index=True, use_container_width=True)
+
+    # -------------------------------------------------------------
+    # MODE 2: Synthetic Batch Generator (Faker)
+    # -------------------------------------------------------------
+    elif ingest_mode == "🎲 Synthetic Batch Generator (Faker)":
+        with st.container(border=True):
+            st.subheader("🎲 Synthetic Workforce Batch Producer")
+            st.caption("Generate realistic, enterprise-compliant synthetic employee records with controllable churn signals using Python Faker.")
+
+            s_col1, s_col2 = st.columns(2)
+            with s_col1:
+                synth_count = st.slider("Record batch size", min_value=5, max_value=100, value=20, step=5, key="tab1_synth_slider")
+                st.caption(f"Generates **{synth_count}** unique synthetic employee profiles.")
+            with s_col2:
+                synth_churn_bias = st.slider("Baseline Churn Bias", min_value=0.05, max_value=0.80, value=0.25, step=0.05, format="%.0f%%", key="tab1_bias_slider")
+                st.caption(f"Applies a **{synth_churn_bias:.0%}** statistical likelihood of churn across generated cohorts.")
+
+            if st.button("🎲 Generate & Ingest Synthetic Batch to Database", type="primary", use_container_width=True, key="tab1_synth_btn"):
                 synth_producer = FakerProducer()
                 synth_batch = synth_producer.generate_synthetic_batch(count=synth_count, churn_prob=synth_churn_bias)
                 synth_accepted, synth_rejected = import_employee_dataframe(synth_batch, source_system="faker_synthetic")
-                st.success(f"Generated and ingested {len(synth_accepted)} synthetic employee records (Provenance: `faker_synthetic`).")
+                st.success(f"🎉 Successfully generated and ingested {len(synth_accepted)} synthetic employee records (Provenance: `faker_synthetic`).")
                 st.rerun()
 
-        with st.expander("➕ Channel 3: Single Employee Ingestion", expanded=False):
+    # -------------------------------------------------------------
+    # MODE 3: Single Employee Manual Entry
+    # -------------------------------------------------------------
+    elif ingest_mode == "👤 Single Employee Manual Entry":
+        with st.container(border=True):
+            st.subheader("👤 Single Employee Ingestion & Instant Scoring")
+            st.caption("Manually insert an individual employee record into SQLite with localized South African Rand (R / ZAR) compensation and receive immediate ML risk inference.")
+
             with st.form("tab1_employee_form"):
                 f_col1, f_col2 = st.columns(2)
                 with f_col1:
-                    first_name = st.text_input("First Name")
+                    first_name = st.text_input("First Name", placeholder="e.g. Sipho")
                     age = st.number_input("Age", min_value=18, max_value=99, value=30)
                     department = st.selectbox("Department", sorted(VALID_DEPARTMENTS), key="tab1_form_dept")
-                    annual_income = st.number_input("Annual Income (R / ZAR)", min_value=0.0, value=65000.0, step=1000.0, format="%.2f")
+                    annual_income = st.number_input("Annual Income (R / ZAR)", min_value=0.0, value=650000.0, step=10000.0, format="%.2f")
                 with f_col2:
-                    last_name = st.text_input("Last Name")
+                    last_name = st.text_input("Last Name", placeholder="e.g. Dlamini")
                     contract_type = st.selectbox("Contract Type", sorted(VALID_CONTRACTS), key="tab1_form_contract")
                     job_title = st.text_input("Job Title", value="Specialist")
                     tenure_months = st.number_input("Tenure (Months)", min_value=0, max_value=240, value=12)
 
-                submit_btn = st.form_submit_button("Insert & Score Employee", use_container_width=True)
+                submit_btn = st.form_submit_button("🚀 Insert & Score Employee", type="primary", use_container_width=True)
                 if submit_btn:
                     if not first_name.strip() or not last_name.strip() or not job_title.strip():
                         st.error("First name, last name, and job title are required.")
@@ -412,7 +466,7 @@ with tab_ingest:
                         if new_id is None:
                             st.error("Employee was inserted, but ID was not returned.")
                         else:
-                            st.success(f"Inserted employee ID #{new_id} (Provenance: `manual_entry`)")
+                            st.success(f"✅ Inserted employee #{new_id} ({first_name} {last_name}) with provenance `manual_entry`.")
                             try:
                                 result = predict_employee_locally(new_id)
                                 if not result.get("error"):
@@ -423,7 +477,8 @@ with tab_ingest:
                                             "predicted_label": int(result["churn_probability"] >= 0.5),
                                         }]
                                     )
-                                    st.info(f"Instant Churn Risk: **{result['risk_band'].upper()}** ({result['churn_probability']:.1%})")
+                                    risk_col = "🟢" if result["risk_band"] == "low" else "🟡" if result["risk_band"] == "medium" else "🔴"
+                                    st.info(f"{risk_col} Instant Churn Risk Assessment: **{result['risk_band'].upper()} RISK** (Churn Probability: **{result['churn_probability']:.1%}**)")
                             except Exception as ex:
                                 st.warning(f"Scoring note: {ex}")
                             st.rerun()
