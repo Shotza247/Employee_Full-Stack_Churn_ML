@@ -9,5 +9,6 @@ streamlit
 requests
 httpx
 matplotlib
+plotly
 faker
 anyio

@@ -7,6 +7,8 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
 import requests
 from sklearn.metrics import auc, confusion_matrix, roc_curve
 import streamlit as st
@@ -157,29 +159,26 @@ def show_confusion_matrix(y_true: pd.Series, y_pred: pd.Series, title: str):
     st.subheader(title)
     matrix_col, counts_col = st.columns([3, 2], gap="large")
     with matrix_col:
-        matrix_figure, matrix_axis = plt.subplots(figsize=(5.0, 2.9))
-        image = matrix_axis.imshow(matrix, cmap="Blues")
-        matrix_axis.set_xticks([0, 1], ["Non-churner", "Churner"])
-        matrix_axis.set_yticks([0, 1], ["Non-churner", "Churner"])
-        matrix_axis.set_xlabel("Predicted class")
-        matrix_axis.set_ylabel("Actual class")
-        matrix_axis.set_title("Confusion matrix")
-        for row_index in range(2):
-            for column_index in range(2):
-                matrix_axis.text(
-                    column_index,
-                    row_index,
-                    str(matrix[row_index, column_index]),
-                    ha="center",
-                    va="center",
-                    color="white" if matrix[row_index, column_index] > matrix.max() / 2 else "#1f2937",
-                    fontsize=13,
-                    fontweight="bold",
-                )
-        matrix_figure.colorbar(image, ax=matrix_axis, fraction=0.046, pad=0.04)
-        matrix_figure.tight_layout()
-        st.pyplot(matrix_figure, use_container_width=True)
-        plt.close(matrix_figure)
+        fig = go.Figure(
+            data=go.Heatmap(
+                z=matrix,
+                x=["Predicted Non-churner", "Predicted Churner"],
+                y=["Actual Non-churner", "Actual Churner"],
+                text=[[str(matrix[r][c]) for c in range(2)] for r in range(2)],
+                texttemplate="<b>%{text}</b>",
+                textfont={"size": 16, "color": "white"},
+                colorscale="Blues",
+                showscale=False,
+                hovertemplate="<b>Actual:</b> %{y}<br><b>Predicted:</b> %{x}<br><b>Count:</b> %{z}<extra></extra>",
+            )
+        )
+        fig.update_layout(
+            title={"text": "Interactive Confusion Matrix", "font": {"size": 13}},
+            margin={"l": 30, "r": 20, "t": 35, "b": 35},
+            height=260,
+            template="plotly_white",
+        )
+        st.plotly_chart(fig, use_container_width=True)
     with counts_col:
         st.dataframe(matrix_df, use_container_width=True)
     return matrix
@@ -189,25 +188,30 @@ def plot_correlation_heatmap(corr_matrix: pd.DataFrame, title: str = "Feature Co
     if corr_matrix.empty:
         st.info("No correlation data available.")
         return
-    fig, ax = plt.subplots(figsize=(max(6.5, len(corr_matrix.columns) * 0.72), max(4.8, len(corr_matrix.index) * 0.58)))
-    cax = ax.imshow(corr_matrix.values, cmap="coolwarm", vmin=-1.0, vmax=1.0)
-    ax.set_xticks(range(len(corr_matrix.columns)))
-    ax.set_yticks(range(len(corr_matrix.index)))
-    ax.set_xticklabels(corr_matrix.columns, rotation=45, ha="right", fontsize=9)
-    ax.set_yticklabels(corr_matrix.index, fontsize=9)
-    ax.set_title(title, fontsize=12, pad=12, fontweight="bold")
-
-    for i in range(len(corr_matrix.index)):
-        for j in range(len(corr_matrix.columns)):
-            val = corr_matrix.iloc[i, j]
-            if pd.notna(val):
-                text_color = "white" if abs(val) > 0.45 else "#1e293b"
-                ax.text(j, i, f"{val:.2f}", ha="center", va="center", color=text_color, fontsize=8, fontweight="bold")
-
-    fig.colorbar(cax, ax=ax, fraction=0.046, pad=0.04)
-    fig.tight_layout()
-    st.pyplot(fig, use_container_width=True)
-    plt.close(fig)
+    text_matrix = [[f"{val:.2f}" if pd.notna(val) else "" for val in row] for row in corr_matrix.values]
+    fig = go.Figure(
+        data=go.Heatmap(
+            z=corr_matrix.values,
+            x=corr_matrix.columns.tolist(),
+            y=corr_matrix.index.tolist(),
+            zmin=-1.0,
+            zmax=1.0,
+            colorscale="RdBu_r",
+            text=text_matrix,
+            texttemplate="%{text}",
+            textfont={"size": 10},
+            colorbar={"title": "Corr", "thickness": 14},
+            hovertemplate="<b>%{y}</b> vs <b>%{x}</b><br>Correlation: %{z:.3f}<extra></extra>",
+        )
+    )
+    fig.update_layout(
+        title={"text": title, "font": {"size": 13}},
+        margin={"l": 30, "r": 20, "t": 35, "b": 35},
+        height=max(360, len(corr_matrix.index) * 32),
+        template="plotly_white",
+        xaxis={"tickangle": -35},
+    )
+    st.plotly_chart(fig, use_container_width=True)
 
 
 # =========================================================
@@ -597,22 +601,33 @@ with tab_insights:
                     dept_counts[1] = 0
                 dept_counts = dept_counts.rename(columns={0: "Retained", 1: "Churned"})
 
-                fig_dept, ax_dept = plt.subplots(figsize=(6.0, 3.8))
-                dept_counts[["Retained", "Churned"]].plot(
-                    kind="bar",
-                    stacked=True,
-                    color=["#0f766e", "#dc2626"],
-                    ax=ax_dept,
-                    edgecolor="white",
+                departments = dept_counts.index.tolist()
+                fig_dept = go.Figure()
+                fig_dept.add_trace(go.Bar(
+                    x=departments,
+                    y=dept_counts["Retained"].tolist(),
+                    name="Retained",
+                    marker_color="#0f766e",
+                    hovertemplate="<b>Department:</b> %{x}<br><b>Status:</b> Retained<br><b>Employees:</b> %{y}<extra></extra>",
+                ))
+                fig_dept.add_trace(go.Bar(
+                    x=departments,
+                    y=dept_counts["Churned"].tolist(),
+                    name="Churned",
+                    marker_color="#dc2626",
+                    hovertemplate="<b>Department:</b> %{x}<br><b>Status:</b> Churned<br><b>Employees:</b> %{y}<extra></extra>",
+                ))
+                fig_dept.update_layout(
+                    barmode="stack",
+                    title={"text": "Employee Count by Department & Status", "font": {"size": 13}},
+                    margin={"l": 30, "r": 20, "t": 40, "b": 40},
+                    height=340,
+                    legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1},
+                    template="plotly_white",
+                    xaxis={"tickangle": -30},
+                    yaxis={"title": "Employees"},
                 )
-                ax_dept.set_title("Employee Count by Department & Status", fontsize=11, fontweight="bold")
-                ax_dept.set_xlabel("")
-                ax_dept.set_ylabel("Employees")
-                ax_dept.set_xticklabels(ax_dept.get_xticklabels(), rotation=35, ha="right")
-                ax_dept.legend(["Retained", "Churned"], loc="upper right")
-                fig_dept.tight_layout()
-                st.pyplot(fig_dept, use_container_width=True)
-                plt.close(fig_dept)
+                st.plotly_chart(fig_dept, use_container_width=True)
 
             with col_dept_stats:
                 st.subheader("📋 Department Benchmark Statistics")
@@ -658,21 +673,32 @@ with tab_insights:
                     cohort_stats[1] = 0
                 cohort_stats = cohort_stats.rename(columns={0: "Retained", 1: "Churned"})
 
-                fig_age, ax_age = plt.subplots(figsize=(6.0, 3.5))
-                cohort_stats[["Retained", "Churned"]].plot(
-                    kind="bar",
-                    color=["#2563eb", "#ea580c"],
-                    ax=ax_age,
-                    edgecolor="white",
+                fig_age = go.Figure()
+                fig_age.add_trace(go.Bar(
+                    x=cohort_stats.index.tolist(),
+                    y=cohort_stats["Retained"].tolist(),
+                    name="Retained",
+                    marker_color="#2563eb",
+                    hovertemplate="<b>Cohort:</b> %{x}<br><b>Status:</b> Retained<br><b>Employees:</b> %{y}<extra></extra>",
+                ))
+                fig_age.add_trace(go.Bar(
+                    x=cohort_stats.index.tolist(),
+                    y=cohort_stats["Churned"].tolist(),
+                    name="Churned",
+                    marker_color="#ea580c",
+                    hovertemplate="<b>Cohort:</b> %{x}<br><b>Status:</b> Churned<br><b>Employees:</b> %{y}<extra></extra>",
+                ))
+                fig_age.update_layout(
+                    barmode="group",
+                    title={"text": "Turnover Across Age Cohorts", "font": {"size": 13}},
+                    margin={"l": 30, "r": 20, "t": 40, "b": 40},
+                    height=320,
+                    legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1},
+                    template="plotly_white",
+                    xaxis={"tickangle": -20},
+                    yaxis={"title": "Employee Count"},
                 )
-                ax_age.set_title("Turnover Across Age Cohorts", fontsize=11, fontweight="bold")
-                ax_age.set_xlabel("")
-                ax_age.set_ylabel("Employee Count")
-                ax_age.set_xticklabels(ax_age.get_xticklabels(), rotation=25, ha="right")
-                ax_age.legend(["Retained", "Churned"], loc="upper right")
-                fig_age.tight_layout()
-                st.pyplot(fig_age, use_container_width=True)
-                plt.close(fig_age)
+                st.plotly_chart(fig_age, use_container_width=True)
 
             with col_contract:
                 st.subheader("📝 Contract Type & Employment Dynamics")
@@ -686,27 +712,39 @@ with tab_insights:
                 st.markdown("##### Retention Breakdown by Contract Type")
                 st.dataframe(contract_summary, hide_index=True, use_container_width=True)
 
-                # Contract type retention visual
+                # Contract type retention visual (Interactive Plotly Horizontal Bar)
                 contract_counts = filtered_df.groupby(["contract_type", "churn"]).size().unstack(fill_value=0)
                 if 0 not in contract_counts.columns: contract_counts[0] = 0
                 if 1 not in contract_counts.columns: contract_counts[1] = 0
                 contract_counts = contract_counts.rename(columns={0: "Retained", 1: "Churned"})
 
-                fig_ct, ax_ct = plt.subplots(figsize=(6.0, 2.2))
-                contract_counts[["Retained", "Churned"]].plot(
-                    kind="barh",
-                    stacked=True,
-                    color=["#0f766e", "#dc2626"],
-                    ax=ax_ct,
-                    edgecolor="white",
+                fig_ct = go.Figure()
+                fig_ct.add_trace(go.Bar(
+                    y=contract_counts.index.tolist(),
+                    x=contract_counts["Retained"].tolist(),
+                    name="Retained",
+                    orientation="h",
+                    marker_color="#0f766e",
+                    hovertemplate="<b>Contract:</b> %{y}<br><b>Status:</b> Retained<br><b>Headcount:</b> %{x}<extra></extra>",
+                ))
+                fig_ct.add_trace(go.Bar(
+                    y=contract_counts.index.tolist(),
+                    x=contract_counts["Churned"].tolist(),
+                    name="Churned",
+                    orientation="h",
+                    marker_color="#dc2626",
+                    hovertemplate="<b>Contract:</b> %{y}<br><b>Status:</b> Churned<br><b>Headcount:</b> %{x}<extra></extra>",
+                ))
+                fig_ct.update_layout(
+                    barmode="stack",
+                    title={"text": "Contract Type Attrition Comparison", "font": {"size": 12}},
+                    margin={"l": 30, "r": 20, "t": 35, "b": 25},
+                    height=200,
+                    legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1},
+                    template="plotly_white",
+                    xaxis={"title": "Headcount"},
                 )
-                ax_ct.set_title("Contract Type Attrition Comparison", fontsize=10, fontweight="bold")
-                ax_ct.set_xlabel("Headcount")
-                ax_ct.set_ylabel("")
-                ax_ct.legend(["Retained", "Churned"], loc="lower right", fontsize=8)
-                fig_ct.tight_layout()
-                st.pyplot(fig_ct, use_container_width=True)
-                plt.close(fig_ct)
+                st.plotly_chart(fig_ct, use_container_width=True)
 
             st.divider()
 
@@ -717,23 +755,38 @@ with tab_insights:
             sal_col1, sal_col2 = st.columns([2, 1], gap="large")
 
             with sal_col1:
-                fig_sal, ax_sal = plt.subplots(figsize=(8.0, 3.6))
                 ret_sal = filtered_df[filtered_df["churn"] == 0]["income"].dropna()
                 chu_sal = filtered_df[filtered_df["churn"] == 1]["income"].dropna()
 
+                fig_sal = go.Figure()
                 if not ret_sal.empty:
-                    ax_sal.hist(ret_sal, bins=20, alpha=0.6, color="#0f766e", label=f"Retained (n={len(ret_sal)})", edgecolor="white")
+                    fig_sal.add_trace(go.Histogram(
+                        x=ret_sal,
+                        name=f"Retained (n={len(ret_sal):,})",
+                        opacity=0.65,
+                        marker_color="#0f766e",
+                        hovertemplate="<b>Retained</b><br>Salary: R %{x:,.0f}<br>Count: %{y}<extra></extra>",
+                    ))
                 if not chu_sal.empty:
-                    ax_sal.hist(chu_sal, bins=20, alpha=0.6, color="#dc2626", label=f"Churned (n={len(chu_sal)})", edgecolor="white")
+                    fig_sal.add_trace(go.Histogram(
+                        x=chu_sal,
+                        name=f"Churned (n={len(chu_sal):,})",
+                        opacity=0.65,
+                        marker_color="#dc2626",
+                        hovertemplate="<b>Churned</b><br>Salary: R %{x:,.0f}<br>Count: %{y}<extra></extra>",
+                    ))
 
-                ax_sal.set_title("Annual Salary Distribution Overlay", fontsize=11, fontweight="bold")
-                ax_sal.set_xlabel("Annual Salary (ZAR / R)")
-                ax_sal.set_ylabel("Employee Count")
-                ax_sal.legend(loc="upper right")
-                ax_sal.grid(axis="y", linestyle="--", alpha=0.4)
-                fig_sal.tight_layout()
-                st.pyplot(fig_sal, use_container_width=True)
-                plt.close(fig_sal)
+                fig_sal.update_layout(
+                    barmode="overlay",
+                    title={"text": "Annual Salary Distribution Overlay (ZAR / R)", "font": {"size": 13}},
+                    margin={"l": 30, "r": 20, "t": 40, "b": 40},
+                    height=340,
+                    legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1},
+                    template="plotly_white",
+                    xaxis={"title": "Annual Salary (ZAR / R)"},
+                    yaxis={"title": "Employee Count"},
+                )
+                st.plotly_chart(fig_sal, use_container_width=True)
 
             with sal_col2:
                 st.markdown("##### 📊 Salary Benchmark Statistics")
@@ -855,7 +908,23 @@ with tab_roster:
         r_col1, r_col2 = st.columns([3, 2], gap="large")
         with r_col1:
             with st.container(border=True):
-                st.bar_chart(risk_chart["Employees"], height=240, color="#d95f02")
+                risk_colors = {"High risk (≥70%)": "#dc2626", "Medium risk (45–69%)": "#f59e0b", "Low risk (<45%)": "#10b981"}
+                fig_risk = go.Figure(go.Bar(
+                    x=risk_chart.index.tolist(),
+                    y=risk_chart["Employees"].tolist(),
+                    marker_color=[risk_colors.get(idx, "#3b82f6") for idx in risk_chart.index],
+                    text=[f"{int(count):,} ({pct:.1f}%)" for count, pct in zip(risk_chart["Employees"], risk_chart["Share (%)"])],
+                    textposition="auto",
+                    hovertemplate="<b>Risk Tier:</b> %{x}<br><b>Employees:</b> %{y:,}<extra></extra>",
+                ))
+                fig_risk.update_layout(
+                    title={"text": "Workforce Churn Risk Distribution", "font": {"size": 13}},
+                    margin={"l": 30, "r": 20, "t": 35, "b": 30},
+                    height=240,
+                    template="plotly_white",
+                    yaxis={"title": "Employees"},
+                )
+                st.plotly_chart(fig_risk, use_container_width=True)
         with r_col2:
             with st.container(border=True):
                 st.dataframe(risk_chart, hide_index=False, use_container_width=True, height=240)
@@ -920,14 +989,23 @@ with tab_signals:
                     st.caption("Trained model coefficient/importance weights indicating directional impact on churn predictions.")
 
                     top_feats = importances_df.head(10).sort_values("Absolute Impact", ascending=True)
-                    fig_imp, ax_imp = plt.subplots(figsize=(6.5, 3.8))
                     colors = ["#dc2626" if "Increases" in str(d) else "#0f766e" for d in top_feats["Direction"]]
-                    ax_imp.barh(top_feats["Feature"], top_feats["Absolute Impact"], color=colors)
-                    ax_imp.set_xlabel("Relative Feature Importance / Weight")
-                    ax_imp.set_title("Top 10 Most Influential Features on Churn Model")
-                    fig_imp.tight_layout()
-                    st.pyplot(fig_imp, use_container_width=True)
-                    plt.close(fig_imp)
+                    fig_imp = go.Figure(go.Bar(
+                        y=top_feats["Feature"].tolist(),
+                        x=top_feats["Absolute Impact"].tolist(),
+                        orientation="h",
+                        marker_color=colors,
+                        customdata=top_feats["Direction"].tolist(),
+                        hovertemplate="<b>Feature:</b> %{y}<br><b>Impact Weight:</b> %{x:.4f}<br><b>Direction:</b> %{customdata}<extra></extra>",
+                    ))
+                    fig_imp.update_layout(
+                        title={"text": "Top 10 Most Influential Features on Churn Model", "font": {"size": 13}},
+                        margin={"l": 30, "r": 20, "t": 40, "b": 40},
+                        height=340,
+                        template="plotly_white",
+                        xaxis={"title": "Relative Feature Importance / Weight"},
+                    )
+                    st.plotly_chart(fig_imp, use_container_width=True)
 
                     st.dataframe(
                         importances_df[["Feature", "Absolute Impact", "Direction"]].head(15),
@@ -1073,16 +1151,34 @@ with tab_model:
                 with eval_col2:
                     with st.container(border=True):
                         st.caption("ROC Curve & Discrimination")
-                        roc_fig, roc_ax = plt.subplots(figsize=(4.8, 3.0))
+                        fig_roc = go.Figure()
                         if len(false_pos):
-                            roc_ax.plot(false_pos, true_pos, color="#d95f02", linewidth=2, label=f"ROC (AUC {stored_auc:.2f})")
-                        roc_ax.plot([0, 1], [0, 1], color="#999999", linestyle="--", linewidth=1)
-                        roc_ax.set_xlabel("False positive rate")
-                        roc_ax.set_ylabel("True positive rate")
-                        roc_ax.legend(loc="lower right", fontsize=8)
-                        roc_fig.tight_layout()
-                        st.pyplot(roc_fig, use_container_width=True)
-                        plt.close(roc_fig)
+                            fig_roc.add_trace(go.Scatter(
+                                x=false_pos,
+                                y=true_pos,
+                                mode="lines",
+                                name=f"ROC (AUC = {stored_auc:.3f})",
+                                line={"color": "#d95f02", "width": 3},
+                                hovertemplate="<b>FPR:</b> %{x:.3f}<br><b>TPR:</b> %{y:.3f}<extra></extra>",
+                            ))
+                        fig_roc.add_trace(go.Scatter(
+                            x=[0, 1],
+                            y=[0, 1],
+                            mode="lines",
+                            name="Random Baseline (AUC = 0.50)",
+                            line={"color": "#9ca3af", "width": 1.5, "dash": "dash"},
+                            hoverinfo="skip",
+                        ))
+                        fig_roc.update_layout(
+                            title={"text": f"ROC Curve (AUC: {stored_auc:.2f})", "font": {"size": 12}},
+                            margin={"l": 30, "r": 20, "t": 35, "b": 35},
+                            height=250,
+                            legend={"orientation": "h", "yanchor": "bottom", "y": -0.3, "xanchor": "center", "x": 0.5},
+                            template="plotly_white",
+                            xaxis={"title": "False Positive Rate", "range": [0, 1]},
+                            yaxis={"title": "True Positive Rate", "range": [0, 1]},
+                        )
+                        st.plotly_chart(fig_roc, use_container_width=True)
 
                 show_confusion_matrix(valid["true_label"], valid["predicted_label"], f"Evaluation Confusion Matrix (Run #{selected_run})")
                 tp = int(((valid["predicted_label"] == 1) & (valid["true_label"] == 1)).sum())
