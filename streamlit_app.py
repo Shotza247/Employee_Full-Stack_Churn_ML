@@ -10,7 +10,16 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import requests
-from sklearn.metrics import auc, confusion_matrix, roc_curve
+from sklearn.metrics import (
+    accuracy_score,
+    auc,
+    confusion_matrix,
+    f1_score,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+    roc_curve,
+)
 import streamlit as st
 
 import churn_app.config
@@ -823,7 +832,7 @@ with tab_roster:
     else:
         raw_employee_df = pd.DataFrame(
             employees,
-            columns=["employee_id", "first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months"],
+            columns=["employee_id", "first_name", "last_name", "age", "department", "contract_type", "annual_income", "job_title", "tenure_months", "churn"],
         )
         raw_employee_df["employee_name"] = raw_employee_df["first_name"] + " " + raw_employee_df["last_name"]
         employee_df = impute_and_engineer_features(raw_employee_df)
@@ -875,18 +884,93 @@ with tab_roster:
 
         employee_df["churn_probability"] = probabilities
         employee_df["risk_band"] = bands
+        employee_df["ground_truth"] = employee_df["churn"].apply(
+            lambda c: "Churned (1)" if c == 1 else "Retained (0)" if c == 0 else "Unlabeled"
+        )
+
+        # -------------------------------------------------------------
+        # BATCH PREDICTION EVALUATION SCORECARD
+        # -------------------------------------------------------------
+        labeled_batch = employee_df[employee_df["churn"].notna() & employee_df["churn"].isin([0, 1]) & employee_df["churn_probability"].notna()]
+        if not labeled_batch.empty:
+            y_true = labeled_batch["churn"].astype(int)
+            y_pred = (labeled_batch["churn_probability"] >= 0.5).astype(int)
+            y_prob = labeled_batch["churn_probability"].astype(float)
+
+            b_acc = accuracy_score(y_true, y_pred)
+            b_prec = precision_score(y_true, y_pred, zero_division=0)
+            b_rec = recall_score(y_true, y_pred, zero_division=0)
+            b_f1 = f1_score(y_true, y_pred, zero_division=0)
+            try:
+                b_auc = roc_auc_score(y_true, y_prob) if len(np.unique(y_true)) > 1 else 0.5
+            except Exception:
+                b_auc = 0.5
+
+            b_tp = int(((y_pred == 1) & (y_true == 1)).sum())
+            b_tn = int(((y_pred == 0) & (y_true == 0)).sum())
+            b_fp = int(((y_pred == 1) & (y_true == 0)).sum())
+            b_fn = int(((y_pred == 0) & (y_true == 1)).sum())
+
+            with st.container(border=True):
+                st.subheader("📊 Batch Prediction Evaluation Scorecard")
+                st.caption(f"Batch performance benchmarked against **{len(labeled_batch):,}** labeled ground-truth records in this workforce slice:")
+
+                m_cols = st.columns(5)
+                m_cols[0].metric("🎯 Batch Accuracy", f"{b_acc:.1%}")
+                m_cols[1].metric("🔍 Batch Precision", f"{b_prec:.1%}")
+                m_cols[2].metric("🎣 Batch Recall", f"{b_rec:.1%}")
+                m_cols[3].metric("⚖️ Batch F1-Score", f"{b_f1:.1%}")
+                m_cols[4].metric("📈 Batch ROC-AUC", f"{b_auc:.2f}")
+
+                b_mat_col1, b_mat_col2 = st.columns([1, 1], gap="large")
+                with b_mat_col1:
+                    b_matrix = [[b_tn, b_fp], [b_fn, b_tp]]
+                    b_fig = go.Figure(
+                        data=go.Heatmap(
+                            z=b_matrix,
+                            x=["Predicted Non-Churner", "Predicted Churner"],
+                            y=["Actual Non-Churner", "Actual Churner"],
+                            text=[[str(b_tn), str(b_fp)], [str(b_fn), str(b_tp)]],
+                            texttemplate="<b>%{text}</b>",
+                            textfont={"size": 15, "color": "white"},
+                            colorscale="Blues",
+                            showscale=False,
+                            hovertemplate="<b>Actual:</b> %{y}<br><b>Predicted:</b> %{x}<br><b>Count:</b> %{z}<extra></extra>",
+                        )
+                    )
+                    b_fig.update_layout(
+                        title={"text": "Batch Confusion Matrix Breakdown", "font": {"size": 12}},
+                        margin={"l": 30, "r": 20, "t": 35, "b": 35},
+                        height=220,
+                        template="plotly_white",
+                    )
+                    st.plotly_chart(b_fig, use_container_width=True)
+
+                with b_mat_col2:
+                    st.markdown("##### 🔬 Batch Classification Outcomes")
+                    outcome_df = pd.DataFrame([
+                        {"Classification Outcome": "✅ True Negatives (Retained staff correctly kept)", "Count": b_tn, "Proportion": f"{(b_tn / len(labeled_batch) * 100):.1f}%"},
+                        {"Classification Outcome": "🚨 True Positives (Actual churners caught)", "Count": b_tp, "Proportion": f"{(b_tp / len(labeled_batch) * 100):.1f}%"},
+                        {"Classification Outcome": "⚠️ False Positives (False churn alarms)", "Count": b_fp, "Proportion": f"{(b_fp / len(labeled_batch) * 100):.1f}%"},
+                        {"Classification Outcome": "❌ False Negatives (Missed departures)", "Count": b_fn, "Proportion": f"{(b_fn / len(labeled_batch) * 100):.1f}%"},
+                    ])
+                    st.dataframe(outcome_df, hide_index=True, use_container_width=True)
+        else:
+            with st.container(border=True):
+                st.subheader("📊 Batch Scoring Summary")
+                st.info("ℹ️ Ground-truth labels are unpopulated for this cohort. Model evaluation metrics will automatically activate when labeled records are present.")
 
         with st.container(border=True):
             st.subheader("Scored Employee Predictions")
+            st.caption("Review individual employee prediction probabilities, risk tiers, and ground truth labels before saving.")
+            display_scored_cols = ["employee_id", "employee_name", "department", "job_title", "annual_income", "tenure_months", "churn_probability", "risk_band", "ground_truth"]
             st.dataframe(
-                employee_df[[
-                    "employee_id", "employee_name", "department", "job_title", "annual_income", "tenure_months", "churn_probability", "risk_band"
-                ]].sort_values("churn_probability", ascending=False, na_position="last"),
+                employee_df[display_scored_cols].sort_values("churn_probability", ascending=False, na_position="last"),
                 hide_index=True,
                 use_container_width=True,
                 height=320,
             )
-            if st.button("💾 Save Batch Predictions to History", use_container_width=True):
+            if st.button("💾 Save Batch Predictions to History", type="primary", use_container_width=True):
                 save_inference_predictions(
                     [
                         {
@@ -897,7 +981,7 @@ with tab_roster:
                         for row in employee_df[["employee_id", "churn_probability"]].dropna(subset=["churn_probability"]).itertuples(index=False)
                     ]
                 )
-                st.success("Batch predictions logged to prediction history database.")
+                st.success("✅ Successfully logged batch predictions to SQLite prediction history database.")
 
         st.subheader("🎯 Churn Risk Distribution")
         risk_counts = employee_df["risk_band"].value_counts().reindex(["high", "medium", "low"], fill_value=0)

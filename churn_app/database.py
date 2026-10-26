@@ -111,7 +111,7 @@ def get_employee_features(employee_id, db_path=DB_PATH):
 
 def get_all_employees(db_path=DB_PATH):
     with get_connection(db_path) as connection:
-        return connection.execute("SELECT e.employee_id,e.first_name,e.last_name,e.age,e.department,e.contract_type,s.annual_income,j.job_title,j.tenure_months FROM employees e JOIN salaries s ON s.employee_id=e.employee_id JOIN jobs j ON j.employee_id=e.employee_id ORDER BY e.employee_id").fetchall()
+        return connection.execute("SELECT e.employee_id,e.first_name,e.last_name,e.age,e.department,e.contract_type,s.annual_income,j.job_title,j.tenure_months,e.churn FROM employees e JOIN salaries s ON s.employee_id=e.employee_id JOIN jobs j ON j.employee_id=e.employee_id ORDER BY e.employee_id").fetchall()
 
 def get_training_data(db_path=DB_PATH):
     with get_connection(db_path) as connection:
