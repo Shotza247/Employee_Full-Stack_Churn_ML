@@ -1,98 +1,27 @@
 employee_id,first_name,last_name,age,income,tenure_months,department,contract_type,job_title,churn,source_system,created_at
-1,Aaliyah,Smith,29,72000.0,18,Marketing,permanent,Analyst,0,seed_baseline,2026-10-22 10:52:05
-2,Noah,Johnson,42,92000.0,72,Sales,permanent,Account Executive,0,seed_baseline,2026-10-22 10:52:05
-3,Mia,Williams,34,104000.0,36,Engineering,contract,Software Engineer,0,seed_baseline,2026-10-22 10:52:05
-4,James,Brown,51,78000.0,96,HR,permanent,HR Business Partner,0,seed_baseline,2026-10-22 10:52:05
-5,Emma,Jones,27,61000.0,12,Support,contract,Support Specialist,1,seed_baseline,2026-10-22 10:52:05
-6,Liam,Garcia,38,88000.0,60,Operations,permanent,Operations Manager,0,seed_baseline,2026-10-22 10:52:05
-7,Olivia,Miller,31,91000.0,30,Finance,permanent,Financial Analyst,0,seed_baseline,2026-10-22 10:52:05
-8,Ethan,Davis,45,99000.0,84,Sales,permanent,Regional Manager,0,seed_baseline,2026-10-22 10:52:05
-9,Ava,Rodriguez,26,64000.0,14,Marketing,contract,Content Creator,1,seed_baseline,2026-10-22 10:52:05
-10,Sophia,Martinez,41,115000.0,78,Engineering,permanent,Team Lead,0,seed_baseline,2026-10-22 10:52:05
-11,Jackson,Hernandez,53,72000.0,108,Support,permanent,Support Manager,0,seed_baseline,2026-10-22 10:52:05
-12,Isabella,Lopez,30,78000.0,20,Finance,contract,Payroll Specialist,0,seed_baseline,2026-10-22 10:52:05
-13,Lucas,Gonzalez,36,108000.0,48,Engineering,permanent,DevOps Engineer,0,seed_baseline,2026-10-22 10:52:05
-14,Charlotte,Wilson,39,82000.0,52,HR,permanent,Recruiter,0,seed_baseline,2026-10-22 10:52:05
-15,Mason,Anderson,28,65000.0,16,Sales,contract,Sales Associate,1,seed_baseline,2026-10-22 10:52:05
-16,Amelia,Thomas,47,93000.0,70,Operations,permanent,Logistics Specialist,0,seed_baseline,2026-10-22 10:52:05
-17,Logan,Taylor,33,102000.0,40,Engineering,permanent,QA Engineer,0,seed_baseline,2026-10-22 10:52:05
-18,Harper,Moore,24,58000.0,10,Marketing,contract,Social Media Coordinator,1,seed_baseline,2026-10-22 10:52:05
-19,Elijah,Jackson,50,98000.0,90,Finance,permanent,Controller,0,seed_baseline,2026-10-22 10:52:05
-20,Evelyn,Martin,32,85000.0,35,Operations,permanent,Supply Chain Analyst,0,seed_baseline,2026-10-22 10:52:05
-21,William,Lee,44,118000.0,75,Engineering,permanent,Senior Engineer,0,seed_baseline,2026-10-22 10:52:05
-22,Abigail,Perez,37,69000.0,22,HR,contract,HR Coordinator,1,seed_baseline,2026-10-22 10:52:05
-23,Benjamin,Thompson,29,86000.0,28,Sales,permanent,Sales Engineer,0,seed_baseline,2026-10-22 10:52:05
-24,Emily,White,40,94000.0,66,Marketing,permanent,Marketing Manager,0,seed_baseline,2026-10-22 10:52:05
-25,Henry,Harris,35,98000.0,44,Engineering,contract,Backend Developer,0,seed_baseline,2026-10-22 10:52:05
-26,Eleanor,Sanchez,31,89000.0,38,Finance,permanent,Accounting Manager,0,seed_baseline,2026-10-22 10:52:05
-27,Thabo,Maputla,30,20000.0,19,Engineering,contract,Junior DevOps Engineer,0,seed_baseline,2026-10-22 10:52:05
-28,Romeo,Ndlovu,34,45000.0,25,Engineering,permanent,DevOps Engineer,0,seed_baseline,2026-10-22 10:52:05
-29,Thabo,Ndlovu,27,240000.0,24,Engineering,contract,Graduate AI Engineer,0,seed_baseline,2026-10-22 10:52:05
-30,ABc,cde,30,12000.0,53,Marketing,permanent,Junior TeleMarketer,0,seed_baseline,2026-10-22 10:52:05
-31,Zuri,Maphosa,22,28000.0,3,Support,contract,Support Associate,1,seed_baseline,2026-10-22 10:52:05
-32,Kabelo,Ndlovu,58,185000.0,144,Operations,permanent,Operations Director,0,seed_baseline,2026-10-22 10:52:05
-33,Amara,Okafor,31,42000.0,7,Engineering,contract,Platform Engineer,1,seed_baseline,2026-10-22 10:52:05
-34,Luca,Moretti,47,53000.0,18,Sales,permanent,Account Manager,1,seed_baseline,2026-10-22 10:52:05
-35,Nia,Thompson,29,39000.0,5,Marketing,contract,Campaign Analyst,1,seed_baseline,2026-10-22 10:52:05
-36,Elias,Petrov,39,132000.0,84,Finance,permanent,Finance Manager,0,seed_baseline,2026-10-22 10:52:05
-37,Sofia,Alvarez,26,61000.0,11,Support,contract,Support Specialist,1,seed_baseline,2026-10-22 10:52:05
-38,Malik,Johnson,34,97000.0,28,Engineering,permanent,Data Engineer,0,seed_baseline,2026-10-22 10:52:05
-39,Hana,Kim,44,71000.0,16,HR,permanent,HR Advisor,1,seed_baseline,2026-10-22 10:52:05
-40,Theo,Mensah,52,46000.0,9,Finance,contract,Payroll Analyst,1,seed_baseline,2026-10-22 10:52:05
-41,Maya,Patel,36,88000.0,52,Operations,permanent,Process Analyst,0,seed_baseline,2026-10-22 10:52:05
-42,Jonas,Berg,24,32000.0,2,Sales,contract,Sales Associate,1,seed_baseline,2026-10-22 10:52:05
-43,Amina,Wilson,41,156000.0,96,Engineering,contract,Principal Engineer,0,seed_baseline,2026-10-22 10:52:05
-44,Noel,Garcia,67,25000.0,180,Support,permanent,Support Advisor,1,seed_baseline,2026-10-22 10:52:05
-45,Layla,Chen,30,118000.0,13,Marketing,permanent,Marketing Strategist,0,seed_baseline,2026-10-22 10:52:05
-46,Owen,Smith,33,76000.0,39,Sales,permanent,Sales Executive,0,seed_baseline,2026-10-22 10:52:05
-47,Fatima,Ali,27,29500.0,4,HR,contract,HR Coordinator,1,seed_baseline,2026-10-22 10:52:05
-48,Evan,Reed,49,101000.0,22,Operations,permanent,Operations Lead,0,seed_baseline,2026-10-22 10:52:05
-49,Tariq,Adams,38,54000.0,6,Support,contract,Technical Support,1,seed_baseline,2026-10-22 10:52:05
-50,Ivy,Nguyen,45,110000.0,110,Engineering,permanent,Software Architect,0,seed_baseline,2026-10-22 10:52:05
-51,Samira,Okeke,23,18000.0,1,Marketing,contract,Content Assistant,1,seed_baseline,2026-10-22 10:52:05
-52,Marco,Rossi,55,145000.0,132,Sales,permanent,Regional Director,0,seed_baseline,2026-10-22 10:52:05
-53,Grace,Lee,32,68000.0,8,Finance,contract,Financial Analyst,1,seed_baseline,2026-10-22 10:52:05
-54,Dante,Young,40,83000.0,60,Operations,permanent,Logistics Manager,0,seed_baseline,2026-10-22 10:52:05
-55,Nora,Evans,28,47000.0,10,Support,contract,Support Specialist,1,seed_baseline,2026-10-22 10:52:05
-56,Priya,Shah,37,92000.0,44,Engineering,permanent,QA Engineer,0,seed_baseline,2026-10-22 10:52:05
-57,Leo,Turner,61,59000.0,126,HR,permanent,HR Business Partner,0,seed_baseline,2026-10-22 10:52:05
-58,Mina,Walker,35,73000.0,15,Marketing,contract,Brand Specialist,1,seed_baseline,2026-10-22 10:52:05
-59,Caleb,Martin,43,69000.0,20,Sales,permanent,Account Executive,1,seed_baseline,2026-10-22 10:52:05
-60,Rina,Das,25,51000.0,3,Finance,contract,Accounting Assistant,1,seed_baseline,2026-10-22 10:52:05
-61,Yara,Scott,50,128000.0,118,Operations,permanent,Senior Planner,0,seed_baseline,2026-10-22 10:52:05
-62,Ben,Hall,29,64000.0,14,Support,permanent,Service Coordinator,0,seed_baseline,2026-10-22 10:52:05
-63,Makhosonke,Nkosi,25,500000.0,30,Engineering,permanent,Forward Deployed AI Engineer,0,seed_baseline,2026-10-22 10:52:05
-64,Lionel,Raseemela,32,240000.0,17,Engineering,contract,Platform Engineering Intern,0,seed_baseline,2026-10-22 10:52:05
-65,Thabiso,Mdluli,32,24000.0,18,Engineering,contract,AI Engineering Intern,0,seed_baseline,2026-10-22 10:52:05
-66,Ncamusile,Buthelezi,23,100000.0,18,Finance,contract,Junior Financial Analyst,0,seed_baseline,2026-10-22 10:52:05
-67,IBM,Bobathon,24,35000.0,12,Operations,permanent,DevOps Graduate,0,seed_baseline,2026-10-22 10:52:05
-68,IBM,Bobathon,24,35000.0,12,Operations,permanent,DevOps Graduate,0,seed_baseline,2026-10-22 10:52:05
-69,Jungle,West,27,25000.0,20,Engineering,contract,AI Platform Engineer Graduate,0,seed_baseline,2026-10-22 10:52:05
-70,Thando,Shabalala,32,100000.0,49,Engineering,contract,AI Platform Engineer Associate,0,seed_baseline,2026-10-22 10:52:05
-71,Chifiwa,Zondi,32,75000.0,60,Engineering,contract,Platform Engineer Senior Associate,0,seed_baseline,2026-10-22 10:52:05
-72,Chifiwayo,Londi,32,50000.0,60,Engineering,permanent,Platform Engineer Senior Associate,0,seed_baseline,2026-10-22 10:52:05
-2340,Joan,Rhodes,52,94302.0,103,Finance,contract,Controller,0,seed_baseline,2026-10-22 10:52:05
-2341,Calvin,Moore,60,96873.0,44,Engineering,permanent,Frontend Developer,0,seed_baseline,2026-10-22 10:52:05
-2342,Brett,Grant,41,107216.0,116,Sales,contract,Sales Manager,1,seed_baseline,2026-10-22 10:52:05
-2343,Bryan,Roberts,35,59969.0,126,HR,contract,Recruiter,0,seed_baseline,2026-10-22 10:52:05
-2344,David,Martin,35,69382.0,84,HR,permanent,HR Business Partner,0,seed_baseline,2026-10-22 10:52:05
-2345,Whitney,Rogers,23,109918.0,137,Support,permanent,Customer Success Lead,0,seed_baseline,2026-10-22 10:52:05
-2346,Michael,Campbell,37,60623.0,106,Engineering,permanent,DevOps Engineer,0,seed_baseline,2026-10-22 10:52:05
-2347,Randy,Harrell,30,58983.0,49,Marketing,permanent,Content Creator,1,seed_baseline,2026-10-22 10:52:05
-2348,Parker,Singh,38,109939.0,14,Sales,permanent,Sales Manager,0,seed_baseline,2026-10-22 10:52:05
-2349,Morgan,Berg,54,87809.0,55,Finance,contract,Financial Analyst,0,seed_baseline,2026-10-22 10:52:05
-2350,Sharon,Wright,53,54832.0,88,Operations,permanent,Operations Manager,0,seed_baseline,2026-10-22 10:52:05
-2351,Elizabeth,Hill,36,122913.0,134,Sales,permanent,Sales Representative,0,seed_baseline,2026-10-22 10:52:05
-2352,Timothy,Bradley,49,97286.0,39,HR,permanent,HR Business Partner,0,seed_baseline,2026-10-22 10:52:05
-2353,Lisa,Adams,56,90778.0,41,Finance,permanent,Financial Analyst,0,seed_baseline,2026-10-22 10:52:05
-2354,Jeffrey,Hughes,34,89695.0,33,Operations,contract,Supply Chain Analyst,0,seed_baseline,2026-10-22 10:52:05
-2355,Christopher,White,56,54708.0,54,Operations,permanent,Supply Chain Analyst,0,seed_baseline,2026-10-22 10:52:05
-2356,Ashley,Brooks,27,64673.0,129,Finance,permanent,Financial Analyst,0,seed_baseline,2026-10-22 10:52:05
-2357,Michael,Adams,44,56992.0,135,Marketing,permanent,Content Creator,1,seed_baseline,2026-10-22 10:52:05
-2358,James,Gonzalez,24,67049.0,76,Finance,contract,Financial Analyst,0,seed_baseline,2026-10-22 10:52:05
-2359,Leroy,Smith,27,84448.0,58,Sales,permanent,Sales Engineer,0,seed_baseline,2026-10-22 10:52:05
-2360,Benjamin,Snyder,34,54951.0,119,Engineering,permanent,Frontend Developer,0,seed_baseline,2026-10-22 10:52:05
-2361,Janice,Morales,53,125663.0,78,Operations,permanent,Logistics Specialist,0,seed_baseline,2026-10-22 10:52:05
-2362,Terri,Glass,38,117070.0,32,Engineering,contract,Frontend Developer,0,seed_baseline,2026-10-22 10:52:05
-2363,Ashley,Mcgee,55,92153.0,82,Marketing,permanent,Content Creator,0,seed_baseline,2026-10-22 10:52:05
-2364,Melissa,Rodriguez,31,121581.0,132,Marketing,permanent,Marketing Analyst,0,seed_baseline,2026-10-22 10:52:05
+1,Aaliyah,Smith,29,72000.0,18,Marketing,permanent,Analyst,0,seed_baseline,2026-10-26 15:27:25
+2,Noah,Johnson,42,92000.0,72,Sales,permanent,Account Executive,0,seed_baseline,2026-10-26 15:27:25
+3,Mia,Williams,34,104000.0,36,Engineering,contract,Software Engineer,0,seed_baseline,2026-10-26 15:27:25
+4,James,Brown,51,78000.0,96,HR,permanent,HR Business Partner,0,seed_baseline,2026-10-26 15:27:25
+5,Emma,Jones,27,61000.0,12,Support,contract,Support Specialist,1,seed_baseline,2026-10-26 15:27:25
+6,Liam,Garcia,38,88000.0,60,Operations,permanent,Operations Manager,0,seed_baseline,2026-10-26 15:27:25
+7,Olivia,Miller,31,91000.0,30,Finance,permanent,Financial Analyst,0,seed_baseline,2026-10-26 15:27:25
+8,Ethan,Davis,45,99000.0,84,Sales,permanent,Regional Manager,0,seed_baseline,2026-10-26 15:27:25
+9,Ava,Rodriguez,26,64000.0,14,Marketing,contract,Content Creator,1,seed_baseline,2026-10-26 15:27:25
+10,Sophia,Martinez,41,115000.0,78,Engineering,permanent,Team Lead,0,seed_baseline,2026-10-26 15:27:25
+11,Jackson,Hernandez,53,72000.0,108,Support,permanent,Support Manager,0,seed_baseline,2026-10-26 15:27:25
+12,Isabella,Lopez,30,78000.0,20,Finance,contract,Payroll Specialist,0,seed_baseline,2026-10-26 15:27:25
+13,Lucas,Gonzalez,36,108000.0,48,Engineering,permanent,DevOps Engineer,0,seed_baseline,2026-10-26 15:27:25
+14,Charlotte,Wilson,39,82000.0,52,HR,permanent,Recruiter,0,seed_baseline,2026-10-26 15:27:25
+15,Mason,Anderson,28,65000.0,16,Sales,contract,Sales Associate,1,seed_baseline,2026-10-26 15:27:25
+16,Amelia,Thomas,47,93000.0,70,Operations,permanent,Logistics Specialist,0,seed_baseline,2026-10-26 15:27:25
+17,Logan,Taylor,33,102000.0,40,Engineering,permanent,QA Engineer,0,seed_baseline,2026-10-26 15:27:25
+18,Harper,Moore,24,58000.0,10,Marketing,contract,Social Media Coordinator,1,seed_baseline,2026-10-26 15:27:25
+19,Elijah,Jackson,50,98000.0,90,Finance,permanent,Controller,0,seed_baseline,2026-10-26 15:27:25
+20,Evelyn,Martin,32,85000.0,35,Operations,permanent,Supply Chain Analyst,0,seed_baseline,2026-10-26 15:27:25
+21,William,Lee,44,118000.0,75,Engineering,permanent,Senior Engineer,0,seed_baseline,2026-10-26 15:27:25
+22,Abigail,Perez,37,69000.0,22,HR,contract,HR Coordinator,1,seed_baseline,2026-10-26 15:27:25
+23,Benjamin,Thompson,29,86000.0,28,Sales,permanent,Sales Engineer,0,seed_baseline,2026-10-26 15:27:25
+24,Emily,White,40,94000.0,66,Marketing,permanent,Marketing Manager,0,seed_baseline,2026-10-26 15:27:25
+25,Henry,Harris,35,98000.0,44,Engineering,contract,Backend Developer,0,seed_baseline,2026-10-26 15:27:25
+26,Eleanor,Sanchez,31,89000.0,38,Finance,permanent,Accounting Manager,0,seed_baseline,2026-10-26 15:27:25
