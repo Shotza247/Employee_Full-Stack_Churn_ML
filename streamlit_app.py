@@ -947,7 +947,7 @@ with tab_signals:
             if not corr_matrix.empty and "Churn (Target)" in corr_matrix.columns:
                 corr_subset_mode = st.radio(
                     "Select Heatmap View:",
-                    ["Top Correlated with Churn", "Numeric Features", "Full Correlation Matrix"],
+                    ["Top Correlated with Churn", "Numeric Features"],
                     horizontal=True,
                 )
 
@@ -958,13 +958,11 @@ with tab_signals:
                     selected_cols = top_correlated_cols + ["Churn (Target)"]
                     display_corr = corr_matrix.loc[selected_cols, selected_cols]
                     plot_correlation_heatmap(display_corr, "Top 10 Feature Correlations with Churn")
-                elif corr_subset_mode == "Numeric Features":
+                else:
                     num_cols = ["Age", "Income", "Tenure Months", "Churn (Target)"]
                     avail_num_cols = [c for c in num_cols if c in corr_matrix.columns]
                     display_corr = corr_matrix.loc[avail_num_cols, avail_num_cols]
                     plot_correlation_heatmap(display_corr, "Numeric Features & Churn Correlation Matrix")
-                else:
-                    plot_correlation_heatmap(corr_matrix, "Full Feature Correlation Matrix")
 
                 st.subheader("Key Retention Signals Ranked by Absolute Influence")
                 corr_summary = pd.DataFrame({
