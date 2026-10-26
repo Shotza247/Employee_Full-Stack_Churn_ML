@@ -469,4 +469,10 @@ flowchart LR
 
 ---
 
+## 🔮 Future Roadmap & Integrations
+
+- **Pulse360 Platform Integration**: Connect this employee churn intelligence engine directly with the **Pulse360** platform to ingest real-time engagement telemetry, 360-degree feedback signals, and sentiment trends for continuous workforce attrition modeling and proactive retention interventions.
+
+---
+
 *Documentation and architecture diagrams created via IBM Bob.*
