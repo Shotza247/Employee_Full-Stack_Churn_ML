@@ -642,8 +642,8 @@ with tab_insights:
 
             st.divider()
 
-            # Age Cohorts & Compensation Dynamics
-            col_age, col_salary = st.columns([1, 1], gap="large")
+            # Age Cohorts & Contract Dynamics
+            col_age, col_contract = st.columns([1, 1], gap="large")
 
             with col_age:
                 st.subheader("👥 Age Cohort Vulnerability Analysis")
@@ -674,33 +674,87 @@ with tab_insights:
                 st.pyplot(fig_age, use_container_width=True)
                 plt.close(fig_age)
 
-            with col_salary:
-                st.subheader("💰 Compensation & Contract Type Influences")
+            with col_contract:
+                st.subheader("📝 Contract Type & Employment Dynamics")
                 contract_summary = filtered_df.groupby("contract_type")["churn"].agg(
                     Headcount="count",
                     Churners="sum",
                     Churn_Rate=lambda x: f"{x.mean():.1%}" if len(x) else "0.0%",
-                    Avg_Salary=lambda x: f"R {filtered_df.loc[x.index, 'income'].mean():,.0f}",
+                    Avg_Annual_Salary=lambda x: f"R {filtered_df.loc[x.index, 'income'].mean():,.0f}",
                 ).reset_index()
 
-                st.markdown("##### Retention by Contract Type")
+                st.markdown("##### Retention Breakdown by Contract Type")
                 st.dataframe(contract_summary, hide_index=True, use_container_width=True)
 
-                st.markdown("##### Salary Distribution (Retained vs. Churned)")
-                fig_sal, ax_sal = plt.subplots(figsize=(6.0, 2.3))
+                # Contract type retention visual
+                contract_counts = filtered_df.groupby(["contract_type", "churn"]).size().unstack(fill_value=0)
+                if 0 not in contract_counts.columns: contract_counts[0] = 0
+                if 1 not in contract_counts.columns: contract_counts[1] = 0
+                contract_counts = contract_counts.rename(columns={0: "Retained", 1: "Churned"})
+
+                fig_ct, ax_ct = plt.subplots(figsize=(6.0, 2.2))
+                contract_counts[["Retained", "Churned"]].plot(
+                    kind="barh",
+                    stacked=True,
+                    color=["#0f766e", "#dc2626"],
+                    ax=ax_ct,
+                    edgecolor="white",
+                )
+                ax_ct.set_title("Contract Type Attrition Comparison", fontsize=10, fontweight="bold")
+                ax_ct.set_xlabel("Headcount")
+                ax_ct.set_ylabel("")
+                ax_ct.legend(["Retained", "Churned"], loc="lower right", fontsize=8)
+                fig_ct.tight_layout()
+                st.pyplot(fig_ct, use_container_width=True)
+                plt.close(fig_ct)
+
+            st.divider()
+
+            # Dedicated Row: Salary Distribution (Retained vs. Churned)
+            st.subheader("💵 Salary Distribution (Retained vs. Churned)")
+            st.caption("Distributional comparison of annual compensation (ZAR / R) across retained vs. churned employees to diagnose salary-driven turnover.")
+
+            sal_col1, sal_col2 = st.columns([2, 1], gap="large")
+
+            with sal_col1:
+                fig_sal, ax_sal = plt.subplots(figsize=(8.0, 3.6))
                 ret_sal = filtered_df[filtered_df["churn"] == 0]["income"].dropna()
                 chu_sal = filtered_df[filtered_df["churn"] == 1]["income"].dropna()
 
                 if not ret_sal.empty:
-                    ax_sal.hist(ret_sal, bins=15, alpha=0.6, color="#0f766e", label="Retained", edgecolor="white")
+                    ax_sal.hist(ret_sal, bins=20, alpha=0.6, color="#0f766e", label=f"Retained (n={len(ret_sal)})", edgecolor="white")
                 if not chu_sal.empty:
-                    ax_sal.hist(chu_sal, bins=15, alpha=0.6, color="#dc2626", label="Churned", edgecolor="white")
-                ax_sal.set_xlabel("Annual Salary (R)")
-                ax_sal.set_ylabel("Employees")
+                    ax_sal.hist(chu_sal, bins=20, alpha=0.6, color="#dc2626", label=f"Churned (n={len(chu_sal)})", edgecolor="white")
+
+                ax_sal.set_title("Annual Salary Distribution Overlay", fontsize=11, fontweight="bold")
+                ax_sal.set_xlabel("Annual Salary (ZAR / R)")
+                ax_sal.set_ylabel("Employee Count")
                 ax_sal.legend(loc="upper right")
+                ax_sal.grid(axis="y", linestyle="--", alpha=0.4)
                 fig_sal.tight_layout()
                 st.pyplot(fig_sal, use_container_width=True)
                 plt.close(fig_sal)
+
+            with sal_col2:
+                st.markdown("##### 📊 Salary Benchmark Statistics")
+                mean_ret = float(ret_sal.mean()) if not ret_sal.empty else 0.0
+                mean_chu = float(chu_sal.mean()) if not chu_sal.empty else 0.0
+                median_ret = float(ret_sal.median()) if not ret_sal.empty else 0.0
+                median_chu = float(chu_sal.median()) if not chu_sal.empty else 0.0
+                diff_mean = mean_ret - mean_chu
+
+                sal_stats_df = pd.DataFrame([
+                    {"Metric": "Mean Annual Salary", "Retained": f"R {mean_ret:,.0f}", "Churned": f"R {mean_chu:,.0f}"},
+                    {"Metric": "Median Annual Salary", "Retained": f"R {median_ret:,.0f}", "Churned": f"R {median_chu:,.0f}"},
+                    {"Metric": "Min Annual Salary", "Retained": f"R {ret_sal.min():,.0f}" if not ret_sal.empty else "R 0", "Churned": f"R {chu_sal.min():,.0f}" if not chu_sal.empty else "R 0"},
+                    {"Metric": "Max Annual Salary", "Retained": f"R {ret_sal.max():,.0f}" if not ret_sal.empty else "R 0", "Churned": f"R {chu_sal.max():,.0f}" if not chu_sal.empty else "R 0"},
+                ])
+                st.dataframe(sal_stats_df, hide_index=True, use_container_width=True)
+
+                if diff_mean > 0:
+                    st.info(f"💡 Retained staff earn **R {diff_mean:,.0f} (+{(diff_mean/mean_chu*100):.1f}%)** higher average annual compensation than departing employees.")
+                elif diff_mean < 0:
+                    st.warning(f"⚠️ Departing staff had higher average compensation by **R {abs(diff_mean):,.0f}**.")
 
 
 # =========================================================
