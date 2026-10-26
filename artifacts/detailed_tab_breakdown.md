@@ -1,136 +1,146 @@
-# Detailed Tab Breakdown & Workforce Analytics Specification
+# Detailed 5-Tab Breakdown & Workforce Analytics Specification
 
-This specification document outlines the comprehensive functional requirements, visual components, data schemas, and analytics metrics for the modular Streamlit interface and persistent Sidebar data hub.
+This specification document outlines the comprehensive functional architecture, visual components, data schemas, and analytics metrics for the 5-tab Streamlit dashboard and streamlined operations sidebar.
 
 ---
 
-## 1. Persistent Sidebar: Data Ingestion & Simulation Studio
+## 1. ⚙️ Streamlined Operations Sidebar
 
-The sidebar acts as a persistent ingestion and scenario testing cockpit available across all main-panel tabs.
+The sidebar provides dedicated operational controls and system status monitoring without cluttering data workflows:
 
 ### Components & Functional Requirements:
-1. **API / Local Inference Switch**:
-   - Radio toggle between *Local Predictor (In-Process)* and *FastAPI REST Client*.
-   - Dynamic endpoint URL configuration input (`http://127.0.0.1:8000`).
-2. **Batch CSV Import & Schema Validator**:
-   - File uploader supporting `.csv` employee rosters.
-   - Live schema verification checking for 8 mandatory columns: `first_name`, `last_name`, `age`, `department`, `contract_type`, `annual_income`, `job_title`, `tenure_months` (and optional `churn`).
-   - Rejection reporting displaying detailed validation errors and duplicate flags.
-3. **🪄 Python Faker Producer & 1-Click Auto-Repair**:
-   - One-click trigger synthesizing valid identities and imputing missing fields for rejected rows.
-   - Automatically inserts repaired records into the SQLite database.
-4. **🧪 Synthetic Batch Generator**:
-   - Slider control allowing generation of 5 to 50 synthetic employee records on demand using `FakerProducer`.
-   - Generates realistic demographic profiles, salaries, and optional churn labels, immediately writing them to SQLite.
-5. **➕ Add Single Employee Form**:
-   - Expandable form with input validation for ad-hoc employee insertion.
-   - Immediately returns the new assigned `employee_id` and triggers local risk scoring.
-6. **📊 Live Data Quality Scorecards**:
-   - Dual-card metric container comparing uploaded CSV quality against current SQLite database integrity (Total rows, Missing values, Duplicates, Invalid value counts).
+1. **Cloud API Backend Switch**:
+   - Radio toggle between *Local Predictor (In-Process)* and *FastAPI REST Client (Cloud / Vercel)*.
+   - Dynamic backend endpoint URL configuration input (e.g. `https://your-app.vercel.app` or `http://127.0.0.1:8000`).
+   - Connection test trigger with instant latency and status reporting.
+2. **Active Model Status Badge**:
+   - Displays current model architecture, holdout ROC-AUC score, and F1 performance.
+3. **5-Tab Navigation Guide**:
+   - Clean architectural overview of the platform's analytical capabilities.
 
 ---
 
-## 2. Tab 1: 📊 Executive HR Insights & Demographics
+## 2. 📥 Tab 1: Data Ingestion, Synthesis & Lineage Studio
 
-Designed specifically for HR Executives and Business Stakeholders to explore workforce macro trends and understand turnover drivers.
+Centralizes all enterprise data ingestion workflows, automated row-level data quality diagnosis, Faker auto-repair, and full-width lineage exploration:
+
+### Visualizations & Interactive Workflows:
+1. **Segmented Ingestion Mode Selector (`st.radio(horizontal=True)`)**:
+   - **Mode 1: 📥 Batch CSV Import & Auto-Repair**:
+     - Pre-packaged test dataset downloader (`data/Bulk_import_Data/`).
+     - CSV workforce roster uploader with schema validation.
+     - Full-width Data Quality Assessment scorecard (Clean Records, Missing Values, Duplicate Records, Invalid Range Outliers, Invalid Categories).
+     - Diagnosed preview table displaying row-level issue badges.
+     - Duplicate file re-import blocker (`is_source_imported`) protecting data integrity.
+     - Post-import summary with rejected rows breakdown.
+     - **🪄 1-Click Faker Auto-Repair**: Synthesizes clean identities and resolves duplicates, tagging repaired records with `faker_repaired (<filename>.csv)`.
+   - **Mode 2: 🎲 Synthetic Batch Generator (Faker)**:
+     - Configurable batch size (5–100) and churn signal bias sliders (5%–80%).
+     - 1-click batch producer inserting directly into SQLite with provenance `faker_synthetic`.
+   - **Mode 3: 👤 Single Employee Manual Entry**:
+     - Streamlined 2-column manual form with localized South African Rand (R / ZAR) compensation.
+     - On insertion: immediate local ML risk scoring and SQLite audit logging (`source_system="manual_entry"`).
+2. **🔍 Data Lineage & Provenance Explorer (Full-Width)**:
+   - Dynamic dropdown filter querying records by exact source system (`<filename>.csv`, `faker_repaired (<filename>.csv)`, `faker_synthetic`, `manual_entry`, `seed_baseline`).
+   - Metric ribbon tracking total records and filtered count.
+   - Source distribution breakdown table with percentage allocations.
+   - Audited records table showing employee details, source origin, and ISO timestamp.
+3. **📊 SQLite Database Health & Schema Inspector**:
+   - Database health scorecard verifying database-wide data quality and schema constraints.
+
+---
+
+## 3. 📊 Tab 2: Executive HR Insights & Demographics
+
+Executive analytics hub providing filter-aware demographic analysis, turnover drivers, and compensation benchmarking in South African Rands (ZAR / R):
 
 ### Visualizations & KPI Metrics:
 1. **Interactive Cohort Drill-Down Filter Bar**:
    - Multiselect Department Filter (*Marketing, Sales, Engineering, HR, Support, Operations, Finance*).
    - Multiselect Contract Type Filter (*permanent, contract*).
    - Age Range Slider (`18` to `99`).
-   - Tenure Range Slider (`0` to `240` months).
-   - All downstream Tab 1 charts and metrics reactively update based on the active filter slice.
 2. **Executive Macro KPI Ribbon**:
-   - **Total Headcount**: Filtered active employee count.
-   - **Company Retention Rate**: Percentage of non-churned employees (`(1 - churn_rate) * 100`).
-   - **Churn Rate**: Percentage of labeled churned employees.
-   - **Average Annual Salary**: Mean compensation across the cohort.
-   - **Average Tenure**: Mean months of service.
-3. **Department Turnover Distribution Chart**:
-   - Grouped / stacked bar chart comparing **Retained Employees (churn = 0)** vs. **Churned Employees (churn = 1)** across all departments.
-   - Department retention risk ranking (identifying highest-turnover departments).
-4. **Department Benchmark Statistics Table**:
-   - Comprehensive comparative summary table with columns:
-     - `Department`
-     - `Headcount`
-     - `Churn Rate (%)`
-     - `Avg Salary (Retained)`
-     - `Avg Salary (Churned)`
-     - `Salary Disparity (%)`
-     - `Avg Tenure (Retained)`
-     - `Avg Tenure (Churned)`
-5. **Age Cohort Vulnerability Analysis**:
-   - Demographic segmentation into 5 standardized cohorts:
-     - `< 25` (Entry level)
-     - `25–34` (Early career)
-     - `35–44` (Mid-career)
-     - `45–54` (Senior career)
-     - `55+` (Pre-retirement)
-   - Visualizing cohort headcount and churn rate per age bracket.
-6. **Compensation & Contract Retention Dynamics**:
-   - Comparative salary distribution analysis for churners vs. non-churners.
-   - Retention rates segmented by Contract Type (*Permanent vs. Contract*).
+   - **👥 Headcount**: Filtered active employee cohort size.
+   - **🛡️ Retention Rate**: Overall percentage of retained employees.
+   - **⚠️ Churn Rate**: Overall percentage of departing employees.
+   - **💵 Avg Annual Salary**: Mean annual compensation formatted in Rands (`R XX,XXX`).
+   - **⏱️ Avg Tenure**: Mean months of service.
+3. **🏢 Department Turnover Distribution (Interactive Plotly Stacked Bar)**:
+   - Interactive stacked bar chart comparing retained vs. churned staff per department with exact headcounts on hover.
+4. **📋 Department Benchmark Statistics Table**:
+   - Comparative metrics table displaying Headcount, Churn %, Average Annual Salary (Retained vs. Churned in R), and Average Tenure.
+5. **👥 Age Cohort Vulnerability Analysis (Interactive Plotly Grouped Bar)**:
+   - Demographic segmentation across 5 cohorts (`< 25`, `25–34`, `35–44`, `45–54`, `55+`) with hover headcount statistics.
+6. **📝 Contract Type & Employment Dynamics (Interactive Plotly Horizontal Bar)**:
+   - Retention and attrition comparison across permanent and contract employment tiers.
+7. **💵 Dedicated Salary Distribution Row (Retained vs. Churned)**:
+   - **Interactive Plotly Histogram Overlay**: Comparative annual salary distribution in Rands with hover tooltips.
+   - **📊 Salary Benchmark Statistics Card**: Side-by-side summary comparing Mean, Median, Min, and Max annual salaries, plus automatic compensation disparity analysis.
 
 ---
 
-## 3. Tab 2: 👥 Workforce Roster & Predictions
+## 4. 👥 Tab 3: Workforce Roster & Predictions
 
-Operational employee lookup and inference scoring engine.
+Operational scoring cockpit featuring zero-null feature imputation, millisecond batch benchmarking, and real-time evaluation scorecards:
 
-### Visualizations & Features:
-1. **Live Workforce Roster**:
-   - Interactive, searchable, and sortable table displaying all employees currently stored in the SQLite database.
-2. **1-Click Batch Inference Engine**:
-   - Button to score all imported/active employees with the current fitted `churn_model.pkl`.
-   - Real-time scoring latency benchmark badge reporting total elapsed time (seconds) and average per-employee latency (milliseconds/employee).
-3. **Batch Prediction Results Table**:
-   - Displays `employee_id`, `employee_name`, `department`, `job_title`, `annual_income`, `churn_probability`, and assigned `risk_band`.
-4. **Churn Risk Distribution Summary**:
-   - Risk categorization breakdown:
-     - **High Risk**: Churn probability $\ge 0.70$ (Red alert badge)
-     - **Medium Risk**: Churn probability between $0.45$ and $0.69$ (Amber warning badge)
-     - **Low Risk**: Churn probability $< 0.45$ (Green stable badge)
-   - Interactive bar chart and share percentage summary table.
+### Visualizations & Prediction Operations:
+1. **Active Workforce Roster Table**:
+   - Searchable, sortable roster table with zero-null feature imputation.
+2. **1-Click Batch Churn Scoring**:
+   - Millisecond latency benchmark badge (`ms/employee`).
+3. **📊 Batch Prediction Evaluation Scorecard**:
+   - Automatic evaluation against labeled ground-truth records in the active roster:
+     - 🎯 **Batch Accuracy** ($TP + TN / Total$)
+     - 🔍 **Batch Precision** ($TP / (TP + FP)$)
+     - 🎣 **Batch Recall** ($TP / (TP + FN)$)
+     - ⚖️ **Batch F1-Score** ($2 \cdot (P \cdot R) / (P + R)$)
+     - 📈 **Batch ROC-AUC**
+   - **Interactive Batch Confusion Matrix**: Plotly heatmap showing exact True Positives, True Negatives, False Positives, and False Negatives.
+   - **Classification Outcomes Table**: Proportions and counts of classification results.
+4. **Scored Predictions Table with Ground Truth**:
+   - Displays `employee_id`, `employee_name`, `department`, `job_title`, `annual_income`, `tenure_months`, `churn_probability`, `risk_band`, and `ground_truth`.
+   - **💾 Save Batch Predictions to History**: Persists scored inferences to SQLite `inference_predictions`.
+5. **🎯 Churn Risk Distribution (Interactive Plotly Bar)**:
+   - Categorization into **High Risk (≥70%)**, **Medium Risk (45–69%)**, and **Low Risk (<45%)** with exact headcount shares.
 
 ---
 
-## 4. Tab 3: 🔍 Feature Signals & Retention Drivers
+## 5. 🔍 Tab 4: Feature Signals & Retention Drivers
 
-Explainability and statistical analysis of what features drive employee turnover.
+Statistical explainability and model-learned feature weight analysis:
 
 ### Visualizations & Explanations:
-1. **Correlation Matrix Heatmap**:
-   - Pearson correlation heatmap between numeric employee attributes (`age`, `annual_income`, `tenure_months`) and historical `churn`.
-   - Color scale highlighting strong positive (turnover risk) and negative (retention factor) correlations.
-2. **Model Feature Influence Weights (Feature Importance)**:
-   - Directional horizontal bar chart showing top 10 most influential model features (extracted from logistic regression coefficients or tree importance).
-   - Color-coded: Orange for features increasing churn risk; Blue for features promoting retention.
-3. **Key Retention Drivers Takeaways**:
-   - Structured analytical cards summarizing primary turnover risks (e.g., tenure vulnerability thresholds, salary market parity).
+1. **🔥 Interactive Feature Correlation Heatmap**:
+   - Interactive Plotly heatmap with cell-level correlation annotations and hover tooltips.
+   - View modes: *Top Correlated with Churn* and *Numeric Features*.
+2. **Key Retention Signals Table**:
+   - Features ranked by absolute correlation magnitude with directional turnover indicators.
+3. **📊 Model Learned Feature Influence Weights**:
+   - Interactive horizontal Plotly bar chart displaying trained model coefficients / feature importances.
+   - Color-coded: Red for features increasing churn risk; Teal for features promoting retention.
 
 ---
 
-## 5. Tab 4: ⚙️ Model Studio & Evaluation History
+## 6. ⚙️ Tab 5: Model Studio & Evaluation History
 
-Machine learning pipeline governance, hyperparameter tuning, and historical audit trail.
+Enterprise model governance, hyperparameter tuning, and historical prediction audit trails:
 
-### Visualizations & Controls:
+### Visualizations & Governance Tools:
 1. **Interactive Hyperparameter Tuning**:
-   - Algorithm selection:
-     - **Logistic Regression**: Regularization $C$, Class Weighting (`None` vs `balanced`), Solvers (`lbfgs`, `saga`, `liblinear`), Max Iterations.
-     - **Random Forest**: Estimator trees, Max depth, Min samples split, Class Weighting.
-     - **Gradient Boosting**: Learning rate, Estimator count, Max depth.
-   - **🚀 Train & Evaluate Model**: Retrains the pipeline on updated SQLite records, creates a new `run_id`, updates `churn_model.pkl`, and immediately records metrics.
-2. **Model Evaluation Runs Table**:
-   - Top metric summary cards showing latest run: **Accuracy**, **Precision**, **Recall**, **F1 Score**, **ROC-AUC**.
-   - Historical model run comparison table logging all previous training iterations.
+   - Multi-algorithm support:
+     - **Logistic Regression**: Regularization strength $C$, class weighting (`None` vs `balanced`), solvers (`lbfgs`, `saga`, `liblinear`).
+     - **Random Forest**: Estimator tree count ($20–300$), max depth ($2–15$), min samples split.
+     - **Gradient Boosting**: Learning rate ($0.01–0.30$), estimators, max depth.
+   - **🚀 Train & Evaluate Model**: Stratified $80/20$ holdout evaluation, SQLite run logging, and frozen artifact generation (`churn_model.pkl`).
+2. **Model Evaluation Runs Comparison Table**:
+   - Metric comparison table tracking `run_id`, `model_architecture`, `accuracy`, `precision`, `recall`, `f1`, and `roc_auc`.
 3. **Run Deep-Dive Analytics**:
-   - Run selection inspector dropdown.
-   - Actual vs. Predicted classification bar chart.
-   - Receiver Operating Characteristic (ROC) curve plot with holdout AUC metric.
-   - Confusion Matrix breakdown with True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN).
-   - Prediction probability distribution histogram.
-4. **Audited Prediction History Log**:
+   - **Interactive Confusion Matrix Heatmap**: TP, TN, FP, FN counts.
+   - **Interactive Plotly ROC Curve**: True Positive Rate vs False Positive Rate with stored AUC.
+4. **⏱️ Audited Historical Prediction Log**:
    - Date range filter (*All, Today, Yesterday, This week, Last week, Custom range*).
-   - Prediction history table logging timestamps, scored employee IDs, probabilities, predicted labels, true labels, and prediction source (*Local Streamlit* vs *FastAPI*).
+   - Timestamped query log of all scoring events with predicted probabilities and labels.
+
+---
+
+*Documentation and architecture diagrams created via IBM Bob.*

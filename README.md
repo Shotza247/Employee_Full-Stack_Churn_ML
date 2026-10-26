@@ -165,34 +165,38 @@ Interactive OpenAPI documentation is available at `http://127.0.0.1:8000/docs`.
 - **5-Tab Navigation Guide:** Quick reference for all platform analytics and governance tabs.
 
 ### 📥 Tab 1: Data Ingestion, Synthesis & Lineage Studio
-- **Channel 1 (Batch CSV Ingestion):** Upload rosters, download repository test datasets (`data/Bulk_import_Data/`), view quality issue diagnosis (Missing Values, Duplicates, Outliers), and trigger 1-click **🪄 Faker Auto-Repair** for rejected rows.
-- **Channel 2 (Synthetic Batch Producer):** Generate 5–100 realistic employee rows with controllable baseline churn bias.
-- **Channel 3 (Single Employee Entry):** Instant manual creation with automated real-time local model scoring.
-- **🔍 Data Lineage & Provenance Explorer:** Interactive dropdown filter (`csv_import`, `faker_synthetic`, `faker_repaired`, `manual_entry`, `seed_baseline`) with provenance source distribution and timestamped audit logs.
+- **Segmented Ingestion Mode Selector:** Switch between **Batch CSV Import & Auto-Repair**, **Synthetic Batch Generator**, and **Single Employee Manual Entry** across dedicated full-width containers.
+- **Batch CSV Ingestion & Quality Diagnostics:** Upload rosters, download packaged test datasets (`data/Bulk_import_Data/`), view quality categorization (Missing Values, Duplicates, Outliers), duplicate file ingestion protection (`is_source_imported`), and trigger **🪄 1-Click Faker Auto-Repair**.
+- **Synthetic Batch Producer:** Generate 5–100 realistic employee records with controllable baseline churn bias (5%–80%).
+- **Single Employee Manual Entry:** Manual record creation with South African Rand compensation and instant local ML risk scoring.
+- **🔍 Data Lineage & Provenance Explorer (Full-Width):** Dropdown filter (`<filename>.csv`, `faker_repaired (<filename>.csv)`, `faker_synthetic`, `manual_entry`, `seed_baseline`) with provenance distribution and timestamped audit records.
 - **📊 SQLite Database Health:** Real-time scorecard tracking duplicate, missing, and invalid records alongside database schema inspection.
 
 ### 📊 Tab 2: Executive HR Insights & Demographics
 - **Dynamic Filter Bar:** Interactive multi-select filters for Departments, Contract Types, and Age Range.
-- **Macro KPI Ribbon:** Filter-aware Headcount, Retention Rate (%), Churn Rate (%), Average Salary (R), and Average Tenure (months).
-- **Department Turnover Distribution:** Stacked bar chart comparing Retained vs. Churned employees by department.
-- **Department Benchmark Table:** Side-by-side comparative table showing Headcount, Churn %, Average Salary (Retained vs. Churned), and Average Tenure.
-- **Age Cohort Vulnerability Analysis:** Cohort segmentation (`< 25`, `25–34`, `35–44`, `45–54`, `55+`) with retention vs. churn bars.
-- **Compensation & Contract Dynamics:** Comparative salary distribution histograms (R) and contract type retention summaries.
+- **Macro KPI Ribbon:** Filter-aware Headcount, Retention Rate (%), Churn Rate (%), Average Annual Salary (ZAR / R), and Average Tenure.
+- **Department Turnover Distribution:** Interactive Plotly stacked bar chart comparing Retained vs. Churned employees by department with hover tooltips.
+- **Department Benchmark Table:** Side-by-side comparative table showing Headcount, Churn %, Average Annual Salary (Retained vs. Churned in R), and Average Tenure.
+- **Age Cohort Vulnerability Analysis:** Interactive Plotly grouped bar chart across 5 cohorts (`< 25`, `25–34`, `35–44`, `45–54`, `55+`).
+- **Contract Type Employment Dynamics:** Interactive Plotly horizontal stacked bar chart.
+- **Dedicated Salary Distribution Row:** Interactive Plotly overlay histogram and **📊 Salary Benchmark Statistics Card** (Mean, Median, Min, Max annual compensation disparity in Rands).
 
 ### 👥 Tab 3: Workforce Roster & Predictions
 - **Active Workforce Roster:** Searchable and sortable roster table with zero-null feature imputation.
 - **1-Click Batch Scoring:** Score all roster employees with millisecond-per-employee latency benchmarking.
-- **Risk Categorization Breakdown:** Categorization into **High Risk** ($\ge 70\%$), **Medium Risk** ($45-69\%$), and **Low Risk** ($< 45\%$) with interactive distribution chart and proportion table.
+- **📊 Batch Prediction Evaluation Scorecard:** Automatic evaluation against labeled ground-truth records (Batch Accuracy, Precision, Recall, F1-Score, and ROC-AUC) with an interactive Plotly confusion matrix heatmap.
+- **Scored Predictions Table with Ground Truth:** Displays probabilities, risk tiers, and actual ground truth status (`Retained (0)` vs `Churned (1)`).
+- **Risk Categorization Breakdown:** Categorization into **High Risk** ($\ge 70\%$), **Medium Risk** ($45-69\%$), and **Low Risk** ($< 45\%$) with interactive Plotly distribution chart and proportion table.
 
 ### 🔍 Tab 4: Feature Signals & Retention Drivers
-- **Correlation Heatmap Matrix:** Visual correlation matrix between features and turnover risk.
+- **Interactive Correlation Heatmap:** Cell-level correlation annotations with Plotly hover tooltips (Modes: *Top Correlated with Churn* and *Numeric Features*).
 - **Ranked Key Signals Table:** Features ranked by absolute influence with directional risk tags.
-- **Model Learned Feature Influence:** Directional horizontal bar chart indicating features promoting retention vs. increasing turnover risk.
+- **Model Learned Feature Influence:** Interactive horizontal Plotly bar chart indicating features promoting retention vs. increasing turnover risk.
 
 ### ⚙️ Tab 5: Model Studio & Evaluation History
 - **Interactive Hyperparameter Tuning:** Tune and train **Logistic Regression**, **Random Forest**, or **Gradient Boosting** models in real time.
 - **Model Evaluation Runs History:** Audit table logging `run_id`, `model_architecture`, `accuracy`, `precision`, `recall`, `f1`, and `roc_auc`.
-- **Run Deep-Dive Analytics:** Confusion Matrix (TP, TN, FP, FN), Stored ROC Curve with holdout AUC, and Prediction Distribution Histogram.
+- **Run Deep-Dive Analytics:** Interactive Confusion Matrix Heatmap, Interactive Plotly ROC Curve with holdout AUC, and Prediction Distribution Histogram.
 - **Audited Prediction Log:** Date-filtered historical log of all scoring events with ground-truth verification.
 
 ---
