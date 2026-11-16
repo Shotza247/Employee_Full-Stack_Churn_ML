@@ -2,7 +2,7 @@
 
 ```This is a lightweight Employee Intelligence layer that can sit over existing HR data, identify workforce risks and drivers, and help HR decide where intervention may be warranted.```
 
-An enterprise-ready machine learning and workforce analytics platform that predicts employee turnover risk, explores demographic drivers, and serves predictions through an interactive 5-tab Streamlit dashboard and a serverless FastAPI backend.
+## Opening remarks: "I am not proposing another HR system. I am simply demonstrating how the workforce data you already have can be transformed into an intelligence layer that helps HR identify retention risks earlier, understand the contributing factors, and prioritize where human intervention may have the greatest value, especially across rare skills, and exceptional talent."
 
 All financial metrics, salary benchmarks, and compensation modeling are standardized in **South African Rands (R / ZAR)**.
 
