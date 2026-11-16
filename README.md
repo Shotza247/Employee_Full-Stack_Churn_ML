@@ -1,5 +1,7 @@
 # 🏢 Employee Churn Intelligence & Full-Stack ML Serving Platform
 
+```This is a lightweight Employee Intelligence layer that can sit over existing HR data, identify workforce risks and drivers, and help HR decide where intervention may be warranted.```
+
 An enterprise-ready machine learning and workforce analytics platform that predicts employee turnover risk, explores demographic drivers, and serves predictions through an interactive 5-tab Streamlit dashboard and a serverless FastAPI backend.
 
 All financial metrics, salary benchmarks, and compensation modeling are standardized in **South African Rands (R / ZAR)**.
@@ -101,6 +103,34 @@ flowchart TB
 - **🚀 Dual-Serving Infrastructure:** Score employees locally via Streamlit or serve predictions over public REST API via FastAPI on Vercel Serverless.
 
 ---
+## What's hiding in the lightweight prototype: 
+```
+## Workforce Intelligence
+- Retention
+Who is showing elevated attrition risk?
+Which cohorts are experiencing higher turnover?
+What factors correlate most strongly with retention?
+
+- Talent
+Where do critical skills exist?
+Where are the skill gaps?
+Which roles are difficult to backfill?
+
+- Mobility
+Who potentially has adjacent competencies for another role?
+Where could internal mobility reduce external recruitment?
+
+- Workforce planning
+Which departments face concentration risk?
+What happens if scarce-skill employees leave?
+
+- Compensation
+Are compensation patterns associated with retention?
+
+- Employee experience
+Could engagement/feedback signals provide additional context?
+```
+
 
 ## 🚀 Quick Start Guide
 
